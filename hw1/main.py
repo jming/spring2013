@@ -104,6 +104,9 @@ def main():
     total_score_training = 0.
     counter = 0
 
+
+    # PART A 
+
     # Run k experiments
     for i in range(k):
 
@@ -112,6 +115,8 @@ def main():
         high = low + (dataset_length - section_length)
 
         learn_result = learn(DataSet(dataset.examples[low:high], values=dataset.values))
+        print learn_result
+        break
 
         # classify on test data
         for j in range(section_length):
@@ -129,15 +134,26 @@ def main():
         total_score_test += classify_score_test[i]
         total_score_training += classify_score_training[i]
 
-    print classify_result_test
-    print classify_score_test
-    print classify_result_training
-    print classify_result_training_r
-    print classify_score_training
-    print total_score_test / k
-    print total_score_training / k
+    # print classify_result_test
+    # print classify_score_test
+    # print classify_result_training
+    # print classify_result_training_r
+    # print classify_score_training
+    # print total_score_test / k
+    # print total_score_training / k
+
+    # PART B
+
+    # Use learn function to create a tree on data
+    # Give pruning function a tree + data
+    # Prune the tree
 
 main()
 
-
-    
+# def prune(tree, data):
+    # traverse to the bottom of the tree
+    # from the leaves upward
+        # s = validation set performance of subtree rooted at that node
+        # t = validation set performance of leaf that returns most common class
+        # is s <= t prune the subtree
+        
