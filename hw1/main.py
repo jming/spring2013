@@ -95,9 +95,13 @@ def main():
     k = 10
     dataset_length = len(examples)
     section_length = dataset_length / k
-    classify_result = [[0 for j in range(section_length)] for i in range(k)]
-    classify_score = [0. for l in range(section_length)]
-    total_score = 0.
+    classify_result_test = [[0 for j in range(section_length)] for i in range(k)]
+    classify_score_test = [0. for l in range(k)]
+    total_score_test = 0.
+    classify_result_training = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
+    classify_result_training_r = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
+    classify_score_training = [0. for l in range(k)]
+    total_score_training = 0.
     counter = 0
 
     # Run k experiments
@@ -106,23 +110,31 @@ def main():
         low = i * section_length
         high = low + (dataset_length - section_length)
 
-        # print low, high
-
         learn_result = learn(DataSet(dataset.examples[low:high], values=dataset.values))
-        # print learn_result
 
+        # classify on test data
         for j in range(section_length):
-            # print dataset.examples[high+j]
-            classify_result[i][j] = classify(learn_result, dataset.examples[high + j])
-            if (classify_result[i][j] == dataset.examples[high + j].attrs[dataset.target]):
-                classify_score[i] += 1. / section_length
+            classify_result_test[i][j] = classify(learn_result, dataset.examples[high + j])
+            if (classify_result_test[i][j] == dataset.examples[high + j].attrs[dataset.target]):
+                classify_score_test[i] += 1. / section_length
 
-        total_score += classify_score[i]
+        # classify on training data
+        for l in range(dataset_length - section_length):
+            classify_result_training[i][l] = classify(learn_result, dataset.examples[low + l])
+            classify_result_training_r[i][l] = dataset.examples[low + l].attrs[dataset.target]
+            if (classify_result_training[i][l] == dataset.examples[low + l].attrs[dataset.target]):
+                classify_score_training[i] += 1. / (dataset_length - section_length)
 
-    # print dataset.attrs[data]
-    print classify_result
-    print classify_score
-    print total_score / k
+        total_score_test += classify_score_test[i]
+        total_score_training += classify_score_training[i]
+
+    print classify_result_test
+    print classify_score_test
+    print classify_result_training
+    print classify_result_training_r
+    print classify_score_training
+    print total_score_test / k
+    print total_score_training / k
 
 main()
 
