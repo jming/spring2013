@@ -1,6 +1,8 @@
 # main.py
 # -------
-# YOUR NAME HERE
+# Alisa Nguyen and Joy Ming
+# CS181 Assignment 1: Decision Trees
+# Spring 2013
 
 from dtree import *
 import sys
@@ -88,10 +90,8 @@ def main():
       dataset.use_boosting = True
       dataset.num_rounds = boostRounds
 
-    # ====================================
-    # WRITE CODE FOR YOUR EXPERIMENTS HERE
-    # ====================================
-
+    # Ten-Fold Cross Validation
+    # Sets k-fold cross validation and length of each partition of dataset
     k = 10
     dataset_length = len(examples)
     section_length = dataset_length / k
@@ -107,6 +107,7 @@ def main():
     # Run k experiments
     for i in range(k):
 
+        # Sets bounds for k-1 partitions of data to train on
         low = i * section_length
         high = low + (dataset_length - section_length)
 
