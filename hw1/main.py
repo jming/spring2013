@@ -7,8 +7,9 @@
 from dtree import *
 import sys
 
+
 class Globals:
-    noisyFlag = True
+    noisyFlag = False
     pruneFlag = False
     valSetSize = 0
     dataset = None
@@ -16,20 +17,24 @@ class Globals:
 ##Classify
 #---------
 
+
 def classify(decisionTree, example):
     return decisionTree.predict(example)
 
 ##Learn
 #-------
+
+
 def learn(dataset):
     learner = DecisionTreeLearner()
-    learner.train( dataset)
+    learner.train(dataset)
     return learner.dt
 
 # main
 # ----
 # The main program loop
 # You should modify this function to run your experiments
+
 
 def parseArgs(args):
   """Parses arguments vector, looking for switches of the form -key {optional value}.
@@ -89,14 +94,26 @@ def prune(tree, treecopy, data_t, data_v):
         # s = validation set performance of subtree rooted at that node
         # t = validation set performance of leaf that returns most common class
         # is s <= t prune the subtree    
-    
+
+
+def classify_on(tree, data, target):
+
+    classify_score = 0.
+    for i in range(len(data)):
+        classify_result = classify(tree, data[i])
+        if (classify_result == data[i].attrs[target]):
+            classify_score += 1. / len(data)
+
+    return classify_score
+
+
 def main():
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
     print noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds
 
     # Read in the data file
-    
+
     if noisyFlag:
         f = open("noisy.csv")
     else:
@@ -104,10 +121,10 @@ def main():
 
     data = parse_csv(f.read(), " ")
     dataset = DataSet(data)
-    
+
     # Copy the dataset so we have two copies of it
     examples = dataset.examples[:]
- 
+
     dataset.examples.extend(examples)
     dataset.max_depth = maxDepth
     if boostRounds != -1:
@@ -119,17 +136,17 @@ def main():
     k = 10
     dataset_length = len(examples)
     section_length = dataset_length / k
-    # Array of arrays with classification results for test set for each classification for each experiment
-    classify_result_test = [[0 for j in range(section_length)] for i in range(k)]
-    # Array of classification results for test set for each experiment
-    classify_score_test = [0. for l in range(k)]
-    # Average accuracy
-    total_score_test = 0.
-    classify_result_training = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
-    classify_result_training_r = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
-    classify_score_training = [0. for l in range(k)]
-    total_score_training = 0.
-    counter = 0
+    # # Array of arrays with classification results for test set for each classification for each experiment
+    # classify_result_test = [[0 for j in range(section_length)] for i in range(k)]
+    # # Array of classification results for test set for each experiment
+    # classify_score_test = [0. for l in range(k)]
+    # # Average accuracy
+    # total_score_test = 0.
+    # classify_result_training = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
+    # classify_result_training_r = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
+    # classify_score_training = [0. for l in range(k)]
+    # total_score_training = 0.
+    # counter = 0
     
     # PART A 
 
@@ -143,24 +160,32 @@ def main():
         learn_result = learn(DataSet(dataset.examples[low:high], values=dataset.values))
 
         # classify on test data
-        for j in range(section_length):
-            classify_result_test[i][j] = classify(learn_result, dataset.examples[high + j])
-            if (classify_result_test[i][j] == dataset.examples[high + j].attrs[dataset.target]):
-                classify_score_test[i] += 1. / section_length
+        score_test = classify_on(learn_result, dataset.examples[high:high + section_length], dataset.target)
 
-        # TO DO CLEAN UP LATER        
         # classify on training data
-        for l in range(dataset_length - section_length):
-            classify_result_training[i][l] = classify(learn_result, dataset.examples[low + l])
-            classify_result_training_r[i][l] = dataset.examples[low + l].attrs[dataset.target]
-            if (classify_result_training[i][l] == dataset.examples[low + l].attrs[dataset.target]):
-                classify_score_training[i] += 1. / (dataset_length - section_length)
+        score_training = classify_on(learn_result, dataset.examples[low:high], dataset.target)
 
-        total_score_test += classify_score_test[i]
-        total_score_training += classify_score_training[i]
+    #     # classify on test data
+    #     for j in range(section_length):
+    #         classify_result_test[i][j] = classify(learn_result, dataset.examples[high + j])
+    #         if (classify_result_test[i][j] == dataset.examples[high + j].attrs[dataset.target]):
+    #             classify_score_test[i] += 1. / section_length
+
+    #     # TO DO CLEAN UP LATER        
+    #     # classify on training data
+    #     for l in range(dataset_length - section_length):
+    #         classify_result_training[i][l] = classify(learn_result, dataset.examples[low + l])
+    #         classify_result_training_r[i][l] = dataset.examples[low + l].attrs[dataset.target]
+    #         if (classify_result_training[i][l] == dataset.examples[low + l].attrs[dataset.target]):
+    #             classify_score_training[i] += 1. / (dataset_length - section_length)
+
+    #     total_score_test += classify_score_test[i]
+    #     total_score_training += classify_score_training[i]
         
-    prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
+    # prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
 
+    print score_test
+    print score_training
     # print classify_result_test
     # print classify_score_test
     # print classify_result_training
@@ -176,10 +201,3 @@ def main():
     # Prune the tree
 
 main()
-
-# def prune(tree, data):
-    # traverse to the bottom of the tree
-    # from the leaves upward
-        # s = validation set performance of subtree rooted at that node
-        # t = validation set performance of leaf that returns most common class
-        # is s <= t prune the subtree
