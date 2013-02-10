@@ -74,8 +74,9 @@ def validateInput(args):
 def prune(tree, treecopy, data_t, data_v):
     # traverse to the bottom of the tree
     count = 0
+    pos = 0
+
     for i in tree.branches:
-        pos = 0
         if (tree.branches[i].nodetype == 1):
             count += 1
             print count
