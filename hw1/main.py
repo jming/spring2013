@@ -113,7 +113,7 @@ def prune(tree, validation):
             # Classify original tree
             prior = classify_on(tree, validation, 9)
 
-            # Copy tree to modify to include leaf with most probable label
+            # Create copy of tree with to subtree collapsed into leaf with majority label
             new_tree = tree
             new_tree.nodetype = 1
             if pos / len(tree.branches) > 1 / 2:
@@ -124,9 +124,9 @@ def prune(tree, validation):
             # Classify Modified tree
             post = classify_on(new_tree, validation, 9)
 
-            # Fix original tree if modification was more efficient
+            # Collapse subtree in original tree if modification was more efficient
             if (post > prior):
-                print "post > prior"
+                #print "post > prior"
                 tree.branches[i] = new_tree
 
     return tree
@@ -186,7 +186,9 @@ def main():
     score_test = 0
     score_train = 0
     score_validation = [[0 for x in range(1, 80)] for y in range(k)]
-
+    # TEST
+    score_validation2 = [0 for x in range(k)]
+    
     # Run k experiments
     for i in range(k):
 
@@ -208,27 +210,35 @@ def main():
 # PART B: Post pruning
 
         # # Loop through possible validation sizes [1, 80]
-        # for validation_size in range(1, 80):
+        for validation_size in range(1, 80):
 
         #     # Sectioining data into training + validation + test
-        #     mid = high - validation_size
+            mid = high - validation_size
 
         #     # Build tree on training data
-        #     learn_data_p = DataSet(dataset.examples[low:mid])
-        #     learn_result_p = learn(learn_data_p)
+            learn_data_p = DataSet(dataset.examples[low:mid], values=dataset.values)
+            learn_result_p = learn(learn_data_p)
 
         #     # Prune tree on validation data
-        #     pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
+            pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
 
         #     # Test tree on test data
-        #     test_data_p = dataset.examples[high:high + section_length]
-        #     score_validation[i][validation_size] = classify_on(pruned_tree, test_data_p, dataset.target)
-
-        #     # TODO: It's getting stuck at i = 0, validation_size = 49
-        #     print i, validation_size
-
+            test_data_p = dataset.examples[high:high + section_length]
+            score_validation[i][validation_size - 1] = classify_on(pruned_tree, test_data_p, dataset.target)
+            
+            #TODO why are pruned scores worse than the other ones T.T
+            score_validation2[i] += score_validation[i][validation_size - 1]
+            
+            
+        #     # It's getting stuck at i = 0, validation_size = 49
+            # Fixed by adding values = dataset.values to line 217 and subtracting 1 from validation_size on line 225
+            #print i, validation_size
+            
+    
     # 2D array with all vlidation scores
     print score_test
     print score_train
+    print score_validation2
+    
 
 main()
