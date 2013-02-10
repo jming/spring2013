@@ -70,35 +70,38 @@ def validateInput(args):
       boostRounds = int(args_map['-b'])
     return [noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds]
 
+
 def prune(tree, treecopy, data_t, data_v):
     # traverse to the bottom of the tree
+    count = 0
     for i in tree.branches:
-        count = 0
+        print i
         pos = 0
         if (tree.branches[i].nodetype == 1):
             count += 1
-            print 'count', count
+            print count
+            # print 'count', count
             #print 'c', tree.branches[i].classification
             if (tree.branches[i].classification == 1):
                 pos += 1
-                print 'pos', pos
+                # print 'pos', pos
         else:
-            print 'i', i, 'recursive prune'
+            # print 'i', i, 'recursive prune'
             prune(tree.branches[i], treecopy, data_t, data_v)
-        print len(tree.branches), count
+        # print len(tree.branches), count
         if count == len(tree.branches):
-            setproblem(data_t, i)
+            count = setproblem(data_t, i)
             tree.nodetype = 1
-            if pos/len(tree.branches) > 1/2:
+            if pos / len(tree.branches) > 1 / 2:
                 tree.classification = 1
             else:
                 tree.classification = 0
             print classify(tree, data_t)
-                
+
     # from the leaves upward
         # s = validation set performance of subtree rooted at that node
         # t = validation set performance of leaf that returns most common class
-        # is s <= t prune the subtree    
+        # is s <= t prune the subtree
 
 
 def classify_on(tree, data, target):
@@ -133,27 +136,16 @@ def main():
     dataset.examples.extend(examples)
     dataset.max_depth = maxDepth
     if boostRounds != -1:
-      dataset.use_boosting = True
-      dataset.num_rounds = boostRounds
+        dataset.use_boosting = True
+        dataset.num_rounds = boostRounds
 
     # Ten-Fold Cross Validation
     # Sets k-fold cross validation and length of each partition of dataset
     k = 10
     dataset_length = len(examples)
     section_length = dataset_length / k
-    # # Array of arrays with classification results for test set for each classification for each experiment
-    # classify_result_test = [[0 for j in range(section_length)] for i in range(k)]
-    # # Array of classification results for test set for each experiment
-    # classify_score_test = [0. for l in range(k)]
-    # # Average accuracy
-    # total_score_test = 0.
-    # classify_result_training = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
-    # classify_result_training_r = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
-    # classify_score_training = [0. for l in range(k)]
-    # total_score_training = 0.
-    # counter = 0
-    
-    # PART A 
+
+    # PART A
 
     # Run k experiments
     for i in range(k):
@@ -170,34 +162,12 @@ def main():
         # classify on training data
         score_training = classify_on(learn_result, dataset.examples[low:high], dataset.target)
 
-    #     # classify on test data
-    #     for j in range(section_length):
-    #         classify_result_test[i][j] = classify(learn_result, dataset.examples[high + j])
-    #         if (classify_result_test[i][j] == dataset.examples[high + j].attrs[dataset.target]):
-    #             classify_score_test[i] += 1. / section_length
+    prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
 
-    #     # TO DO CLEAN UP LATER        
-    #     # classify on training data
-    #     for l in range(dataset_length - section_length):
-    #         classify_result_training[i][l] = classify(learn_result, dataset.examples[low + l])
-    #         classify_result_training_r[i][l] = dataset.examples[low + l].attrs[dataset.target]
-    #         if (classify_result_training[i][l] == dataset.examples[low + l].attrs[dataset.target]):
-    #             classify_score_training[i] += 1. / (dataset_length - section_length)
-
-    #     total_score_test += classify_score_test[i]
-    #     total_score_training += classify_score_training[i]
-        
-    # prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
-
-    print score_test
-    print score_training
-    # print classify_result_test
-    # print classify_score_test
-    # print classify_result_training
-    # print classify_result_training_r
-    # print classify_score_training
-    print total_score_test / k
-    print total_score_training / k
+    # print score_test
+    # print score_training
+    # print total_score_test / k
+    # print total_score_training / k
 
     # PART B
 
