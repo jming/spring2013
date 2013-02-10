@@ -84,7 +84,7 @@ def prune(tree, treecopy, data_t, data_v):
                 tree.classification = 1
             else:
                 tree.classification = 0
-            
+            #classify(tree, DATASET) )
                 
     # from the leaves upward
         # s = validation set performance of subtree rooted at that node
@@ -162,7 +162,7 @@ def main():
         total_score_test += classify_score_test[i]
         total_score_training += classify_score_training[i]
         
-    prune(learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
+    prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
 
     # print classify_result_test
     # print classify_score_test
