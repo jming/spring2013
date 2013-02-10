@@ -8,11 +8,10 @@ from dtree import *
 import sys
 
 class Globals:
-    noisyFlag = False
+    noisyFlag = True
     pruneFlag = False
     valSetSize = 0
     dataset = None
-
 
 ##Classify
 #---------
@@ -178,14 +177,9 @@ def main():
 
 main()
 
-<<<<<<< HEAD
 # def prune(tree, data):
     # traverse to the bottom of the tree
     # from the leaves upward
         # s = validation set performance of subtree rooted at that node
         # t = validation set performance of leaf that returns most common class
         # is s <= t prune the subtree
-=======
-
-        
->>>>>>> 735a9b8761180a663ace4a723b2c83ea5943d0bc
