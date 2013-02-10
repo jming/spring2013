@@ -199,35 +199,36 @@ def main():
 
         # classify on test data
         test_exs = dataset.examples[high:high + section_length]
-        score_test += classify_on(learn_result, test_exs, dataset.target)
+        score_test += classify_on(learn_result, test_exs, dataset.target) / section_length
 
         # classify on training data
         training_exs = dataset.examples[low:high]
-        score_train += classify_on(learn_result, training_exs, dataset.target)
+        score_train += classify_on(learn_result, training_exs, dataset.target) / section_length
 
 # PART B: Post pruning
 
-        # Loop through possible validation sizes [1, 80]
-        for validation_size in range(1, 80):
+        # # Loop through possible validation sizes [1, 80]
+        # for validation_size in range(1, 80):
 
-            # Sectioining data into training + validation + test
-            mid = high - validation_size
+        #     # Sectioining data into training + validation + test
+        #     mid = high - validation_size
 
-            # Build tree on training data
-            learn_data_p = DataSet(dataset.examples[low:mid])
-            learn_result_p = learn(learn_data_p)
+        #     # Build tree on training data
+        #     learn_data_p = DataSet(dataset.examples[low:mid])
+        #     learn_result_p = learn(learn_data_p)
 
-            # Prune tree on validation data
-            pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
+        #     # Prune tree on validation data
+        #     pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
 
-            # Test tree on test data
-            test_data_p = dataset.examples[high:high + section_length]
-            score_validation[i][validation_size] = classify_on(pruned_tree, test_data_p, dataset.target)
+        #     # Test tree on test data
+        #     test_data_p = dataset.examples[high:high + section_length]
+        #     score_validation[i][validation_size] = classify_on(pruned_tree, test_data_p, dataset.target)
 
-            # TODO: It's getting stuck at i = 0, validation_size = 49
-            print i, validation_size
+        #     # TODO: It's getting stuck at i = 0, validation_size = 49
+        #     print i, validation_size
 
     # 2D array with all vlidation scores
-    print score_validation
+    print score_test
+    print score_train
 
 main()

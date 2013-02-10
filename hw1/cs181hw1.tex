@@ -2,7 +2,7 @@
 \usepackage{latexsym}
 \usepackage{amssymb,amsmath}
 \usepackage[pdftex]{graphicx}
-%\usepackage{parsetree}
+% \usepackage{qtree}
 
 \topmargin = -.75in \textwidth=7in \textheight=9.3in
 \oddsidemargin = -.3in \evensidemargin = -.3in
@@ -20,15 +20,33 @@ Joy Ming and Alisa Nguyen (9 February 2013)\\
 \item Decision Trees and ID3
 \begin{enumerate}
 \item ID3 will chose to split on \fbox{A} because it has a higher information gain.
-\begin{itemize}
-\item Splitting on A will have an information gain of $Gain(X_k,A)=H(A)-Remainder(X_k,A)=??$, where $H(A) = ??$, and $Remainder(X_k,A)=\frac{4}{7}(\frac{2}{4}\log_2 2+\frac{2}{4}\log_2 2+\frac{3}{7}(\frac{2}{3}\log_2 \frac{3}{2} + \frac{1}{3}\log_2 3) = $
-\item Splitting on B will have an information gain of $Gain(X_k,B)=H(B)-Remainder(X_k,B)=?? - \frac{2}{7}(\frac{1}{2}\log_2 2+\frac{1}{2}\log_2 2+\frac{5}{7}(\frac{3}{5}\log_2 \frac{5}{3} + \frac{2}{5}\log_2 \frac{5}{2})$
-\end{itemize}
+	\begin{itemize}
+	\item Splitting on A will have an information gain of $Gain(X_k,A)=H(A)-Remainder(X_k,A)=??$, 
+		where $H(A) = \frac{3}{7}\log_2 \frac{7}{3} + \frac{4}{7}\log_2\frac{7}{4}=??$, % Not sure about this part sorry
+		and $Remainder(X_k,A)=\frac{4}{7}(\frac{2}{4}\log_2 2+\frac{2}{4}\log_2 2+\frac{3}{7}(\frac{2}{3}\log_2 \frac{3}{2} + \frac{1}{3}\log_2 3) = 0.96$
+	\item Splitting on B will have an information gain of $Gain(X_k,B)=H(B)-Remainder(X_k,B)=??$, 
+		where $H(B) = \frac{2}{7}\log_2 \frac{7}{2} + \frac{5}{7}\log_2\frac{7}{5}=??$, % Not sure about this part sorry
+		and $Remainder(X_k,B)=\frac{2}{7}(\frac{1}{2}\log_2 2+\frac{1}{2}\log_2 2+\frac{5}{7}(\frac{3}{5}\log_2 \frac{5}{3} + \frac{2}{5}\log_2 \frac{5}{2})=0.98$
+	\end{itemize}
+This example shows that ID3 has an inductive bias of strongly preferring extreme partitions and larger subsets. In this case, looking at the results of the 
+\item In this example, a tree that could be formed would split first on A, then B, then C, as shown below.
+% \Tree [.A [.0 [.B [.0 [.C [.0 ?] [.1 ?]]] [.1 .1]]] [.1 [.B [.0 [.C [.0 .1] [.1 .1]]] [.1 [??]]]]]
+\item By eyeballing the data
 \end{enumerate}
 
 \item ID3 and Pruning
-% \begin{enumerate}
-% \end{enumerate}
+\begin{enumerate}
+\item The average cross-validated training performance was:
+	\begin{itemize}
+	\item Non-noisy: Training \fbox{1.0} and test \fbox{0.87}.
+	\item Noisy: Training \fbox{0.98} and test \fbox{0.78}.
+	\end{itemize}
+\item After the pruning function:
+	\begin{enumerate}
+	\item Graph
+	\item The 
+	\end{enumerate}
+\end{enumerate}
 
 \item Boosting
 % \begin{enumerate}
