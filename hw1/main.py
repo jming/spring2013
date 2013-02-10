@@ -115,7 +115,8 @@ def main():
         high = low + (dataset_length - section_length)
 
         learn_result = learn(DataSet(dataset.examples[low:high], values=dataset.values))
-        print learn_result
+        if 1 == 1:
+            print learn_result
         break
 
         # classify on test data
@@ -156,4 +157,3 @@ main()
         # s = validation set performance of subtree rooted at that node
         # t = validation set performance of leaf that returns most common class
         # is s <= t prune the subtree
-        
