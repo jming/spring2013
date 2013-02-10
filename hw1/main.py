@@ -110,13 +110,17 @@ def prune(tree, validation):
         # If all nodes in this branch are leaves
         if count == len(tree.branches):
 
+            print validation
+            break
+
             # Classify original tree
             prior = classify_on(tree, validation, 9)
 
             # Create copy of tree with to subtree collapsed into leaf with majority label
-            new_tree = tree
-            new_tree.nodetype = 1
-            if pos / len(tree.branches) > 1 / 2:
+            new_tree = DecisionTree(1)
+            new_tree.classification = 1
+
+            if pos / float(len(tree.branches)) > 1. / 2:
                 new_tree.classification = 1
             else:
                 new_tree.classification = 0
@@ -124,11 +128,18 @@ def prune(tree, validation):
             # Classify Modified tree
             post = classify_on(new_tree, validation, 9)
 
+            count = 0
+            pos = 0
+
+            print "post, prior"
+            print post, prior
+            break
+
             # Collapse subtree in original tree if modification was more efficient
             if (post > prior):
                 #print "post > prior"
                 tree.branches[i] = new_tree
-    print tree
+    # print tree
     return tree
 
 
@@ -228,8 +239,6 @@ def main():
             print "Pruned tree: "
             print pruned_tree
             print "\n"
-
-            break
 
             # Test tree on test data
             test_data_p = dataset.examples[high:high + section_length]
