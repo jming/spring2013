@@ -55,7 +55,7 @@ def parseArgs(args):
 def validateInput(args):
     args_map = parseArgs(args)
     valSetSize = 0
-    noisyFlag = False
+    noisyFlag = True
     pruneFlag = False
     boostRounds = -1
     maxDepth = -1
@@ -196,9 +196,9 @@ def main():
     # Initialize scores
     score_test = 0
     score_train = 0
-    score_validation = [[0 for x in range(81)] for y in range(k)]
+    score_validation = [[(0, 0) for x in range(81)] for y in range(k)]
     # TEST
-    score_validation2 = [0 for x in range(k)]
+    # score_validation2 = [0 for x in range(k)]
 
     # Run k experiments
     for i in range(k):
@@ -242,7 +242,7 @@ def main():
 
             # Test tree on test data
             test_data_p = dataset.examples[high:high + section_length]
-            score_validation[i][validation_size] = classify_on(pruned_tree, test_data_p, dataset.target) != classify_on(learn_result_p, test_data_p, dataset.target)
+            score_validation[i][validation_size] = (classify_on(pruned_tree, test_data_p, dataset.target), classify_on(learn_result, test_data_p, dataset.target))
             # TODO: This is just printing if the pruned tree score is better than the original one. Apparently not?
             # TODO: Is the tree pruning properly?
             # TODO why are pruned scores worse than the other ones T.T
