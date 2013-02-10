@@ -71,23 +71,28 @@ def validateInput(args):
     return [noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds]
 
 
-def prune(tree, treecopy, data_t, data_v):
+def parse(data, attr):
+    result = []
+    for example in data:
+        if data[example].attrs[attr] == 1:
+            result.append(example)
+    return result
+
+
+def prune(tree, training, test):
     # traverse to the bottom of the tree
     count = 0
     pos = 0
 
     for i in tree.branches:
+        classification = tree.branches[i].classification
         if (tree.branches[i].nodetype == 1):
             count += 1
-            # print 'count', count
-            # print 'c', tree.branches[i].classification
-            if (tree.branches[i].classification == 1):
+            if (classification == 1):
                 pos += 1
-                # print 'pos', pos
         else:
-            # print 'i', i, 'recursive prune'
-            prune(tree.branches[i], treecopy, data_t, data_v)
-        # print len(tree.branches), count
+            prune(tree.branches[i], parse(training, i), parse(test, i))
+            # parse the data set
         if count == len(tree.branches):
             print classify_on(tree, data_t, 9)
             # count = setproblem(data_t, i)
@@ -97,11 +102,6 @@ def prune(tree, treecopy, data_t, data_v):
             # else:
             #     tree.classification = 0
             # print classify(tree, data_t)
-
-    # from the leaves upward
-        # s = validation set performance of subtree rooted at that node
-        # t = validation set performance of leaf that returns most common class
-        # is s <= t prune the subtree
 
 
 def classify_on(tree, data, target):
