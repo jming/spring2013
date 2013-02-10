@@ -227,18 +227,20 @@ def main():
             score_validation[i][validation_size - 1] = classify_on(pruned_tree, test_data_p, dataset.target)
             
             #TODO why are pruned scores worse than the other ones T.T
+            #find best validated score use that one?
             score_validation2[i] += score_validation[i][validation_size - 1]
-            
             
         #     # It's getting stuck at i = 0, validation_size = 49
             # Fixed by adding values = dataset.values to line 217 and subtracting 1 from validation_size on line 225
             #print i, validation_size
-            
+
+    #print 'learn_result', learn_result
+
     
     # 2D array with all vlidation scores
-    print score_test
-    print score_train
-    print score_validation2
+    #print score_test
+    #print score_train
+    #print score_validation2
     
 
 main()
