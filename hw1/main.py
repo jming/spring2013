@@ -75,13 +75,12 @@ def prune(tree, treecopy, data_t, data_v):
     # traverse to the bottom of the tree
     count = 0
     for i in tree.branches:
-        print i
         pos = 0
         if (tree.branches[i].nodetype == 1):
             count += 1
             print count
             # print 'count', count
-            #print 'c', tree.branches[i].classification
+            # print 'c', tree.branches[i].classification
             if (tree.branches[i].classification == 1):
                 pos += 1
                 # print 'pos', pos
