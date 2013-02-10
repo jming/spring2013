@@ -66,6 +66,31 @@ def validateInput(args):
       boostRounds = int(args_map['-b'])
     return [noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds]
 
+def prune(tree, treecopy, data_t, data_v):
+    # traverse to the bottom of the tree
+    for i in tree.branches:
+        count = 0
+        pos = 0
+        #for k in tree.branches[i]:
+        if tree.branches[i].nodetype == 1:
+            count += 1
+            if tree.branches[i].classification == 1:
+                pos += 1
+        else:
+            prune(tree.branches[i], treecopy, data_t, data_v)
+        if count == len(tree.branches):
+            tree.nodetype = 1
+            if pos/len(tree.branches) > 1/2:
+                tree.classification = 1
+            else:
+                tree.classification = 0
+            #classify(tree, DATASET) )
+                
+    # from the leaves upward
+        # s = validation set performance of subtree rooted at that node
+        # t = validation set performance of leaf that returns most common class
+        # is s <= t prune the subtree    
+    
 def main():
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
@@ -95,16 +120,18 @@ def main():
     k = 10
     dataset_length = len(examples)
     section_length = dataset_length / k
+    # Array of arrays with classification results for test set for each classification for each experiment
     classify_result_test = [[0 for j in range(section_length)] for i in range(k)]
+    # Array of classification results for test set for each experiment
     classify_score_test = [0. for l in range(k)]
+    # Average accuracy
     total_score_test = 0.
     classify_result_training = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
     classify_result_training_r = [[0 for j in range(dataset_length - section_length)] for i in range(k)]
     classify_score_training = [0. for l in range(k)]
     total_score_training = 0.
     counter = 0
-
-
+    
     # PART A 
 
     # Run k experiments
@@ -115,9 +142,6 @@ def main():
         high = low + (dataset_length - section_length)
 
         learn_result = learn(DataSet(dataset.examples[low:high], values=dataset.values))
-        if 1 == 1:
-            print learn_result
-        break
 
         # classify on test data
         for j in range(section_length):
@@ -125,6 +149,7 @@ def main():
             if (classify_result_test[i][j] == dataset.examples[high + j].attrs[dataset.target]):
                 classify_score_test[i] += 1. / section_length
 
+        # TO DO CLEAN UP LATER        
         # classify on training data
         for l in range(dataset_length - section_length):
             classify_result_training[i][l] = classify(learn_result, dataset.examples[low + l])
@@ -134,6 +159,8 @@ def main():
 
         total_score_test += classify_score_test[i]
         total_score_training += classify_score_training[i]
+        
+    prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
 
     # print classify_result_test
     # print classify_score_test
@@ -151,9 +178,14 @@ def main():
 
 main()
 
+<<<<<<< HEAD
 # def prune(tree, data):
     # traverse to the bottom of the tree
     # from the leaves upward
         # s = validation set performance of subtree rooted at that node
         # t = validation set performance of leaf that returns most common class
         # is s <= t prune the subtree
+=======
+
+        
+>>>>>>> 735a9b8761180a663ace4a723b2c83ea5943d0bc
