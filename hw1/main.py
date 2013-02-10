@@ -71,20 +71,25 @@ def prune(tree, treecopy, data_t, data_v):
     for i in tree.branches:
         count = 0
         pos = 0
-        #for k in tree.branches[i]:
-        if tree.branches[i].nodetype == 1:
+        if (tree.branches[i].nodetype == 1):
             count += 1
-            if tree.branches[i].classification == 1:
+            print 'count', count
+            #print 'c', tree.branches[i].classification
+            if (tree.branches[i].classification == 1):
                 pos += 1
+                print 'pos', pos
         else:
+            print 'i', i, 'recursive prune'
             prune(tree.branches[i], treecopy, data_t, data_v)
+        print len(tree.branches), count
         if count == len(tree.branches):
+            setproblem(data_t, i)
             tree.nodetype = 1
             if pos/len(tree.branches) > 1/2:
                 tree.classification = 1
             else:
                 tree.classification = 0
-            #classify(tree, DATASET) )
+            print classify(tree, data_t)
                 
     # from the leaves upward
         # s = validation set performance of subtree rooted at that node
@@ -161,16 +166,18 @@ def main():
 
         total_score_test += classify_score_test[i]
         total_score_training += classify_score_training[i]
+
+    #print learn_result
         
-    prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
+    #prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
 
     # print classify_result_test
     # print classify_score_test
     # print classify_result_training
     # print classify_result_training_r
     # print classify_score_training
-    # print total_score_test / k
-    # print total_score_training / k
+    print total_score_test / k
+    print total_score_training / k
 
     # PART B
 
