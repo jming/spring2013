@@ -74,6 +74,7 @@ def validateInput(args):
 def parse(data, attr):
     result = []
     for example in data:
+        print example.values
         if example.attrs[attr] == 1:
             result.append(example)
     return result
@@ -94,14 +95,14 @@ def prune(tree, training, test):
                 pos += 1
 
             if count == len(tree.branches):
-                prior = classify_on(tree, training, 9)
+                prior = classify_on(tree, test, 9)
                 new_tree = tree
                 new_tree.nodetype = 1
                 if pos / len(tree.branches) > 1 / 2:
                     new_tree.classification = 1
                 else:
                     new_tree.classification = 0
-                post = classify_on(new_tree, training, 9)
+                post = classify_on(new_tree, test, 9)
                 if (post > prior):
                     print "prior = " + str(prior) + " post = " + str(post)
                     # FUCK WHY IS THERE A ZERO?
