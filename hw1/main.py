@@ -75,10 +75,8 @@ def parse(data, attr, val):
     result = []
     for example in data:
         if example.attrs[attr] == val:
-
             result.append(example)
-        # if example.attrs[attr] == 1:
-            # result.append(example)
+    #print len(result)
     return result
 
 
@@ -89,31 +87,42 @@ def prune(tree, training, test):
 
     for i in tree.branches:
 
+        # If Leaf
         if (tree.branches[i].nodetype == 1):
 
             count += 1
-
+            
+            # If Target positive
             if (tree.branches[i].classification == 1):
                 pos += 1
-
-            if count == len(tree.branches):
-                prior = classify_on(tree, test, 9)
-                new_tree = tree
-                new_tree.nodetype = 1
-                if pos / len(tree.branches) > 1 / 2:
-                    new_tree.classification = 1
-                else:
-                    new_tree.classification = 0
-
-                post = classify_on(new_tree, test, 9)
-                # if (post  prior):
-                print "prior = " + str(prior) + " post = " + str(post) + " i =" + str(i)
-
-                    # FUCK WHY IS THERE A ZERO?
+            
+            
         else:
-            prune(tree.branches[i], parse(training, i, tree.branches[i].attr), parse(test, i, tree.branches[i].attr))
+            #print count, tree.attr, i
+            tree.branches[i] = prune(tree.branches[i], parse(training, tree.attr, i), test)
             # print prior
             # print post
+        
+        # If all nodes in this branch are leaves
+        if count == len(tree.branches):
+            #print 'count equals len'
+            prior = classify_on(tree, test, 9)
+            new_tree = tree
+            new_tree.nodetype = 1
+            if pos / len(tree.branches) > 1 / 2:
+                new_tree.classification = 1
+            else:
+                new_tree.classification = 0
+
+            post = classify_on(new_tree, test, 9)
+            if (post > prior):
+                tree.branches[i] = new_tree
+                
+            #print "prior = " + str(prior) + " post = " + str(post) + " i =" + str(i)
+    
+    return tree
+
+                    # FUCK WHY IS THERE A ZERO?
 
             # count = setproblem(data_t, i)
             # tree.nodetype = 1
@@ -167,6 +176,7 @@ def main():
     section_length = dataset_length / k
     score_test = 0
     score_training = 0
+    score_test_p = 0
     
     # PART A
 
@@ -178,7 +188,7 @@ def main():
         high = low + (dataset_length - section_length)
 
         learn_result = learn(DataSet(dataset.examples[low:high], values=dataset.values))
-        print learn_result
+        #print learn_result
         # break
 
         # classify on test data
@@ -187,10 +197,15 @@ def main():
         # classify on training data
         score_training += classify_on(learn_result, dataset.examples[low:high], dataset.target)
 
-        prune(learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
-
-    # print score_test
-    # print score_training
+        pruned_tree = prune(learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
+        
+        score_test_p += classify_on(pruned_tree, dataset.examples[high:high + section_length], dataset.target)
+        
+        
+        
+    print score_test
+    print score_training
+    print score_test_p
     # print score_test/k
     # print score_training/k
 
