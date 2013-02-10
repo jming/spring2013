@@ -187,7 +187,7 @@ def main():
         # classify on training data
         score_training += classify_on(learn_result, dataset.examples[low:high], dataset.target)
 
-    prune(learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
+        prune(learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
 
     # print score_test
     # print score_training
