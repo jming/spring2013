@@ -74,7 +74,7 @@ def validateInput(args):
 def parse(data, attr):
     result = []
     for example in data:
-        if data[example].attrs[attr] == 1:
+        if example.attrs[attr] == 1:
             result.append(example)
     return result
 
@@ -85,16 +85,32 @@ def prune(tree, training, test):
     pos = 0
 
     for i in tree.branches:
-        classification = tree.branches[i].classification
+
         if (tree.branches[i].nodetype == 1):
+
             count += 1
-            if (classification == 1):
+
+            if (tree.branches[i].classification == 1):
                 pos += 1
+
+            if count == len(tree.branches):
+                prior = classify_on(tree, training, 9)
+                new_tree = tree
+                new_tree.nodetype = 1
+                if pos / len(tree.branches) > 1 / 2:
+                    new_tree.classification = 1
+                else:
+                    new_tree.classification = 0
+                post = classify_on(new_tree, training, 9)
+                if (post > prior):
+                    print "prior = " + str(prior) + " post = " + str(post)
+                    # FUCK WHY IS THERE A ZERO?
         else:
             prune(tree.branches[i], parse(training, i), parse(test, i))
-            # parse the data set
-        if count == len(tree.branches):
-            print classify_on(tree, data_t, 9)
+
+            # print prior
+            # print post
+
             # count = setproblem(data_t, i)
             # tree.nodetype = 1
             # if pos / len(tree.branches) > 1 / 2:
@@ -119,7 +135,7 @@ def main():
 
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
-    print noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds
+    # print noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds
 
     # Read in the data file
 
@@ -165,12 +181,12 @@ def main():
         # classify on training data
         score_training += classify_on(learn_result, dataset.examples[low:high], dataset.target)
 
-    #prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
+    prune(learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
 
     # print score_test
     # print score_training
-    print score_test/k
-    print score_training/k
+    # print score_test/k
+    # print score_training/k
 
     # PART B
 
