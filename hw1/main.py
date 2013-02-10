@@ -105,40 +105,40 @@ def prune(tree, validation):
 
         # If the child is a subtree
         else:
+            # print tree.branches[i]
             tree.branches[i] = prune(tree.branches[i], parse(validation, tree.attr, i))
 
         # If all nodes in this branch are leaves
         if count == len(tree.branches):
-
-            print validation
-            break
 
             # Classify original tree
             prior = classify_on(tree, validation, 9)
 
             # Create copy of tree with to subtree collapsed into leaf with majority label
             new_tree = DecisionTree(1)
-            new_tree.classification = 1
 
             if pos / float(len(tree.branches)) > 1. / 2:
                 new_tree.classification = 1
             else:
                 new_tree.classification = 0
 
-            # Classify Modified tree
+            # Classify modified tree
             post = classify_on(new_tree, validation, 9)
 
             count = 0
             pos = 0
 
-            print "post, prior"
-            print post, prior
-            break
-
             # Collapse subtree in original tree if modification was more efficient
-            if (post > prior):
-                #print "post > prior"
-                tree.branches[i] = new_tree
+            # TODO: I can't seem to find cases where post > prior?
+            # TODO: But there are instances where post = prior = 1.0??? HOW DOES THAT HAPPEN?
+            # TODO: Maybe because there is too few data points??
+            if (post >= prior):
+                print post, prior
+                tree.nodetype = 1
+                tree.classification = new_tree.classification
+
+            # TODO: It's not properly REPLACING the tree!!!
+
     # print tree
     return tree
 
@@ -242,17 +242,19 @@ def main():
 
             # Test tree on test data
             test_data_p = dataset.examples[high:high + section_length]
-            score_validation[i][validation_size] = classify_on(pruned_tree, test_data_p, dataset.target)
-
+            score_validation[i][validation_size] = classify_on(pruned_tree, test_data_p, dataset.target) != classify_on(learn_result_p, test_data_p, dataset.target)
+            # TODO: This is just printing if the pruned tree score is better than the original one. Apparently not?
+            # TODO: Is the tree pruning properly?
             # TODO why are pruned scores worse than the other ones T.T
             # find best validated score use that one?
-            score_validation2[i] += score_validation[i][validation_size]
+            # score_validation2[i] += score_validation[i][validation_size]
 
     #print 'learn_result', learn_result
 
     # 2D array with all vlidation scores
-    #print score_test
-    #print score_train
-    print score_validation2
+    # print score_test
+    # print score_train
+    print score_validation
+    # print score_validation2
 
 main()
