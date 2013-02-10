@@ -18,7 +18,7 @@ class DataSet:
 
     d.examples    A list of examples.  Each one is an instance of class Example.
     d.attrs       A list of integers to index into an example, so example[attr]
-                  gives a value. Normally the same as range(len(d.examples)). 
+                  gives a value. Normally the same as range(len(d.examples)).
     d.attrnames   Optional list of mnemonic names for corresponding attrs.
     d.target      The attribute that a learning algorithm will try to predict.
                   By default the final attribute.

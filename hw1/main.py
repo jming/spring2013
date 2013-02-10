@@ -71,12 +71,18 @@ def validateInput(args):
     return [noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds]
 
 
-def parse(data, attr):
+def parse(data, attr, val):
     result = []
     for example in data:
+<<<<<<< HEAD
         print example.values
         if example.attrs[attr] == 1:
+=======
+        if example.attrs[attr] == val:
+>>>>>>> 7d73e6a95b611cb6d4e47b2b6d7cdc690f2ea035
             result.append(example)
+        # if example.attrs[attr] == 1:
+            # result.append(example)
     return result
 
 
@@ -102,13 +108,14 @@ def prune(tree, training, test):
                     new_tree.classification = 1
                 else:
                     new_tree.classification = 0
-                post = classify_on(new_tree, test, 9)
-                if (post > prior):
-                    print "prior = " + str(prior) + " post = " + str(post)
+
+                post = classify_on(new_tree, training, 9)
+                # if (post  prior):
+                print "prior = " + str(prior) + " post = " + str(post) + " i =" + str(i)
+
                     # FUCK WHY IS THERE A ZERO?
         else:
-            prune(tree.branches[i], parse(training, i), parse(test, i))
-
+            prune(tree.branches[i], parse(training, i, tree.branches[i].attr), parse(test, i, tree.branches[i].attr))
             # print prior
             # print post
 
@@ -175,6 +182,8 @@ def main():
         high = low + (dataset_length - section_length)
 
         learn_result = learn(DataSet(dataset.examples[low:high], values=dataset.values))
+        print learn_result
+        # break
 
         # classify on test data
         score_test += classify_on(learn_result, dataset.examples[high:high + section_length], dataset.target)
