@@ -144,7 +144,9 @@ def main():
     k = 10
     dataset_length = len(examples)
     section_length = dataset_length / k
-
+    score_test = 0
+    score_training = 0
+    
     # PART A
 
     # Run k experiments
@@ -157,17 +159,17 @@ def main():
         learn_result = learn(DataSet(dataset.examples[low:high], values=dataset.values))
 
         # classify on test data
-        score_test = classify_on(learn_result, dataset.examples[high:high + section_length], dataset.target)
+        score_test += classify_on(learn_result, dataset.examples[high:high + section_length], dataset.target)
 
         # classify on training data
-        score_training = classify_on(learn_result, dataset.examples[low:high], dataset.target)
+        score_training += classify_on(learn_result, dataset.examples[low:high], dataset.target)
 
-    prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
+    #prune(learn_result, learn_result, dataset.examples[low:high], dataset.examples[high:high+section_length])
 
     # print score_test
     # print score_training
-    # print total_score_test / k
-    # print total_score_training / k
+    print score_test/k
+    print score_training/k
 
     # PART B
 
