@@ -8,8 +8,8 @@ from dtree import *
 import sys
 
 # makes graphs
-import matplotlib.pyplot as plt
-from pylab import *
+# import matplotlib.pyplot as plt
+# from pylab import *
 
 
 class Globals:
@@ -59,7 +59,7 @@ def parseArgs(args):
 def validateInput(args):
     args_map = parseArgs(args)
     valSetSize = 0
-    noisyFlag = True
+    noisyFlag = False
     pruneFlag = False
     boostRounds = -1
     maxDepth = -1
@@ -260,7 +260,7 @@ def main():
             score_original_training[validation_size] += original_accuracy_trainig / k
 
 
-    plot_points(len(score_original), score_original)
+    # plot_points(len(score_original), score_original)
     # print score_validation
     # print score_original    
     print score_pruned_test
