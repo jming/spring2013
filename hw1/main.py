@@ -7,6 +7,10 @@
 from dtree import *
 import sys
 
+# makes graphs
+import matplotlib.pyplot as plt
+from pylab import *
+
 
 class Globals:
     noisyFlag = False
@@ -149,6 +153,21 @@ def classify_on(tree, data, target):
             classify_score += 1. / len(data)
 
     return classify_score
+    
+def plot_points(xpoints, ypoints):
+    plt.clf()
+    xs = range(xpoints)
+    ys = ypoints
+    p1, = plt.plot(xs, ys, color='b')
+    #p2, = plt.plot(xs, y2s, color='r')
+    plt.title('sample graph')
+    plt.xlabel('x-coordinate')
+    plt.ylabel('y-coordinate')
+    plt.axis([0, xpoints, 0, 1])
+    plt.legend((p1,), ('data',), 'lower right')
+    savefig('figure.pdf') # save the figure to a file
+    
+    plt.show() # show the figure
 
 
 def main():
@@ -232,7 +251,11 @@ def main():
             score_validation[validation_size] += pruned_accuracy / 10.
             score_original[validation_size] += original_accuracy / 10.
 
+
+            
+            
+    plot_points(len(score_original), score_original)
     # print score_validation
-    # print score_original
+    # print score_original    
 
 main()
