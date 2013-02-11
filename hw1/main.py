@@ -59,7 +59,7 @@ def parseArgs(args):
 def validateInput(args):
     args_map = parseArgs(args)
     valSetSize = 0
-    noisyFlag = True
+    noisyFlag = False
     pruneFlag = False
     boostRounds = -1
     maxDepth = -1
@@ -153,22 +153,6 @@ def classify_on(tree, data, target):
             classify_score += 1. / len(data)
 
     return classify_score
-    
-def plot_points(xpoints, ypoints):
-    plt.clf()
-    xs = range(xpoints)
-    ys = ypoints
-    p1, = plt.plot(xs, ys, color='b')
-    #p2, = plt.plot(xs, y2s, color='r')
-    plt.title('sample graph')
-    plt.xlabel('x-coordinate')
-    plt.ylabel('y-coordinate')
-    plt.axis([0, xpoints, 0, 1])
-    plt.legend((p1,), ('data',), 'lower right')
-    savefig('figure.pdf') # save the figure to a file
-    
-    plt.show() # show the figure
-
 
 def main():
 
@@ -259,14 +243,31 @@ def main():
             score_pruned_training[validation_size] += pruned_accuracy_training / k
             score_original_training[validation_size] += original_accuracy_trainig / k
 
-
-    plot_points(len(score_original), score_original)
+            
+    plt.clf()
+    xs = range(1, len(score_pruned_training))
+    training1 = score_pruned_training[1:81]
+    training2 = score_original_training[1:81]
+    test1 = score_pruned_test[1:81]
+    test2 = score_original_test[1:81]
+    p1, = plt.plot(xs, training1, color='b')
+    p2, = plt.plot(xs, training2, color='r')
+    p3, = plt.plot(xs, test1, color='b')
+    p4, = plt.plot(xs, test2, color='r')
+    plt.title('Cross-Validated Performance')
+    plt.xlabel('Validation Set Size')
+    plt.ylabel('Accuracy')
+    plt.axis([0, len(xs), .7, 1])
+    plt.legend(((p1,), (p2,), (p3,), (p4,)), ('pruned training','original training','pruned test', 'original test'), 'lower right')
+    savefig('figure.pdf') # save the figure to a file
+    
+    plt.show() # show the figure
     # print score_validation
     # print score_original    
-    print score_pruned_test
-    print score_original_test
-    print score_pruned_training
-    print score_original_training
+    #print score_pruned_test
+    #print score_original_test
+    #print score_pruned_training
+    #print score_original_training
 
 
 main()
