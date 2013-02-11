@@ -154,6 +154,7 @@ def classify_on(tree, data, target):
 
     return classify_score
 
+
 def main():
 
     arguments = validateInput(sys.argv)
