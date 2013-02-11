@@ -34,7 +34,7 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 \item By eyeballing the data
 \end{enumerate}
 
-\item ID3 and Pruning
+\item ID3 with Pruning
 \begin{enumerate}
 \item The average cross-validated training performance was:
 	\begin{itemize}
@@ -44,7 +44,9 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 \item After the pruning function:
 	\begin{enumerate}
 	\item Graph
-	\item The 
+	\item The cross-validated performance of the validation set pruning improves at first, as the valdiation increases from 1, peaks at a point around size 40 to 60, and then worsens in performance as the validation set size becomes too large and overfitting becomes an issue.
+	\item The validation set pruning improves the cross-validated performance of ID3 on these data for all the data points leading up to the peak when comparing against validation-size. After the peak, pruning gives us similar and sometimes slightly worse results than the cross-validated performance of ID3. On the nosy data, the average cross-validated test perfromance with pruning on the non-noisy dataset is 0.8599 and without pruning 0.855.
+	\item Overfitting is an issue for these data, as evidenced by the dropoff after a peak when the validation set size gets too large. ELABORATE.
 	\end{enumerate}
 \end{enumerate}
 
