@@ -8,8 +8,8 @@ from dtree import *
 import sys
 
 # makes graphs
-import matplotlib.pyplot as plt
-from pylab import *
+# import matplotlib.pyplot as plt
+# from pylab import *
 
 
 class Globals:
@@ -243,8 +243,9 @@ def main():
             score_pruned_training[validation_size] += pruned_accuracy_training / k
             score_original_training[validation_size] += original_accuracy_trainig / k
 
-    print 'pruned', mean(score_pruned_test)
-    print 'original', mean(score_original_test)
+    
+    #print 'pruned', mean(score_pruned_test)
+    #print 'original', mean(score_original_test)
     #print mean(score_pruned_training)
             
     ''' CODE FOR PLOTTING REMOVE LATER
