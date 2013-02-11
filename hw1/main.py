@@ -207,8 +207,10 @@ def main():
     # Initialize scores
     score_test = 0
     score_train = 0
-    score_validation = [0 for x in range(81)]
-    score_original = [0 for x in range(81)]
+    score_pruned_test = [0 for x in range(81)]
+    score_original_test = [0 for x in range(81)]
+    score_pruned_training = [0 for x in range(81)]
+    score_original_training = [0 for x in range(81)]
 
     # Run k experiments
     for i in range(k):
@@ -246,16 +248,25 @@ def main():
 
             # Test tree on test data
             test_data_p = dataset.examples[high:high + section_length]
-            pruned_accuracy = classify_on(pruned_tree, test_data_p, dataset.target)
-            original_accuracy = classify_on(learn_result_p2, test_data_p, dataset.target)
-            score_validation[validation_size] += pruned_accuracy / 10.
-            score_original[validation_size] += original_accuracy / 10.
+            pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target)
+            original_accuracy_test = classify_on(learn_result_p2, test_data_p, dataset.target)
+            score_pruned_test[validation_size] += pruned_accuracy_test / k
+            score_original_test[validation_size] += original_accuracy_test / k
+
+            # Test tree on training data
+            pruned_accuracy_training = classify_on(pruned_tree, learn_data_p.examples, dataset.target)
+            original_accuracy_trainig = classify_on(learn_result_p2, learn_data_p.examples, dataset.target)
+            score_pruned_training[validation_size] += pruned_accuracy_training / k
+            score_original_training[validation_size] += original_accuracy_trainig / k
 
 
-            
-            
     plot_points(len(score_original), score_original)
     # print score_validation
     # print score_original    
+    print score_pruned_test
+    print score_original_test
+    print score_pruned_training
+    print score_original_training
+
 
 main()
