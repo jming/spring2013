@@ -8,8 +8,8 @@ from dtree import *
 import sys
 
 # makes graphs
-# import matplotlib.pyplot as plt
-# from pylab import *
+#import matplotlib.pyplot as plt
+#from pylab import *
 
 
 class Globals:
@@ -59,7 +59,7 @@ def parseArgs(args):
 def validateInput(args):
     args_map = parseArgs(args)
     valSetSize = 0
-    noisyFlag = False
+    noisyFlag = True
     pruneFlag = False
     boostRounds = -1
     maxDepth = -1
@@ -248,22 +248,22 @@ def main():
     #print 'original', mean(score_original_test)
     #print mean(score_pruned_training)
             
-    ''' CODE FOR PLOTTING REMOVE LATER
+    '''CODE FOR PLOTTING REMOVE LATER
     plt.clf()
     xs = range(1, len(score_pruned_training))
     training1 = score_pruned_training[1:81]
-    training2 = score_original_training[1:81]
+    #training2 = score_original_training[1:81]
     test1 = score_pruned_test[1:81]
-    test2 = score_original_test[1:81]
+    #test2 = score_original_test[1:81]
     p1, = plt.plot(xs, training1, color='b')
-    p2, = plt.plot(xs, training2, color='r')
-    p3, = plt.plot(xs, test1, color='b', ls = 'dotted')
-    p4, = plt.plot(xs, test2, color='r', ls = 'dotted')
+    #p2, = plt.plot(xs, training2, color='r')
+    p3, = plt.plot(xs, test1, color='r')
+    #p4, = plt.plot(xs, test2, color='r', ls = 'dotted')
     plt.title('Cross-Validated Performance vs. Validation Size (Noisy)')
     plt.xlabel('Validation Set Size')
     plt.ylabel('Accuracy')
     plt.axis([0, len(xs), .7, 1])
-    plt.legend(((p1,), (p2,), (p3,), (p4,)), ('pruned training','original training','pruned test', 'original test'), 'lower center')
+    plt.legend(((p1,), (p3,)), ('pruned training','pruned test'), 'lower center')
     savefig('nguyen-ming-noisy.pdf') # save the figure to a file
     plt.show() # show the figure'''
     
