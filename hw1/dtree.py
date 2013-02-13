@@ -351,7 +351,7 @@ class DecisionTreeLearner(Learner):
         (If target is binary, this is the majority; otherwise plurality.)"""
         g = self.dataset.target
         return argmax(self.dataset.values[g],
-                      lambda v: self.count(g, v, examples))
+                      lambda v: self.count_weights(g, v, examples))
 
     def count(self, attr, val, examples):
         return count_if(lambda e: e.attrs[attr] == val, examples)
