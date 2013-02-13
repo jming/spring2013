@@ -169,6 +169,19 @@ def classify_on(tree, data, target):
     return classify_score
 
 
+def adaBoost(R, dataset):
+    hypotheses = [(DecisionTree(1), 0.) for r in range(R)]
+    for r in range(R):
+        # create a hypothesis
+        hypothesis = learn(dataset)
+        # update weights
+        update_weights(hypothesis, dataset)
+        # create a weight
+        weight = calculate_weight(hypothesis, dataset)
+        # put it in the list
+        hypotheses[r] = (hypothesis, weight)
+
+
 def main():
 
     arguments = validateInput(sys.argv)
@@ -291,3 +304,4 @@ def main():
 
 
 main()
+
