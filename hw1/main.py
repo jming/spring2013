@@ -24,6 +24,20 @@ class Globals:
 
 def classify(decisionTree, example):
     return decisionTree.predict(example)
+	
+##Classify Multi Tree
+#---------
+
+
+def classify_multi(decisionTrees, example):
+	pos = 0.
+	for d in decisionTrees:
+		pos += classify(d, example)
+	if(pos/len(decisionTrees) < 1./2):
+		return 0
+	else:
+		return 1
+		
 
 ##Learn
 #-------
