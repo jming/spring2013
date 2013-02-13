@@ -78,10 +78,10 @@ def chop(tree, k):
 
     while (len(queue) > 0):
         v = queue.pop[0]
-
-        for i in tree.branches:
+        for i in v['node'].branches:
             if v['dist'] < k:
-                queue.append({'node': tree.branches[i], 'dist': v['dist'] + 1})
+                if v['node'].branches[i].nodetype == 0:
+                    queue.append({'node': tree.branches[i], 'dist': v['dist'] + 1})
             else:
                 majority_chop(tree.branches[i])
 
