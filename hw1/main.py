@@ -25,20 +25,20 @@ class Globals:
 
 def classify(decisionTree, example):
     return decisionTree.predict(example)
-	
+
 ##Classify Multi Tree
 #---------
 
 
 def classify_multi(decisionTrees, example):
-	pos = 0.
-	for d in decisionTrees:
-		pos += classify(d['hypothesis'], example)*d['weight']
-	if(pos/sum([d['weight'] for d in decisionTrees]) < 1./2):
-		return 0
-	else:
-		return 1
-		
+    pos = 0.
+    for d in decisionTrees:
+        pos += classify(d['hypothesis'], example) * d['weight']
+    if(pos / sum([d['weight'] for d in decisionTrees]) < 1. / 2):
+        return 0
+    else:
+        return 1
+
 
 ##Learn
 #-------
@@ -70,6 +70,7 @@ def parseArgs(args):
       args_map[curkey] = args[i]
       curkey = None
   return args_map
+
 
 def validateInput(args):
     args_map = parseArgs(args)
@@ -169,30 +170,46 @@ def classify_on(tree, data, target):
 
     return classify_score
 
-def update_weights(hypothesis, dataset):
-	pass
 
-def calculate_weight(hypothesis, dataset):
-	e_array = [0. for x in range(len(dataset.examples))]
-	for e in dataset.examples:
-		if classify(hypothesis, e) == e.attrs[dataset.target]:
-			e_array.append(e.weight)
-	
-	error = sum(e_array)
-	return (1./2)*log2((1-error)/error)
+def example_weights(hypothesis, dataset, hyp_weight):
+    v_array = [0. for x in range(len(dataset.examples))]
+    for e in dataset.examples:
+        if classify(hypothesis, e) == e.attrs[dataset.target]:
+            v_array.append(e.weight * exp(-hyp_weight))
+        else:
+            v_array.append(e.weight * exp(hyp_weight))
+    v_sum = sum(v_array)
+    for v in range(len(v_array)):
+        dataset.examples[v].weight = v_array[v] / v_sum
+
+
+def hypothesis_weight(hypothesis, dataset):
+    e_array = [0. for x in range(len(dataset.examples))]
+    for e in dataset.examples:
+        if classify(hypothesis, e) == e.attrs[dataset.target]:
+            e_array.append(e.weight)
+
+    error = sum(e_array)
+    return (1. / 2) * log2((1 - error) / error)
+
 
 def adaBoost(R, dataset):
-    hypotheses = [{hypothesis:DecisionTree(1), weight:0.} for r in range(R)]
+    hypotheses = [{hypothesis:DecisionTree(1), weight:1.} for r in range(R)]
+    # initialize example weights to 1
+    for d in dataset.examples:
+        d.weight = 1. / len(dataset.examples)
+
     for r in range(R):
         # create a hypothesis
         hypothesis = learn(dataset)
-        # update weights
-        update_weights(hypothesis, dataset)
         # create a weight
-        weight = calculate_weight(hypothesis, dataset)
+        weight = hypothesis_weight(hypothesis, dataset)
         # put it in the list
         hypotheses[r] = (hypothesis, weight)
-	return hypotheses
+        # update weights
+        example_weights(hypothesis, dataset, weight)
+
+    return hypotheses
 
 
 def main():
