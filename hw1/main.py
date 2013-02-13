@@ -7,6 +7,7 @@
 from dtree import *
 import sys
 
+
 # makes graphs
 #import matplotlib.pyplot as plt
 #from pylab import *
@@ -32,8 +33,8 @@ def classify(decisionTree, example):
 def classify_multi(decisionTrees, example):
 	pos = 0.
 	for d in decisionTrees:
-		pos += classify(d, example)
-	if(pos/ < 1./2):
+		pos += classify(d['hypothesis'], example)*d['weight']
+	if(pos/sum([d['weight'] for d in decisionTrees]) < 1./2):
 		return 0
 	else:
 		return 1
@@ -168,9 +169,20 @@ def classify_on(tree, data, target):
 
     return classify_score
 
+def update_weights(hypothesis, dataset):
+	pass
+
+def calculate_weight(hypothesis, dataset):
+	e_array = [0. for x in range(len(dataset.examples))]
+	for e in dataset.examples:
+		if classify(hypothesis, e) == e.attrs[dataset.target]:
+			e_array.append(e.weight)
+	
+	error = sum(e_array)
+	return (1./2)*log2((1-error)/error)
 
 def adaBoost(R, dataset):
-    hypotheses = [(DecisionTree(1), 0.) for r in range(R)]
+    hypotheses = [{hypothesis:DecisionTree(1), weight:0.} for r in range(R)]
     for r in range(R):
         # create a hypothesis
         hypothesis = learn(dataset)
@@ -180,6 +192,7 @@ def adaBoost(R, dataset):
         weight = calculate_weight(hypothesis, dataset)
         # put it in the list
         hypotheses[r] = (hypothesis, weight)
+	return hypotheses
 
 
 def main():
