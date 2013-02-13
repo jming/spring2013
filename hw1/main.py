@@ -244,11 +244,11 @@ def main():
             score_pruned_training[validation_size] += pruned_accuracy_training / k
             score_original_training[validation_size] += original_accuracy_trainig / k
 
-    
+
     #print 'pruned', mean(score_pruned_test)
     #print 'original', mean(score_original_test)
     #print mean(score_pruned_training)
-            
+
     '''CODE FOR PLOTTING REMOVE LATER
     plt.clf()
     xs = range(1, len(score_pruned_training))
@@ -267,9 +267,9 @@ def main():
     plt.legend(((p1,), (p3,)), ('pruned training','pruned test'), 'lower center')
     savefig('nguyen-ming-noisy.pdf') # save the figure to a file
     plt.show() # show the figure'''
-    
+
     # print score_validation
-    # print score_original    
+    # print score_original
     #print score_pruned_test
     #print score_original_test
     #print score_pruned_training

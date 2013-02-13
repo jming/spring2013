@@ -29,7 +29,7 @@ class DataSet:
                   If not None, an erroneous value raises ValueError.
     d.name        Name of the data set (for output display only).
     d.source      URL or other source where the data came from.
-    
+
     Configuration Parameters
     d.max_depth      The max_depth for decision trees (optional; default=-1)
     d.use_boosting   Whether or not boosting should be used to train.
@@ -305,6 +305,7 @@ Yes, No = True, False
         
 #______________________________________________________________________________
 
+
 class DecisionTreeLearner(Learner):
 
     def predict(self, example):
@@ -321,7 +322,7 @@ class DecisionTreeLearner(Learner):
         elif self.all_same_class(examples):
             return DecisionTree(DecisionTree.LEAF,
                                 classification=examples[0].attrs[self.dataset.target])
-        elif  len(attrs) == 0:
+        elif len(attrs) == 0:
             return DecisionTree(DecisionTree.LEAF, classification=self.majority_value(examples))
         else:
             best = self.choose_attribute(attrs, examples)
@@ -341,7 +342,8 @@ class DecisionTreeLearner(Learner):
         target = self.dataset.target
         class0 = examples[0].attrs[target]
         for e in examples:
-           if e.attrs[target] != class0: return False
+            if e.attrs[target] != class0:
+                return False
         return True
 
     def majority_value(self, examples):
@@ -353,12 +355,27 @@ class DecisionTreeLearner(Learner):
 
     def count(self, attr, val, examples):
         return count_if(lambda e: e.attrs[attr] == val, examples)
-    
+
+# def count_if(predicate, seq):
+#     """Count the number of elements of seq for which the predicate is true.
+#     >>> count_if(callable, [42, None, max, min])
+#     2
+#     """
+#     f = lambda count, x: count + (not not predicate(x))
+#     return reduce(f, seq, 0)
+
+    def count_weights(self, attr, val, examples):
+        count = 0.
+        for e in examples:
+            if e.attrs[attr] == val:
+                count += e.weight
+        return count
+
     def information_gain(self, attr, examples):
         def I(examples):
             target = self.dataset.target
-            return information_content([self.count(target, v, examples)
-                                        for v in self.dataset.values[target]])
+            return information_content(
+                [self.count_weights(target, v, examples) for v in self.dataset.values[target]])
         N = float(len(examples))
         remainder = 0
         for (v, examples_i) in self.split_by(attr, examples):
@@ -371,13 +388,12 @@ class DecisionTreeLearner(Learner):
             examples = self.dataset.examples
         return [(v, [e for e in examples if e.attrs[attr] == v])
                 for v in self.dataset.values[attr]]
-    
+
+
 def information_content(values):
     "Number of bits to represent the probability distribution in values."
-    # If the values do not sum to 1, normalize them to make them a Prob. Dist.
     values = removeall(0, values)
     s = float(sum(values))
     if s != 1.0: values = [v/s for v in values]
     return sum([- v * log2(v) for v in values])
-
 #_________________________________________________
