@@ -6,6 +6,7 @@
 
 from dtree import *
 import sys
+import math
 
 
 # makes graphs
@@ -49,6 +50,40 @@ def learn(dataset):
     learner.train(dataset)
     return learner.dt
 
+# given a tree, make into node with majority label
+def majority_chop(tree):
+	pos, count = 0., 0
+	for i in tree.branches:
+		if(tree.branches[i].nodetype == 1):
+			count += 1
+			if(tree.branches[i].nodetype == 1)
+				pos += 1
+		else:
+			tree.branches[i] = majority_chop(tree.branches[i])
+		
+		if count == len(tree.branches):
+			tree.nodetype = 1
+			if pos/count < 1./2:
+				tree.classification = 0
+			else:
+				tree.classification = 1
+	return tree
+	
+def chop(tree, k):
+	curr_depth = 0
+
+						
+				
+	
+	return tree
+		
+	
+def learn(dataset, k_depth):
+	dataset.max_depth = k_depth
+    learner = DecisionTreeLearner()
+    learner.train(dataset)
+    return chop(learner.dt, k_depth)
+	
 # main
 # ----
 # The main program loop
@@ -190,7 +225,7 @@ def hypothesis_weight(hypothesis, dataset):
             e_array.append(e.weight)
 
     error = sum(e_array)
-    return (1. / 2) * log2((1 - error) / error)
+    return (1. / 2) * math.log((1 - error) / error)
 
 
 def adaBoost(R, dataset):
