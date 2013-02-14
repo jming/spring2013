@@ -10,9 +10,10 @@ from math import *
 
 
 # makes graphs
-#import matplotlib.pyplot as plt
-#from pylab import *
-
+'''
+import matplotlib.pyplot as plt
+from pylab import *
+'''
 
 class Globals:
     noisyFlag = False
@@ -90,7 +91,7 @@ def parseArgs(args):
 def validateInput(args):
     args_map = parseArgs(args)
     valSetSize = 0
-    noisyFlag = True
+    noisyFlag = False
     pruneFlag = False
     boostRounds = -1
     maxDepth = -1
@@ -185,7 +186,7 @@ def classify_on(tree, data, target, multi):
 
 # Update weights for given examples based on correctness of hypothesis
 def example_weights(hypothesis, dataset, hyp_weight):
-    # Loop through and update weights based on correctness and hypthesis weight
+    # Loop through and update weights based on correctness and hypothesis weight
     for e in dataset.examples:
         if classify(hypothesis, e) == e.attrs[dataset.target]:
             e.weight = e.weight * exp(-hyp_weight)
@@ -223,6 +224,7 @@ def adaBoost(R, dataset):
     for r in range(R):
         # create a hypothesis
         # hypothesis = learn(dataset)
+		# set max depth for learning
         hypothesis = learn_depth(dataset, 1)
         # print "hypothesis"
         # print hypothesis
@@ -303,7 +305,22 @@ def main():
             score_boost[r] += score_test / float(k)
             score_test = 0
 
-    print score_boost
+	
+	print score_boost[1:31]
+	
+	'''
+	plt.clf()
+    xs = range(1, len(score_boost))
+    boost = score_boost[1:31]
+    p1, = plt.plot(xs, boost, color='r')
+    plt.title('Boosting Performance vs. Number of Rounds (Non-Noisy)')
+    plt.xlabel('Boosting Size')
+    plt.ylabel('Accuracy')
+    plt.axis([0, len(xs), .8, .94])
+#     plt.legend((p1,), ('boosting accuracy'), 'lower center')
+    savefig('nguyen-ming-boosting-non-noisy.pdf') # save the figure to a file
+    plt.show() # show the figure
+	'''
             # print score_test
         # learn_result = learn(learn_data)
 
