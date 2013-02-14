@@ -10,10 +10,9 @@ from math import *
 
 
 # makes graphs
-'''
-import matplotlib.pyplot as plt
-from pylab import *
-'''
+#import matplotlib.pyplot as plt
+#from pylab import *
+
 
 class Globals:
     noisyFlag = False
@@ -251,9 +250,9 @@ def main():
 
     # Read in the data file
 
-    if noisyFlag:
+	if noisyFlag:
         f = open("noisy.csv")
-    else:
+	else:
         f = open("data.csv")
 
     data = parse_csv(f.read(), " ")
@@ -289,38 +288,25 @@ def main():
     score_boost = [0. for x in range(31)]
 
     # Run k experiments
-    for i in range(k):
+	for i in range(k):
 
         # Sets bounds for k-1 partitions of data to train on
-        low = i * section_length
-        high = low + (dataset_length - section_length)
+		low = i * section_length
+		high = low + (dataset_length - section_length)
 
-        learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
-        test_exs = dataset.examples[high:high + section_length]
-        for r in range(1, 31):
-            learn_result = adaBoost(r, learn_data)
-            score_test += classify_on(learn_result, test_exs, dataset.target, True)
-            # for data in test_exs:
+		learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
+		test_exs = dataset.examples[high:high + section_length]
+		for r in range(1, 31):
+			learn_result = adaBoost(r, learn_data)
+			score_test += classify_on(learn_result, test_exs, dataset.target, True)
+			# for data in test_exs:
                 # score_test += classify_multi(learn_result, data, dataset.values[dataset.target]) / float(section_length)
-            score_boost[r] += score_test / float(k)
-            score_test = 0
+			score_boost[r] += score_test / float(k)
+			score_test = 0
 
 	
-	print score_boost[1:31]
+	print score_boost[1]
 	
-	'''
-	plt.clf()
-    xs = range(1, len(score_boost))
-    boost = score_boost[1:31]
-    p1, = plt.plot(xs, boost, color='r')
-    plt.title('Boosting Performance vs. Number of Rounds (Non-Noisy)')
-    plt.xlabel('Boosting Size')
-    plt.ylabel('Accuracy')
-    plt.axis([0, len(xs), .8, .94])
-#     plt.legend((p1,), ('boosting accuracy'), 'lower center')
-    savefig('nguyen-ming-boosting-non-noisy.pdf') # save the figure to a file
-    plt.show() # show the figure
-	'''
             # print score_test
         # learn_result = learn(learn_data)
 
