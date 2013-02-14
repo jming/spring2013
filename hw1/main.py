@@ -212,27 +212,21 @@ def prune(tree, validation):
 
         # If the child is a leaf
         if (tree.branches[i].nodetype == 1):
-
             # Track how many leafs each branch has
             count += 1
-
             # Track if target is positive
             if (tree.branches[i].classification == 1):
                 pos += 1
-
         # If the child is a subtree
         else:
             tree.branches[i] = prune(tree.branches[i], parse(validation, tree.attr, i))
 
         # If all nodes in this branch are leaves
         if count == len(tree.branches):
-
             # Classify original tree
             prior = classify_on(tree, validation, 9)
-
             # Create copy of tree with to subtree collapsed into leaf with majority label
             new_tree = DecisionTree(1)
-
             if pos / float(len(tree.branches)) > 1. / 2:
                 new_tree.classification = 1
             else:
