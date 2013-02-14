@@ -223,7 +223,7 @@ def adaBoost(R, dataset):
     for r in range(R):
         # create a hypothesis
         # hypothesis = learn(dataset)
-		# set max depth for learning
+        # set max depth for learning
         hypothesis = learn_depth(dataset, 1)
         # print "hypothesis"
         # print hypothesis
@@ -304,9 +304,9 @@ def main():
 			score_boost[r] += score_test / float(k)
 			score_test = 0
 
-	
-	print score_boost[1]
-	
+    print score_boost
+
+
             # print score_test
         # learn_result = learn(learn_data)
 
