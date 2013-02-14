@@ -6,7 +6,7 @@
 
 from dtree import *
 import sys
-import math
+from math import *
 
 
 # makes graphs
@@ -60,31 +60,43 @@ def learn(dataset):
 
 # Given a tree, make into node with majority label
 def majority_chop(tree):
+    # print tree
+
     pos, count = 0., 0
 
     # Loop through tree branches
-    for i in tree.branches:
-        # Keep track of number of leaves
-        if(tree.branches[i].nodetype == 1):
-            count += 1
-            # Keep track of number of positives
+    if tree.nodetype == 0:
+        for i in tree.branches:
+            # Keep track of number of leaves
             if(tree.branches[i].nodetype == 1):
-                pos += 1
-        else:
-            # Chop the subtrees of the tree
-            tree.branches[i] = majority_chop(tree.branches[i])
-
-        # Condense leaves into majority classification
-        if count == len(tree.branches):
-            tree.nodetype = 1
-            if pos / count < 1. / 2:
-                tree.classification = 0
+                count += 1
+                # Keep track of number of positives
+                if(tree.branches[i].nodetype == 1):
+                    pos += 1
             else:
-                tree.classification = 1
+                # print "before"
+                # print tree.branches[i]
+                # Chop the subtrees of the tree
+                tree.branches[i] = majority_chop(tree.branches[i])
+                # print "after"
+                # print tree.branches[i]
+            # Condense leaves into majority classification
+            if count == len(tree.branches):
+                tree.nodetype = 1
+                if pos / count < 1. / 2:
+                    tree.classification = 0
+                else:
+                    tree.classification = 1
+                count = 0
+                pos = 0.
+
+    return tree
 
     # return chopped tree
     # TODO: Will this properly reduce ALL branches into ONE SINGLE leaf??
-    return tree
+    # print "majchop"
+    # print tree
+    # return tree
 
 
 # Takes in a tree and chops it to established maximum depth
@@ -96,19 +108,26 @@ def chop(tree, k):
 
     # keep popping things off the queue if it is not empty
     while (len(queue) > 0):
-        v = queue.pop[0]
+        # print queue
+        v = queue.pop(0)
         # look through branches of popped off subtree
         for i in v['node'].branches:
             # If the distance is not k, keep popping children onto queue
             if v['dist'] < k:
                 # Pop only subtrees, ignore leaves
                 if v['node'].branches[i].nodetype == 0:
-                    queue.append({'node': tree.branches[i], 'dist': v['dist'] + 1})
+                    queue.append({'node': v['node'].branches[i], 'dist': v['dist'] + 1})
             # If the distance is k, reduce this subtree into leaf with majority classification
-            else:
-                majority_chop(tree.branches[i])
+            elif v['dist'] == k:
+                # print "here"
+                tree = majority_chop(v['node'])
+                # print tree
+                # TODO: Where does this go in the tree?!?
 
     # return chopped tree
+    # print "learndepth"
+    # print tree
+    # print tree
     return tree
 
 
@@ -122,7 +141,10 @@ def learn_depth(dataset, k_depth):
     # Create learner based on dataset
     learner.train(dataset)
     # Return learner chopped to max depth
-    return chop(learner.dt, k_depth)
+    chopped = chop(learner.dt, k_depth)
+    # print "chopped"
+    # print chopped
+    return chopped
 
 # main
 # ----
@@ -250,9 +272,13 @@ def classify_on(tree, data, target):
 # TODO: should we be modifying original data or making a copy??
 def example_weights(hypothesis, dataset, hyp_weight):
     # Array of non-normalised weights
-    v_array = [0. for x in range(len(dataset.examples))]
+    v_array = []
     # Loop through and update weights based on correctness and hypthesis weight
     for e in dataset.examples:
+        # print "classify"
+        # print classify(hypothesis, e)
+        # print "attrs"
+        # print e.attrs[dataset.target]
         if classify(hypothesis, e) == e.attrs[dataset.target]:
             v_array.append(e.weight * exp(-hyp_weight))
         else:
@@ -267,14 +293,16 @@ def example_weights(hypothesis, dataset, hyp_weight):
 # Weigh hypothesis based on error
 def hypothesis_weight(hypothesis, dataset):
     # Create an array of error values for each dataset example
-    e_array = [0. for x in range(len(dataset.examples))]
+    e_array = []
     for e in dataset.examples:
-        if classify(hypothesis, e) == e.attrs[dataset.target]:
+        if classify(hypothesis, e) != e.attrs[dataset.target]:
             e_array.append(e.weight)
     # Sum over all error values
+    # print e_array
     error = sum(e_array)
+    # print error
     # Return hypothesis weighing
-    return (1. / 2) * math.log((1 - error) / error)
+    return (1. / 2) * log((1 - error) / error)
 
 
 # Wrapper function for adaBoost
@@ -288,7 +316,10 @@ def adaBoost(R, dataset):
 
     for r in range(R):
         # create a hypothesis
-        hypothesis = learn(dataset)
+        # hypothesis = learn(dataset)
+        hypothesis = learn_depth(dataset, 2)
+        # print "hypothesis"
+        # print hypothesis
         # create a weight
         weight = hypothesis_weight(hypothesis, dataset)
         # put it in the list
@@ -325,100 +356,104 @@ def main():
         dataset.use_boosting = True
         dataset.num_rounds = boostRounds
 
-# PART A: Cross validation
+    print adaBoost(5, dataset)
 
-    # Sets k-fold cross validation and length of each partition of dataset
-    k = 10
+# # PART A: Cross validation
 
-    # Measures dataset_length and section_length based on data
-    dataset_length = len(examples)
-    section_length = dataset_length / k
+#     # Sets k-fold cross validation and length of each partition of dataset
+#     k = 10
 
-    # Initialize scores
-    score_test = 0
-    score_train = 0
-    score_pruned_test = [0 for x in range(81)]
-    score_original_test = [0 for x in range(81)]
-    score_pruned_training = [0 for x in range(81)]
-    score_original_training = [0 for x in range(81)]
+#     # Measures dataset_length and section_length based on data
+#     dataset_length = len(examples)
+#     section_length = dataset_length / k
 
-    # Run k experiments
-    for i in range(k):
+#     # Initialize scores
+#     score_test = 0
+#     score_train = 0
+#     score_pruned_test = [0 for x in range(81)]
+#     score_original_test = [0 for x in range(81)]
+#     score_pruned_training = [0 for x in range(81)]
+#     score_original_training = [0 for x in range(81)]
 
-        # Sets bounds for k-1 partitions of data to train on
-        low = i * section_length
-        high = low + (dataset_length - section_length)
+#     # Run k experiments
+#     for i in range(k):
 
-        learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
-        learn_result = learn(learn_data)
+#         # Sets bounds for k-1 partitions of data to train on
+#         low = i * section_length
+#         high = low + (dataset_length - section_length)
 
-        # classify on test data
-        test_exs = dataset.examples[high:high + section_length]
-        score_test += classify_on(learn_result, test_exs, dataset.target) / section_length
+#         learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
+#         learn_result = learn(learn_data)
 
-        # classify on training data
-        training_exs = dataset.examples[low:high]
-        score_train += classify_on(learn_result, training_exs, dataset.target) / section_length
+#         # classify on test data
+#         test_exs = dataset.examples[high:high + section_length]
+#         score_test += classify_on(learn_result, test_exs, dataset.target) / section_length
 
-# PART B: Post pruning
+#         # classify on training data
+#         training_exs = dataset.examples[low:high]
+#         score_train += classify_on(learn_result, training_exs, dataset.target) / section_length
 
-        # Loop through possible validation sizes [1, 80]
-        for validation_size in range(1, 81):
+# # PART B: Post pruning
 
-            # Sectioning data into training + validation + test
-            mid = high - validation_size
+#         # Loop through possible validation sizes [1, 80]
+#         for validation_size in range(1, 81):
 
-            # Build tree on training data
-            learn_data_p = DataSet(dataset.examples[low:mid], values=dataset.values)
-            learn_result_p = learn(learn_data_p)
-            learn_result_p2 = learn(learn_data_p)
+#             # Sectioning data into training + validation + test
+#             mid = high - validation_size
 
-            # Prune tree on validation data
-            pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
+#             # Build tree on training data
+#             learn_data_p = DataSet(dataset.examples[low:mid], values=dataset.values)
+#             learn_result_p = learn(learn_data_p)
+#             learn_result_p2 = learn(learn_data_p)
 
-            # Test tree on test data
-            test_data_p = dataset.examples[high:high + section_length]
-            pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target)
-            original_accuracy_test = classify_on(learn_result_p2, test_data_p, dataset.target)
-            score_pruned_test[validation_size] += pruned_accuracy_test / k
-            score_original_test[validation_size] += original_accuracy_test / k
+#             # Prune tree on validation data
+#             pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
 
-            # Test tree on training data
-            pruned_accuracy_training = classify_on(pruned_tree, learn_data_p.examples, dataset.target)
-            original_accuracy_trainig = classify_on(learn_result_p2, learn_data_p.examples, dataset.target)
-            score_pruned_training[validation_size] += pruned_accuracy_training / k
-            score_original_training[validation_size] += original_accuracy_trainig / k
+#             # Test tree on test data
+#             test_data_p = dataset.examples[high:high + section_length]
+#             pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target)
+#             original_accuracy_test = classify_on(learn_result_p2, test_data_p, dataset.target)
+#             score_pruned_test[validation_size] += pruned_accuracy_test / k
+#             score_original_test[validation_size] += original_accuracy_test / k
+
+#             # Test tree on training data
+#             pruned_accuracy_training = classify_on(pruned_tree, learn_data_p.examples, dataset.target)
+#             original_accuracy_trainig = classify_on(learn_result_p2, learn_data_p.examples, dataset.target)
+#             score_pruned_training[validation_size] += pruned_accuracy_training / k
+#             score_original_training[validation_size] += original_accuracy_trainig / k
 
 
-    #print 'pruned', mean(score_pruned_test)
-    #print 'original', mean(score_original_test)
-    #print mean(score_pruned_training)
+#     #print 'pruned', mean(score_pruned_test)
+#     #print 'original', mean(score_original_test)
+#     #print mean(score_pruned_training)
 
-    '''CODE FOR PLOTTING REMOVE LATER
-    plt.clf()
-    xs = range(1, len(score_pruned_training))
-    training1 = score_pruned_training[1:81]
-    #training2 = score_original_training[1:81]
-    test1 = score_pruned_test[1:81]
-    #test2 = score_original_test[1:81]
-    p1, = plt.plot(xs, training1, color='b')
-    #p2, = plt.plot(xs, training2, color='r')
-    p3, = plt.plot(xs, test1, color='r')
-    #p4, = plt.plot(xs, test2, color='r', ls = 'dotted')
-    plt.title('Cross-Validated Performance vs. Validation Size (Noisy)')
-    plt.xlabel('Validation Set Size')
-    plt.ylabel('Accuracy')
-    plt.axis([0, len(xs), .7, 1])
-    plt.legend(((p1,), (p3,)), ('pruned training','pruned test'), 'lower center')
-    savefig('nguyen-ming-noisy.pdf') # save the figure to a file
-    plt.show() # show the figure'''
+#     '''CODE FOR PLOTTING REMOVE LATER
+#     plt.clf()
+#     xs = range(1, len(score_pruned_training))
+#     training1 = score_pruned_training[1:81]
+#     #training2 = score_original_training[1:81]
+#     test1 = score_pruned_test[1:81]
+#     #test2 = score_original_test[1:81]
+#     p1, = plt.plot(xs, training1, color='b')
+#     #p2, = plt.plot(xs, training2, color='r')
+#     p3, = plt.plot(xs, test1, color='r')
+#     #p4, = plt.plot(xs, test2, color='r', ls = 'dotted')
+#     plt.title('Cross-Validated Performance vs. Validation Size (Noisy)')
+#     plt.xlabel('Validation Set Size')
+#     plt.ylabel('Accuracy')
+#     plt.axis([0, len(xs), .7, 1])
+#     plt.legend(((p1,), (p3,)), ('pruned training','pruned test'), 'lower center')
+#     savefig('nguyen-ming-noisy.pdf') # save the figure to a file
+#     plt.show() # show the figure'''
 
-    # print score_validation
-    # print score_original
-    #print score_pruned_test
-    #print score_original_test
-    #print score_pruned_training
-    #print score_original_training
+#     # print score_validation
+#     # print score_original
+#     #print score_pruned_test
+#     #print score_original_test
+#     #print score_pruned_training
+#     #print score_original_training
+
+# # PART C adaBoost
 
 
 main()
