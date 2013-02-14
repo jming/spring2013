@@ -290,6 +290,8 @@ def example_weights(hypothesis, dataset, hyp_weight):
     for v in range(len(v_array)):
         dataset.examples[v].weight = v_array[v] / v_sum
 
+    # print v_array
+
 
 # Weigh hypothesis based on error
 def hypothesis_weight(hypothesis, dataset):
@@ -357,42 +359,53 @@ def main():
         dataset.use_boosting = True
         dataset.num_rounds = boostRounds
 
-    print adaBoost(5, dataset)
+    # print adaBoost(5, dataset, 2)
 
-# # PART A: Cross validation
+# PART A: Cross validation
 
-#     # Sets k-fold cross validation and length of each partition of dataset
-#     k = 10
+    # Sets k-fold cross validation and length of each partition of dataset
+    k = 10
 
-#     # Measures dataset_length and section_length based on data
-#     dataset_length = len(examples)
-#     section_length = dataset_length / k
+    # Measures dataset_length and section_length based on data
+    dataset_length = len(examples)
+    section_length = dataset_length / k
 
-#     # Initialize scores
-#     score_test = 0
-#     score_train = 0
-#     score_pruned_test = [0 for x in range(81)]
-#     score_original_test = [0 for x in range(81)]
-#     score_pruned_training = [0 for x in range(81)]
-#     score_original_training = [0 for x in range(81)]
+    # Initialize scores
+    score_test = 0
+    # score_train = 0
+    # score_pruned_test = [0 for x in range(81)]
+    # score_original_test = [0 for x in range(81)]
+    # score_pruned_training = [0 for x in range(81)]
+    # score_original_training = [0 for x in range(81)]
+    score_boost = [0. for x in range(31)]
 
-#     # Run k experiments
-#     for i in range(k):
+    # Run k experiments
+    for i in range(k):
 
-#         # Sets bounds for k-1 partitions of data to train on
-#         low = i * section_length
-#         high = low + (dataset_length - section_length)
+        # Sets bounds for k-1 partitions of data to train on
+        low = i * section_length
+        high = low + (dataset_length - section_length)
 
-#         learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
-#         learn_result = learn(learn_data)
+        learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
+        test_exs = dataset.examples[high:high + section_length]
+        for r in range(1, 31):
+            learn_result = adaBoost(r, learn_data)
+            for data in test_exs:
+                score_test += classify_multi(learn_result, data) / float(section_length)
+            score_boost[r] += score_test / float(k)
+            score_test = 0
 
-#         # classify on test data
-#         test_exs = dataset.examples[high:high + section_length]
-#         score_test += classify_on(learn_result, test_exs, dataset.target) / section_length
+    print score_boost
+            # print score_test
+        # learn_result = learn(learn_data)
 
-#         # classify on training data
-#         training_exs = dataset.examples[low:high]
-#         score_train += classify_on(learn_result, training_exs, dataset.target) / section_length
+        # # classify on test data
+        # test_exs = dataset.examples[high:high + section_length]
+        # score_test += classify_on(learn_result, test_exs, dataset.target) / section_length
+
+        # # classify on training data
+        # training_exs = dataset.examples[low:high]
+        # score_train += classify_on(learn_result, training_exs, dataset.target) / section_length
 
 # # PART B: Post pruning
 

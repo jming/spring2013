@@ -331,7 +331,7 @@ class DecisionTreeLearner(Learner):
             for (v, examples_i) in self.split_by(best, examples):
                 subtree = self.decision_tree_learning(examples_i,
                   removeall(best, attrs), max_depth - 1, self.majority_value(examples))
-                print max_depth
+                # print max_depth
                 tree.add(v, subtree)
             return tree
 
