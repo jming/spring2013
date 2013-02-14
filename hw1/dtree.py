@@ -314,22 +314,24 @@ class DecisionTreeLearner(Learner):
     def train(self, dataset):
         self.dataset = dataset
         self.attrnames = dataset.attrnames
-        self.dt = self.decision_tree_learning(dataset.examples, dataset.inputs)
+        self.dt = self.decision_tree_learning(dataset.examples, dataset.inputs, dataset.max_depth)
 
-    def decision_tree_learning(self, examples, attrs, default=None):
+    def decision_tree_learning(self, examples, attrs, max_depth, default=None):
         if len(examples) == 0:
             return DecisionTree(DecisionTree.LEAF, classification=default)
         elif self.all_same_class(examples):
             return DecisionTree(DecisionTree.LEAF,
                                 classification=examples[0].attrs[self.dataset.target])
-        elif len(attrs) == 0:
+        elif len(attrs) == 0 or max_depth == 0:
             return DecisionTree(DecisionTree.LEAF, classification=self.majority_value(examples))
         else:
             best = self.choose_attribute(attrs, examples)
             tree = DecisionTree(DecisionTree.NODE, attr=best, attrname=self.attrnames[best])
+
             for (v, examples_i) in self.split_by(best, examples):
                 subtree = self.decision_tree_learning(examples_i,
-                  removeall(best, attrs), self.majority_value(examples))
+                  removeall(best, attrs), max_depth - 1, self.majority_value(examples))
+                print max_depth
                 tree.add(v, subtree)
             return tree
 

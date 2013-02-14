@@ -133,6 +133,13 @@ def chop(tree, k):
 
 # New definition of learn that takes in max depth for tree
 def learn_depth(dataset, k_depth):
+    dataset.max_depth = k_depth
+    learner = DecisionTreeLearner()
+    learner.train(dataset)
+    return learner.dt
+
+
+def learn_depth2(dataset, k_depth):
     # Set max_depth
     # TODO: Is this necessary?
     dataset.max_depth = k_depth
@@ -311,7 +318,7 @@ def adaBoost(R, dataset):
     for r in range(R):
         # create a hypothesis
         # hypothesis = learn(dataset)
-        hypothesis = learn_depth(dataset, 2)
+        hypothesis = learn_depth(dataset, 1)
         # print "hypothesis"
         # print hypothesis
         # create a weight
