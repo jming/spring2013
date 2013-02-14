@@ -31,10 +31,17 @@ def classify(decisionTree, example):
 #---------
 
 
+# Takes in a weighted list of trees and returns majority classification
 def classify_multi(decisionTrees, example):
+
+    # tracks how many positive classifications
     pos = 0.
+
+    # loop through and check hypotheses and classifications
     for d in decisionTrees:
         pos += classify(d['hypothesis'], example) * d['weight']
+
+    # return majority classification based on weighing
     if(pos / sum([d['weight'] for d in decisionTrees]) < 1. / 2):
         return 0
     else:
@@ -51,47 +58,70 @@ def learn(dataset):
     return learner.dt
 
 
-# given a tree, make into node with majority label
+# Given a tree, make into node with majority label
 def majority_chop(tree):
     pos, count = 0., 0
+
+    # Loop through tree branches
     for i in tree.branches:
+        # Keep track of number of leaves
         if(tree.branches[i].nodetype == 1):
             count += 1
+            # Keep track of number of positives
             if(tree.branches[i].nodetype == 1):
                 pos += 1
         else:
+            # Chop the subtrees of the tree
             tree.branches[i] = majority_chop(tree.branches[i])
 
+        # Condense leaves into majority classification
         if count == len(tree.branches):
             tree.nodetype = 1
             if pos / count < 1. / 2:
                 tree.classification = 0
             else:
                 tree.classification = 1
+
+    # return chopped tree
+    # TODO: Will this properly reduce ALL branches into ONE SINGLE leaf??
     return tree
 
 
+# Takes in a tree and chops it to established maximum depth
 def chop(tree, k):
 
+    # initialize queue to include root node
     queue = []
     queue.append({'node': tree, 'dist': 0})
 
+    # keep popping things off the queue if it is not empty
     while (len(queue) > 0):
         v = queue.pop[0]
+        # look through branches of popped off subtree
         for i in v['node'].branches:
+            # If the distance is not k, keep popping children onto queue
             if v['dist'] < k:
+                # Pop only subtrees, ignore leaves
                 if v['node'].branches[i].nodetype == 0:
                     queue.append({'node': tree.branches[i], 'dist': v['dist'] + 1})
+            # If the distance is k, reduce this subtree into leaf with majority classification
             else:
                 majority_chop(tree.branches[i])
 
+    # return chopped tree
     return tree
 
 
-def learn2(dataset, k_depth):
+# New definition of learn that takes in max depth for tree
+def learn_depth(dataset, k_depth):
+    # Set max_depth
+    # TODO: Is this necessary?
     dataset.max_depth = k_depth
+    # Initialize learner
     learner = DecisionTreeLearner()
+    # Create learner based on dataset
     learner.train(dataset)
+    # Return learner chopped to max depth
     return chop(learner.dt, k_depth)
 
 # main
@@ -216,30 +246,42 @@ def classify_on(tree, data, target):
     return classify_score
 
 
+# Update weights for given examples based on correctness of hypothesis
+# TODO: should we be modifying original data or making a copy??
 def example_weights(hypothesis, dataset, hyp_weight):
+    # Array of non-normalised weights
     v_array = [0. for x in range(len(dataset.examples))]
+    # Loop through and update weights based on correctness and hypthesis weight
     for e in dataset.examples:
         if classify(hypothesis, e) == e.attrs[dataset.target]:
             v_array.append(e.weight * exp(-hyp_weight))
         else:
             v_array.append(e.weight * exp(hyp_weight))
+    # Sum all values of non-normalised weights
     v_sum = sum(v_array)
+    # Loop through and update weights to be normalised values
     for v in range(len(v_array)):
         dataset.examples[v].weight = v_array[v] / v_sum
 
 
+# Weigh hypothesis based on error
 def hypothesis_weight(hypothesis, dataset):
+    # Create an array of error values for each dataset example
     e_array = [0. for x in range(len(dataset.examples))]
     for e in dataset.examples:
         if classify(hypothesis, e) == e.attrs[dataset.target]:
             e_array.append(e.weight)
-
+    # Sum over all error values
     error = sum(e_array)
+    # Return hypothesis weighing
     return (1. / 2) * math.log((1 - error) / error)
 
 
+# Wrapper function for adaBoost
 def adaBoost(R, dataset):
-    hypotheses = [{hypothesis:DecisionTree(1), weight:1.} for r in range(R)]
+
+    # Array of hypotheses
+    hypotheses = []
     # initialize example weights to 1
     for d in dataset.examples:
         d.weight = 1. / len(dataset.examples)
@@ -250,10 +292,11 @@ def adaBoost(R, dataset):
         # create a weight
         weight = hypothesis_weight(hypothesis, dataset)
         # put it in the list
-        hypotheses[r] = (hypothesis, weight)
-        # update weights
+        hypotheses.append({'hypothesis': hypothesis, 'weight': weight})
+        # update weights based on correctness
         example_weights(hypothesis, dataset, weight)
 
+    # return list of hypotheses and their weights
     return hypotheses
 
 
@@ -379,4 +422,3 @@ def main():
 
 
 main()
-

@@ -356,14 +356,7 @@ class DecisionTreeLearner(Learner):
     def count(self, attr, val, examples):
         return count_if(lambda e: e.attrs[attr] == val, examples)
 
-# def count_if(predicate, seq):
-#     """Count the number of elements of seq for which the predicate is true.
-#     >>> count_if(callable, [42, None, max, min])
-#     2
-#     """
-#     f = lambda count, x: count + (not not predicate(x))
-#     return reduce(f, seq, 0)
-
+    # count not only values but also weights
     def count_weights(self, attr, val, examples):
         count = 0.
         for e in examples:
