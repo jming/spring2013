@@ -339,6 +339,7 @@ def main():
             original_accuracy_trainig = classify_on(learn_result_p2, learn_data_p.examples, dataset.target, False)
             score_pruned_training[validation_size] += pruned_accuracy_training / k
             score_original_training[validation_size] += original_accuracy_trainig / k
+	
 
 # # PART C adaBoost
 
@@ -393,7 +394,7 @@ def main():
     # print score_original_test
     # print score_boost_test
     # print score_boost_training
-    print score_pruned_training
+    #print score_pruned_training
 
 #     #print 'pruned', mean(score_pruned_test)
 #     #print 'original', mean(score_original_test)
