@@ -379,21 +379,19 @@ def main():
 
     # Part D: Training versus test performance
 
-        # for r in range(1, 15):
+        for r in range(1, 16):
 
-        #     learn_result = adaBoost(r, learn_data, 1)
-        #     score_test += classify_on(learn_result, test_exs, dataset.target, True)
-        #     score_train += classify_on(learn_result, learn_data.examples, dataset.target, True)
-        #     score_boost_test[r] += score_test / float(k)
-        #     score_boost_training[r] += score_train / float(k)
-        #     score_test = 0
-        #     score_train = 0
+            learn_result = adaBoost(r, learn_data, 1)
+            score_test = classify_on(learn_result, test_exs, dataset.target, True)
+            score_train = classify_on(learn_result, learn_data.examples, dataset.target, True)
+            score_boost_test[r] += score_test / float(k)
+            score_boost_training[r] += score_train / float(k)
 
     # print score_pruned_test
     # print score_original_test
-    # print score_boost_test
-    # print score_boost_training
-    print score_pruned_training
+    print score_boost_test
+    print score_boost_training
+    # print score_pruned_training
 
 #     #print 'pruned', mean(score_pruned_test)
 #     #print 'original', mean(score_original_test)
