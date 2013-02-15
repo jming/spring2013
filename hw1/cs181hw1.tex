@@ -87,7 +87,11 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 			\item Effect of number of boosting rounds on cross-validated performance of decision trees
 			 $$\includegraphics[width=150mm]{nguyen-ming-3D.pdf}$$
 			This is expected based on our theoretical discussion of boosting in class because
-			\item Comparing cross-validated test performance of boosting with ID3 with and without pruning.
+			\item Comparing cross-validated test performance of boosting with ID3 with/without pruning. 
+			\begin{itemize}
+			\item Comparing performance of boosting with ID3 without pruning, we see that the original ID3 without pruning has an average cross-validated training performance of 0.87 on noiseless test data. This is less than the average 0.90 of the performance of the boosting on a depth 1 tree over [1,15] rounds on the noiseless data. It has a maximum of 0.92. It makes sense that the ID3 algorithm without boosting or pruning would not have a performance that was as good as the modified algorithm.
+			\item Looking at the ID3 with pruning we see that there is a mean of 0.874 for non-noisy data over all validation set sizes [1, 80]with a maximum of 0.92. Though these numbers do not correlate exactly for comparision, for purposes of this discussion, the peaks are greater than the original ID3 without pruning or boosting. However, it is equal to the maximum of the boosting performance.
+			\end{itemize}
 			\item Comparing cross-validated training and test performance for boosting with weak learners of depth 1 over a number of rounds in [1, 15].\\
 			(graph)\\
 			The relationship between training and test performance shows that
