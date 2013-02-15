@@ -327,23 +327,22 @@ def main():
             # Prune tree on validation data
             pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
 
-            # print out best tree
-            if validation_size == 20:
-                print i, pruned_tree
-
             # Test tree on test data
             test_data_p = dataset.examples[high:high + section_length]
             pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target, False)
             original_accuracy_test = classify_on(learn_result_p2, test_data_p, dataset.target, False)
             score_pruned_test[validation_size] += pruned_accuracy_test / k
             score_original_test[validation_size] += original_accuracy_test / k
-
+			
             # Test tree on training data
             pruned_accuracy_training = classify_on(pruned_tree, learn_data_p.examples, dataset.target, False)
             original_accuracy_trainig = classify_on(learn_result_p2, learn_data_p.examples, dataset.target, False)
             score_pruned_training[validation_size] += pruned_accuracy_training / k
             score_original_training[validation_size] += original_accuracy_trainig / k
 	
+            # print out best tree
+            if validation_size == 19:
+                print i, pruned_tree, 'test:', pruned_accuracy_test, 'training:', pruned_accuracy_training
 
 # # PART C adaBoost
 
