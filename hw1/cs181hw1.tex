@@ -28,7 +28,10 @@ Joy Ming and Alisa Nguyen (9 February 2013)\\
 		where $H(B) = \frac{4}{7}\log_2 \frac{7}{4} + \frac{2}{7}\log_2\frac{7}{2}=0.985$, % Not sure about this part sorry
 		and $Remainder(X_k,B)=\frac{2}{7}(\frac{1}{2}\log_2 2+\frac{1}{2}\log_2 2+\frac{5}{7}(\frac{3}{5}\log_2 \frac{5}{3} + \frac{2}{5}\log_2 \frac{5}{2})=0.98$
 	\end{itemize}
-This example shows that ID3 has an inductive bias of strongly preferring extreme partitions and larger subsets. In this case, looking at the results of the of when both A and B are true, they have the same 1:1 ratio of positive and negative outputs, but A is preferred because it has two data points for each whereas B only has one.
+One might choose to split on $B$ first because there are more elements on the negative branch of $B$ (5 versus 3 of $a$), possibly making it more resistant to noisy data. One might choose to split on $A$ first because although its negative branch is more extremely skewed towards positive outputs (2/3 versus the 3/5 of the negative branch of $B$). 
+\newline
+\\
+This example shows that ID3 has an inductive bias of strongly preferring extreme partitions and larger subsets. In this case, looking at the results of the of when both A and B are true, they have the same 1:1 ratio of positive and negative outputs, but A is preferred because it has two data points for each whereas B only has one. 
 \item In this example, a tree that could be formed would split first on A, then B, then C, as shown below.\\
 	$$\includegraphics[width=80mm]{Q1PB.jpg}$$
 	\\This tree splits first at A, without a tie.
@@ -42,7 +45,7 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 	\item When B = 1, there is only one value for Label, or Label = 1. 
 	\item When B = 0, we are left with an even Label split which cannot be resolved by either C or D. We don't split on C because it has the same split as B so it will have a 0 information gain. We also don't split on D because for the cases where B = 0, it has the same labels and does not contribute more information. So we return the majority Label, or Label = 1.
 	\end{itemize}
-% \Tree [.A [.0 [.B [.0 [.C [.0 ?] [.1 ?]]] [.1 .1]]] [.1 [.B [.0 [.C [.0 .1] [.1 .1]]] [.1 [??]]]]]
+%\Tree [.A [.0 [.B [.0 [.C [.0 ?] [.1 ?]]] [.1 .1]]] [.1 [.B [.0 [.C [.0 .1] [.1 .1]]] [.1 [??]]]]]
 % Does the tree compile on your computer? 
 \item By eyeballing the data and looking for the sources of error, a simpler decision tree that has the same training error would be one where the A=0 branch does not split, rather, just returns a Label = 1 leaf. This can be seen first by looking at the A=0 and B = 0 branch, which splits on D into two leaves which both have Label = 1, which is redundant. However, since both of these leaves were determined using different manners (one from the data, one by taking the majority value), the algorithm does not know it is being redundant. In this case, the subtree that is splitting by D can just be replaced by a leaf Label = 1. Then looking at the B split on the A = 0 branch we see that it also has the same leaf values, which is, once again, redundant. Therefore, we can condense these into a single leaf Label = 1. This is a simpler tree that has the same training error as the original one created by the ID3 algorithm. From this example we can learn that the ID3 algorithm has inductive bias, especially because it is greedy and only chooses the single attribute with the highest information gain. It does not look back to see if what it did was necessary or statistically significant. What we did to find the simpler tree is along the lines of the logic of post-pruning--checking to see if the split was necessary and changing it.
 \end{enumerate}
@@ -86,7 +89,7 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 			For each given set of data that is the same noisyness and number of rounds, it seems the greater the maximum depth the less accurate the created learner is. This is in part because the bigger the tree, the less of a "weak" learner it is. In this example, the greater the depth the more splits the tree will go through and thus will create a higher probabilitiy of overfitting.
 			\item Effect of number of boosting rounds on cross-validated performance of decision trees:\\
 			 $$\includegraphics[width=150mm]{nguyen-ming-3D.pdf}$$\\
-			This is expected based on our theoretical discussion of boosting in class because
+			Boosting seems to improve with the number of boosting rounds, which is expected based on our discussion of boosting in class because this method is resistant to overfitting. From class, we also learned that boosting can often improve even when the training error disappears completely.
 			\item Comparing cross-validated test performance of boosting with ID3 with/without pruning. 
 			\begin{itemize}
 			\item Comparing performance of boosting with ID3 without pruning, we see that the original ID3 without pruning has an average cross-validated training performance of 0.87 on noiseless test data. This is less than the average 0.90 of the performance of the boosting on a depth 1 tree over [1,15] rounds on the noiseless data. It has a maximum of 0.92. It makes sense that the ID3 algorithm without boosting or pruning would not have a performance that was as good as the modified algorithm.
@@ -101,7 +104,7 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 
 \item Tree Analysis
 $$\includegraphics[width=150mm]{p4.jpg}$$
-\\ This is one of our most effective decision trees, generated by pruning the original tree with a validation size of 20 and using the first tree resulting from 10-fold cross validation. Its accuracy performance on the test data was 0.9, and its accuracy on the training data was 0.9155. The most important attributes in order of importance for classifying benign/malignant based on this tree are: uniformity of cell shape (attribute 4), marginal adhesion (attribute 5), clump thickness (attribute 2), bland chromatin (attribute 8), single ephitelial cell size (atribute 6), uniformity of cell state (attribute 3), bare nuclei (attribute 7) and normal nucleoli (attribute 9). We chose this tree based on its performance on the noiseless test set. Overall, decision trees of validation size 20 had the best performance on the test data.
+\\ This is one of our effective decision trees, generated by pruning the original tree with a validation size of 20 and using the first tree resulting from 10-fold cross validation. Its accuracy performance on the test data was 0.9, and its accuracy on the training data was 0.9155. The most important attributes in order of importance for classifying benign/malignant based on this tree are: uniformity of cell shape (attribute 4), marginal adhesion (attribute 5), clump thickness (attribute 2), bland chromatin (attribute 8), single ephitelial cell size (atribute 6), uniformity of cell state (attribute 3), bare nuclei (attribute 7) and normal nucleoli (attribute 9). We chose this tree based on its performance on the noiseless test set. Overall, decision trees of validation size 20 had the best performance on the test data.
 % \begin{enumerate}
 % \end{enumerate}
 
