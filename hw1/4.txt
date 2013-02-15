@@ -2,13 +2,40 @@
  validation_size = 20
  10-cross validated index = 0
  
+0 => Clump Thickness 1 - 10
+1 => Uniformity of Cell Size 1 - 10
+2 => Uniformity of Cell Shape 1 - 10
+3 => Marginal Adhesion 1 - 10
+4 => Single Epithelial Cell Size 1 - 10
+5 => Bare Nuclei 1 - 10
+6 => Bland Chromatin 1 - 10
+7 => Normal Nucleoli 1 - 10
+8 => Mitoses 1 - 10
+
+2Uniformity of Cell Shape
+	3Marginal Adhesion
+		0Clump Thickness
+			6Bland Chromatin
+				4Single Ephithelial Cell Size
+					1Uniformity of Cell Size
+						5Bare Nuclei
+							7Normal Nucleoli
+			
  DecisionTree(2, 2, 
 	{1: DecisionTree(3, 3, 
 		{1: DecisionTree(0, 0, 
-			{1: DecisionTree(6, 6, {1: Leaf(0), 2: Leaf(0), 3: 
-				DecisionTree(4, 4, {1: Leaf(0), 2: 
-					DecisionTree(1, 1, {1: 
-						DecisionTree(5, 5, {1: 
-							DecisionTree(7, 7, {1: Leaf(0), 2: Leaf(0), 3: Leaf(0), 5: Leaf(0), 6: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 2: Leaf(0), 3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 2: Leaf(0), 3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 6: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 6: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 4: Leaf(0), 5: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 2: Leaf(0), 3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 6: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 2: Leaf(0), 3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 6: Leaf(0), 7: Leaf(0), 8: Leaf(0), 10: Leaf(0)}), 2: Leaf(0), 3: Leaf(0), 4: Leaf(1), 5: Leaf(1),6: Leaf(1), 7: Leaf(1), 8: Leaf(1), 9: Leaf(1), 10: Leaf(1)}) 
+			{1: DecisionTree(6, 6, 
+			{1: Leaf(0), 2: Leaf(0), 3: DecisionTree(4, 4, 
+				{1: Leaf(0), 2: DecisionTree(1, 1, 
+						{1: DecisionTree(5, 5, 
+							{1: DecisionTree(7, 7, {1: Leaf(0), 2: Leaf(0), 3: Leaf(0), 5: Leaf(0), 6: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 
+							2: Leaf(0), 3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 
+					2: Leaf(0), 3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 6: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 
+				3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 6: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 
+			4: Leaf(0), 5: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 
+			2: Leaf(0), 3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 6: Leaf(0), 7: Leaf(0), 8: Leaf(0), 9: Leaf(0), 10: Leaf(0)}), 
+		2: Leaf(0), 3: Leaf(0), 4: Leaf(0), 5: Leaf(0), 6: Leaf(0), 7: Leaf(0), 8: Leaf(0), 10: Leaf(0)}), 
+	2: Leaf(0), 3: Leaf(0), 4: Leaf(1), 5: Leaf(1),6: Leaf(1), 7: Leaf(1), 8: Leaf(1), 9: Leaf(1), 10: Leaf(1)})
+
 test: 0.9 training
 : 0.915492957746
