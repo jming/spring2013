@@ -27,9 +27,6 @@ class Globals:
 def classify(decisionTree, example):
     return decisionTree.predict(example)
 
-##Classify Multi Tree
-#---------
-
 
 # Takes in a weighted list of trees and returns majority classification
 def classify_multi(decisionTrees, example):
@@ -46,6 +43,25 @@ def classify_multi(decisionTrees, example):
         return 0
     else:
         return 1
+
+
+# Return classification accuracy for given tree on target in examples
+def classify_on(tree, data, target, multi):
+
+    # initialize score
+    classify_score = 0.
+
+    # loop through each datapoint to check against tree classification
+    for point in range(len(data)):
+        if multi:
+            classify_result = classify_multi(tree, data[point])
+        else:
+            classify_result = classify(tree, data[point])
+        # increase score by fraction if correct
+        if (classify_result == data[point].attrs[target]):
+            classify_score += 1. / len(data)
+
+    return classify_score
 
 ##Learn
 #-------
@@ -64,46 +80,8 @@ def learn_depth(dataset, k_depth):
     learner.train(dataset)
     return learner.dt
 
-# main
-# ----
-# The main program loop
-# You should modify this function to run your experiments
-
-
-def parseArgs(args):
-  """Parses arguments vector, looking for switches of the form -key {optional value}.
-  For example:
-    parseArgs([ 'main.py', '-n', '-p', 5 ]) = { '-n':True, '-p':5 }"""
-  args_map = {}
-  curkey = None
-  for i in xrange(1, len(args)):
-    if args[i][0] == '-':
-      args_map[args[i]] = True
-      curkey = args[i]
-    else:
-      assert curkey
-      args_map[curkey] = args[i]
-      curkey = None
-  return args_map
-
-
-def validateInput(args):
-    args_map = parseArgs(args)
-    valSetSize = 0
-    noisyFlag = False
-    pruneFlag = False
-    boostRounds = -1
-    maxDepth = -1
-    if '-n' in args_map:
-      noisyFlag = True
-    if '-p' in args_map:
-      pruneFlag = True
-      valSetSize = int(args_map['-p'])
-    if '-d' in args_map:
-      maxDepth = int(args_map['-d'])
-    if '-b' in args_map:
-      boostRounds = int(args_map['-b'])
-    return [noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds]
+## Prune
+#-------
 
 
 # Parses data to include only relevant attributes
@@ -119,6 +97,7 @@ def parse(data, attr, val):
     return result
 
 
+# prunes tree based on validation set
 def prune(tree, validation):
 
     # Initialize variables
@@ -163,35 +142,22 @@ def prune(tree, validation):
 
     return tree
 
-
-# Return classification accuracy for given tree on target in examples
-def classify_on(tree, data, target, multi):
-
-    # initialize score
-    classify_score = 0.
-
-    # loop through each datapoint to check against tree classification
-    for point in range(len(data)):
-        if multi:
-            classify_result = classify_multi(tree, data[point])
-        else:
-            classify_result = classify(tree, data[point])
-        # increase score by fraction if correct
-        if (classify_result == data[point].attrs[target]):
-            classify_score += 1. / len(data)
-
-    return classify_score
+## Adaboost
+#-------
 
 
 # Update weights for given examples based on correctness of hypothesis
 def example_weights(hypothesis, dataset, hyp_weight):
+
     # Loop through and update weights based on correctness and hypthesis weight
     for e in dataset.examples:
         if classify(hypothesis, e) == e.attrs[dataset.target]:
             e.weight = e.weight * exp(-hyp_weight)
         else:
             e.weight = e.weight * exp(hyp_weight)
+    # calculate sum of all temporary weights
     v_sum = sum([e.weight for e in dataset.examples])
+    # normalise the weights based on sum of all temporary weights
     for e in dataset.examples:
         e.weight = e.weight / v_sum
 
@@ -205,7 +171,6 @@ def calculate_error(hypothesis, dataset):
         if classify(hypothesis, e) != e.attrs[dataset.target]:
             e_array.append(e.weight)
     # Sum over all error values
-    # print e_array
     error = sum(e_array)
 
     return error
@@ -242,11 +207,53 @@ def adaBoost(R, dataset, depth):
     return hypotheses
 
 
+# main
+# ----
+# The main program loop
+# You should modify this function to run your experiments
+
+
+def parseArgs(args):
+    """Parses arguments vector, looking for switches of the form -key {optional value}.
+    For example:
+    parseArgs([ 'main.py', '-n', '-p', 5 ]) = { '-n':True, '-p':5 }"""
+    args_map = {}
+    curkey = None
+    for i in xrange(1, len(args)):
+        if args[i][0] == '-':
+            args_map[args[i]] = True
+            curkey = args[i]
+        else:
+            assert curkey
+            args_map[curkey] = args[i]
+            curkey = None
+    return args_map
+
+
+def validateInput(args):
+    args_map = parseArgs(args)
+    valSetSize = 0
+    noisyFlag = False
+    pruneFlag = False
+    boostRounds = -1
+    maxDepth = -1
+    if '-n' in args_map:
+        noisyFlag = True
+    if '-p' in args_map:
+        pruneFlag = True
+        valSetSize = int(args_map['-p'])
+    if '-d' in args_map:
+        maxDepth = int(args_map['-d'])
+    if '-b' in args_map:
+        boostRounds = int(args_map['-b'])
+    return [noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds]
+
+
 def main():
 
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
-    # print noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds
+    print noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds
 
     # Read in the data file
 
@@ -267,8 +274,6 @@ def main():
         dataset.use_boosting = True
         dataset.num_rounds = boostRounds
 
-    # print adaBoost(5, dataset, 2)
-
 # PART A: Basic cross validation
 
     # Sets k-fold cross validation and length of each partition of dataset
@@ -281,14 +286,14 @@ def main():
     # Initialize scores
     score_test = 0
     score_train = 0
-    score_pruned_test = [0 for x in range(81)]
-    score_original_test = [0 for x in range(81)]
-    score_pruned_training = [0 for x in range(81)]
-    score_original_training = [0 for x in range(81)]
-    score_boost_depth = [0. for x in range(4)]
-    score_boost = [0. for x in range(31)]
-    score_boost_test = [0. for x in range(16)]
-    score_boost_training = [0. for x in range(16)]
+    score_pruned_test = [0 for x in range(valSetSize + 1)]
+    score_original_test = [0 for x in range(valSetSize + 1)]
+    score_pruned_train = [0 for x in range(valSetSize + 1)]
+    score_original_train = [0 for x in range(valSetSize + 1)]
+    # score_boost_depth = [0. for x in range(4)]
+    # score_boost = [0. for x in range(31)]
+    score_boost_test = [0. for x in range(boostRounds + 1)]
+    score_boost_train = [0. for x in range(boostRounds + 1)]
 
     # Run k experiments
     for i in range(k):
@@ -313,38 +318,45 @@ def main():
 
 # # PART B: Post pruning
 
-        # Loop through possible validation sizes [1, 80]
-        for validation_size in range(1, 81):
+        if pruneFlag:
 
-            # Sectioning data into training + validation + test
-            mid = high - validation_size
+            # Loop through possible validation sizes [1, designated size]
+            for validation_size in range(1, valSetSize + 1):
 
-            # Build tree on training data
-            learn_data_p = DataSet(dataset.examples[low:mid], values=dataset.values)
-            learn_result_p = learn(learn_data_p)
-            learn_result_p2 = learn(learn_data_p)
+                # Sectioning data into training + validation + test
+                mid = high - validation_size
 
-            # Prune tree on validation data
-            pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
+                # Build tree on training data
+                learn_data_p = DataSet(dataset.examples[low:mid], values=dataset.values)
+                learn_result_p = learn(learn_data_p)
+                learn_result_p2 = learn(learn_data_p)
 
-            # print out best tree
-            # if validation_size == 20:
-            #     print i, pruned_tree
+                # Prune tree on validation data
+                pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
 
-            # Test tree on test data
-            test_data_p = dataset.examples[high:high + section_length]
-            pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target, False)
-            original_accuracy_test = classify_on(learn_result_p2, test_data_p, dataset.target, False)
-            score_pruned_test[validation_size] += pruned_accuracy_test / k
-            score_original_test[validation_size] += original_accuracy_test / k
+                # Test tree on test data
+                test_data_p = dataset.examples[high:high + section_length]
+                pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target, False)
+                original_accuracy_test = classify_on(learn_result_p2, test_data_p, dataset.target, False)
+                score_pruned_test[validation_size] += pruned_accuracy_test / k
+                score_original_test[validation_size] += original_accuracy_test / k
 
-            # Test tree on training data
-            pruned_accuracy_training = classify_on(pruned_tree, learn_data_p.examples, dataset.target, False)
-            original_accuracy_trainig = classify_on(learn_result_p2, learn_data_p.examples, dataset.target, False)
-            score_pruned_training[validation_size] += pruned_accuracy_training / k
-            score_original_training[validation_size] += original_accuracy_trainig / k
+                # Test tree on training data
+                pruned_accuracy_train = classify_on(pruned_tree, learn_data_p.examples, dataset.target, False)
+                original_accuracy_train = classify_on(learn_result_p2, learn_data_p.examples, dataset.target, False)
+                score_pruned_train[validation_size] += pruned_accuracy_train / k
+                score_original_train[validation_size] += original_accuracy_train / k
 
 # # PART C adaBoost
+
+        if boostRounds != -1 and maxDepth != -1:
+            for r in range(1, boostRounds + 1):
+                learn_result = adaBoost(10, learn_data, maxDepth)
+                score_test = classify_on(learn_result, test_exs, dataset.target, True)
+                score_train = classify_on(learn_result, learn_data.examples, dataset.target, True)
+                score_boost_test[r] += score_test / float(k)
+                score_boost_train[r] += score_train / float(k)
+
 
     # Part A: Effect of maximum depth on cross-validated test performance for boosting
 
@@ -369,12 +381,10 @@ def main():
         # score_boost_depth[3] += score_test / float(k)
 
     # Part B: Cross-validated Test performance over
-        for r in range(1, 31):
-            learn_result = adaBoost(r, learn_data, 1)
-            score_test = classify_on(learn_result, test_exs, dataset.target, True)
-            # for data in test_exs:
-                # score_test += classify_multi(learn_result, data, dataset.values[dataset.target]) / float(section_length)
-            score_boost[r] += score_test / float(k)
+        # for r in range(1, 31):
+        #     learn_result = adaBoost(r, learn_data, 1)
+        #     score_test = classify_on(learn_result, test_exs, dataset.target, True)
+        #     score_boost[r] += score_test / float(k)
 
     # Part C: Cross validated test performance of boosting with or without pruning
 
@@ -382,20 +392,20 @@ def main():
 
     # Part D: Training versus test performance
 
-        for r in range(1, 16):
+        # for r in range(1, 16):
 
-            learn_result = adaBoost(r, learn_data, 1)
-            score_test = classify_on(learn_result, test_exs, dataset.target, True)
-            score_train = classify_on(learn_result, learn_data.examples, dataset.target, True)
-            score_boost_test[r] += score_test / float(k)
-            score_boost_training[r] += score_train / float(k)
+        #     learn_result = adaBoost(r, learn_data, 1)
+        #     score_test = classify_on(learn_result, test_exs, dataset.target, True)
+        #     score_train = classify_on(learn_result, learn_data.examples, dataset.target, True)
+        #     score_boost_test[r] += score_test / float(k)
+        #     score_boost_training[r] += score_train / float(k)
 
-    print score_test, score_test / 10.
+    # print score_test, score_test / 10.
     # print score_train
-    print sum(score_pruned_test) / 80., max(score_pruned_test), score_pruned_test
-    print sum(score_original_test) / 80., max(score_original_test), score_original_test
-    print sum(score_boost_test) / 15., max(score_boost_test), score_boost_test
-    print sum(score_boost) / 30., max(score_boost), score_boost
+    # print sum(score_pruned_test) / 80., max(score_pruned_test), score_pruned_test
+    # print sum(score_original_test) / 80., max(score_original_test), score_original_test
+    # print sum(score_boost_test) / 15., max(score_boost_test), score_boost_test
+    # print sum(score_boost) / 30., max(score_boost), score_boost
     # print score_boost_training
     # print score_pruned_training
 
