@@ -10,10 +10,9 @@ from math import *
 
 
 # makes graphs
-'''
-import matplotlib.pyplot as plt
-from pylab import *
-'''
+#import matplotlib.pyplot as plt
+#from pylab import *
+
 
 class Globals:
     noisyFlag = False
@@ -186,7 +185,7 @@ def classify_on(tree, data, target, multi):
 
 # Update weights for given examples based on correctness of hypothesis
 def example_weights(hypothesis, dataset, hyp_weight):
-    # Loop through and update weights based on correctness and hypothesis weight
+    # Loop through and update weights based on correctness and hypthesis weight
     for e in dataset.examples:
         if classify(hypothesis, e) == e.attrs[dataset.target]:
             e.weight = e.weight * exp(-hyp_weight)
@@ -302,8 +301,10 @@ def main():
         learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
         test_exs = dataset.examples[high:high + section_length]
 
+
     # print score_boost
         # print score_test
+
         # learn_result = learn(learn_data)
 
         # # classify on test data
