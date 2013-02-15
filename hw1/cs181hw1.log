@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  15 FEB 2013 01:42
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  15 FEB 2013 02:02
 entering extended mode
 **C:/Users/Alisa/Documents/GitHub/spring2013/hw1/cs181hw1.tex
 (C:/Users/Alisa/Documents/GitHub/spring2013/hw1/cs181hw1.tex
@@ -210,22 +210,22 @@ File: nguyen-ming-2bi.pdf Graphic file (type pdf)
 Package pdftex.def Info: nguyen-ming-2bi.pdf used on input line 63.
 (pdftex.def)             Requested size: 426.79134pt x 320.09303pt.
  [2] [3 <C:/Users/Alisa/Documents/GitHub/spring2013/hw1/nguyen-ming-2bi.pdf>] <
-nguyen-ming-boosting.pdf, id=61, 578.16pt x 433.62pt>
-File: nguyen-ming-boosting.pdf Graphic file (type pdf)
+nguyen-ming-3D.pdf, id=61, 578.16pt x 433.62pt>
+File: nguyen-ming-3D.pdf Graphic file (type pdf)
 
-<use nguyen-ming-boosting.pdf>
-Package pdftex.def Info: nguyen-ming-boosting.pdf used on input line 92.
+<use nguyen-ming-3D.pdf>
+Package pdftex.def Info: nguyen-ming-3D.pdf used on input line 92.
 (pdftex.def)             Requested size: 426.79134pt x 320.09303pt.
 
 Overfull \hbox (11.45792pt too wide) detected at line 92
 []
  []
 
-[4 <C:/Users/Alisa/Documents/GitHub/spring2013/hw1/nguyen-ming-boosting.pdf>]
+[4 <C:/Users/Alisa/Documents/GitHub/spring2013/hw1/nguyen-ming-3D.pdf>]
 (C:\Users\Alisa\Documents\GitHub\spring2013\hw1\cs181hw1.aux) ) 
 Here is how much of TeX's memory you used:
  2050 strings out of 494045
- 25579 string characters out of 3148388
+ 25549 string characters out of 3148388
  79649 words of memory out of 3000000
  5337 multiletter control sequences out of 15000+200000
  9212 words of font info for 37 fonts, out of 3000000 for 9000
@@ -239,7 +239,7 @@ public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
 sfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on cs181hw1.pdf (4 pages, 409257 bytes).
+Output written on cs181hw1.pdf (4 pages, 408913 bytes).
 PDF statistics:
  131 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
