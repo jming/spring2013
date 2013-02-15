@@ -90,7 +90,7 @@ def parseArgs(args):
 def validateInput(args):
     args_map = parseArgs(args)
     valSetSize = 0
-    noisyFlag = True
+    noisyFlag = False
     pruneFlag = False
     boostRounds = -1
     maxDepth = -1
@@ -317,32 +317,32 @@ def main():
 
 # # PART B: Post pruning
 
-        # # Loop through possible validation sizes [1, 80]
-        # for validation_size in range(1, 81):
+        # Loop through possible validation sizes [1, 80]
+        for validation_size in range(1, 81):
 
-        #     # Sectioning data into training + validation + test
-        #     mid = high - validation_size
+            # Sectioning data into training + validation + test
+            mid = high - validation_size
 
-        #     # Build tree on training data
-        #     learn_data_p = DataSet(dataset.examples[low:mid], values=dataset.values)
-        #     learn_result_p = learn(learn_data_p)
-        #     learn_result_p2 = learn(learn_data_p)
+            # Build tree on training data
+            learn_data_p = DataSet(dataset.examples[low:mid], values=dataset.values)
+            learn_result_p = learn(learn_data_p)
+            learn_result_p2 = learn(learn_data_p)
 
-        #     # Prune tree on validation data
-        #     pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
+            # Prune tree on validation data
+            pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
 
-        #     # Test tree on test data
-        #     test_data_p = dataset.examples[high:high + section_length]
-        #     pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target, False)
-        #     original_accuracy_test = classify_on(learn_result_p2, test_data_p, dataset.target, False)
-        #     score_pruned_test[validation_size] += pruned_accuracy_test / k
-        #     score_original_test[validation_size] += original_accuracy_test / k
+            # Test tree on test data
+            test_data_p = dataset.examples[high:high + section_length]
+            pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target, False)
+            original_accuracy_test = classify_on(learn_result_p2, test_data_p, dataset.target, False)
+            score_pruned_test[validation_size] += pruned_accuracy_test / k
+            score_original_test[validation_size] += original_accuracy_test / k
 
-        #     # Test tree on training data
-        #     pruned_accuracy_training = classify_on(pruned_tree, learn_data_p.examples, dataset.target, False)
-        #     original_accuracy_trainig = classify_on(learn_result_p2, learn_data_p.examples, dataset.target, False)
-        #     score_pruned_training[validation_size] += pruned_accuracy_training / k
-        #     score_original_training[validation_size] += original_accuracy_trainig / k
+            # Test tree on training data
+            pruned_accuracy_training = classify_on(pruned_tree, learn_data_p.examples, dataset.target, False)
+            original_accuracy_trainig = classify_on(learn_result_p2, learn_data_p.examples, dataset.target, False)
+            score_pruned_training[validation_size] += pruned_accuracy_training / k
+            score_original_training[validation_size] += original_accuracy_trainig / k
 
 # # PART C adaBoost
 
@@ -383,20 +383,20 @@ def main():
 
     # Part D: Training versus test performance
 
-        for r in range(1, 15):
+        # for r in range(1, 15):
 
-            learn_result = adaBoost(r, learn_data, 1)
-            score_test += classify_on(learn_result, test_exs, dataset.target, True)
-            score_training += classify_on(learn_result, learn_data.examples, dataset.target, True)
-            score_boost_test[r] += score_test / float(k)
-            score_boost_training[r] += score_training / float(k)
-            score_test = 0
-            score_training = 0
+        #     learn_result = adaBoost(r, learn_data, 1)
+        #     score_test += classify_on(learn_result, test_exs, dataset.target, True)
+        #     score_training += classify_on(learn_result, learn_data.examples, dataset.target, True)
+        #     score_boost_test[r] += score_test / float(k)
+        #     score_boost_training[r] += score_training / float(k)
+        #     score_test = 0
+        #     score_training = 0
 
     print score_pruned_test
-    print score_pruned_training
-    #print score_boost_test
-    #print score_boost_training
+    print score_original_test
+    # print score_boost_test
+    # print score_boost_training
 
 #     #print 'pruned', mean(score_pruned_test)
 #     #print 'original', mean(score_original_test)
