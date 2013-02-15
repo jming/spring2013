@@ -327,6 +327,10 @@ def main():
             # Prune tree on validation data
             pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
 
+            # print out best tree
+            if validation_size == 20:
+                print i, pruned_tree
+
             # Test tree on test data
             test_data_p = dataset.examples[high:high + section_length]
             pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target, False)
@@ -390,9 +394,8 @@ def main():
 
     # print score_pruned_test
     # print score_original_test
-
-    print score_boost_test
-    print score_boost_training
+    # print score_boost_test
+    # print score_boost_training
     # print score_pruned_training
 
 #     #print 'pruned', mean(score_pruned_test)
