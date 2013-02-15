@@ -393,10 +393,10 @@ def main():
             score_test = 0
             score_training = 0
 
-    # print score_pruned_test
-    # print score_original_test
-    print score_boost_test
-    print score_boost_training
+    print score_pruned_test
+    print score_pruned_training
+    #print score_boost_test
+    #print score_boost_training
 
 #     #print 'pruned', mean(score_pruned_test)
 #     #print 'original', mean(score_original_test)
