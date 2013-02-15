@@ -185,7 +185,7 @@ def classify_on(tree, data, target, multi):
 
 # Update weights for given examples based on correctness of hypothesis
 def example_weights(hypothesis, dataset, hyp_weight):
-    # Loop through and update weights based on correctness and hypothesis weight
+    # Loop through and update weights based on correctness and hypthesis weight
     for e in dataset.examples:
         if classify(hypothesis, e) == e.attrs[dataset.target]:
             e.weight = e.weight * exp(-hyp_weight)
@@ -223,7 +223,6 @@ def adaBoost(R, dataset):
     for r in range(R):
         # create a hypothesis
         # hypothesis = learn(dataset)
-        # set max depth for learning
         hypothesis = learn_depth(dataset, 1)
         # print "hypothesis"
         # print hypothesis
@@ -250,9 +249,9 @@ def main():
 
     # Read in the data file
 
-	if noisyFlag:
+    if noisyFlag:
         f = open("noisy.csv")
-	else:
+    else:
         f = open("data.csv")
 
     data = parse_csv(f.read(), " ")
@@ -288,25 +287,24 @@ def main():
     score_boost = [0. for x in range(31)]
 
     # Run k experiments
-	for i in range(k):
+    for i in range(k):
 
         # Sets bounds for k-1 partitions of data to train on
-		low = i * section_length
-		high = low + (dataset_length - section_length)
+        low = i * section_length
+        high = low + (dataset_length - section_length)
 
-		learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
-		test_exs = dataset.examples[high:high + section_length]
-		for r in range(1, 31):
-			learn_result = adaBoost(r, learn_data)
-			score_test += classify_on(learn_result, test_exs, dataset.target, True)
-			# for data in test_exs:
+        learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
+        test_exs = dataset.examples[high:high + section_length]
+        for r in range(1, 31):
+            learn_result = adaBoost(r, learn_data)
+            score_test += classify_on(learn_result, test_exs, dataset.target, True)
+            # for data in test_exs:
                 # score_test += classify_multi(learn_result, data, dataset.values[dataset.target]) / float(section_length)
-			score_boost[r] += score_test / float(k)
-			score_test = 0
+            score_boost[r] += score_test / float(k)
+            score_test = 0
 
-    print score_boost
-
-
+    #print score_test
+	print score_boost
             # print score_test
         # learn_result = learn(learn_data)
 
