@@ -44,8 +44,7 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 	\end{itemize}
 % \Tree [.A [.0 [.B [.0 [.C [.0 ?] [.1 ?]]] [.1 .1]]] [.1 [.B [.0 [.C [.0 .1] [.1 .1]]] [.1 [??]]]]]
 % Does the tree compile on your computer? 
-\item By eyeballing the data  
-From this example we can learn that the ID3 algorithm has inductive bias, especially because it is greedy and only chooses the single attribute with the highest information gain. 
+\item By eyeballing the data and looking for the sources of error, a simpler decision tree that has the same training error would be one where the A=0 branch does not split, rather, just returns a Label = 1 leaf. This can be seen first by looking at the A=0 and B = 0 branch, which splits on D into two leaves which both have Label = 1, which is redundant. However, since both of these leaves were determined using different manners (one from the data, one by taking the majority value), the algorithm does not know it is being redundant. In this case, the subtree that is splitting by D can just be replaced by a leaf Label = 1. Then looking at the B split on the A = 0 branch we see that it also has the same leaf values, which is, once again, redundant. Therefore, we can condense these into a single leaf Label = 1. This is a simpler tree that has the same training error as the original one created by the ID3 algorithm. From this example we can learn that the ID3 algorithm has inductive bias, especially because it is greedy and only chooses the single attribute with the highest information gain. It does not look back to see if what it did was necessary or statistically significant. What we did to find the simpler tree is along the lines of the logic of post-pruning--checking to see if the split was necessary and changing it.
 \end{enumerate}
 
 \item ID3 with Pruning
