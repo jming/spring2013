@@ -30,25 +30,22 @@ Joy Ming and Alisa Nguyen (9 February 2013)\\
 	\end{itemize}
 This example shows that ID3 has an inductive bias of strongly preferring extreme partitions and larger subsets. In this case, looking at the results of the of when both A and B are true, they have the same 1:1 ratio of positive and negative outputs, but A is preferred because it has two data points for each whereas B only has one. IS THIS TRUE??
 \item In this example, a tree that could be formed would split first on A, then B, then C, as shown below.\\
-	$$\includegraphics[width=90mm]{Q1PB.jpg}$$
+	$$\includegraphics[width=80mm]{Q1PB.jpg}$$
 	\\This tree splits first at A, without a tie.
 	\\ Then following A = 1, both B and C have the same information gain so we split on B to proceed alphabetically. 
 	\begin{itemize}
 	\item Where B = 1 there is only one output, Label = 0, so we return a leaf.  
 	\item Where B = 0 there are different outputs so we split on C, which returning two leaves: when C = 1, Label = 0 and when C = 0, Label = 1. 
 	\end{itemize}
-	Following A = 0, both B and C have same information gain, and we split on B for the same reasons as above. 
+	Following A = 0, both B and C have same information gain, and we split on B for the same reasons as above (simple alphabetical ordering). 
 	\begin{itemize}
 	\item When B = 1, there is only one value for Label, or Label = 1. 
-	\item When B = 0 we split on C because it has higher information gain than D. Since there are no cases where A = 0, B = 0 and C = 1, we return the majority Label = 1. Since there are still too many possible labels for C = 0, we split on D.
-		\begin{itemize}
-		\item Since there are no examples where A = 0, B = 0, C = 0, D = 0, we return the majority Label = 1.
-		\item Since there are equal number of examples for both possible labels for D = 0, we broke this tie be returning the majority label, in this case, Label = 1. 
-		\end{itemize}
+	\item When B = 0, we are left with an even Label split which cannot be resolved by either C or D. We don't split on C because it has the same split as B so it will have a 0 information gain. We also don't split on D because for the cases where B = 0, it has the same labels and does not contribute more information. So we return the majority Label, or Label = 1.
 	\end{itemize}
 % \Tree [.A [.0 [.B [.0 [.C [.0 ?] [.1 ?]]] [.1 .1]]] [.1 [.B [.0 [.C [.0 .1] [.1 .1]]] [.1 [??]]]]]
 % Does the tree compile on your computer? 
-\item By eyeballing the data we can see first and foremost since there are equal numbers of B = 0 and C = 0 as well as B = 1 and C = 1 respectively for the A = 0 case, that splitting on the C branch is unnecessary. Therefore, creating a tree that, for the A = 0 path splits only on B and then D would create a tree with the same training error as the one produced by ID3. From this example we can learn that the ID3 algorithm has inductive bias, especially because it is greedy and only chooses the single attribute with the highest information gain. 
+\item By eyeballing the data  
+From this example we can learn that the ID3 algorithm has inductive bias, especially because it is greedy and only chooses the single attribute with the highest information gain. 
 \end{enumerate}
 
 \item ID3 with Pruning
