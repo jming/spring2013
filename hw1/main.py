@@ -90,7 +90,7 @@ def parseArgs(args):
 def validateInput(args):
     args_map = parseArgs(args)
     valSetSize = 0
-    noisyFlag = False
+    noisyFlag = True
     pruneFlag = False
     boostRounds = -1
     maxDepth = -1
@@ -269,7 +269,7 @@ def main():
 
     # print adaBoost(5, dataset, 2)
 
-# PART A: Cross validation
+# PART A: Basic cross validation
 
     # Sets k-fold cross validation and length of each partition of dataset
     k = 10
@@ -280,8 +280,7 @@ def main():
 
     # Initialize scores
     score_test = 0
-    score_training = 0
-    # score_train = 0
+    score_train = 0
     score_pruned_test = [0 for x in range(81)]
     score_original_test = [0 for x in range(81)]
     score_pruned_training = [0 for x in range(81)]
@@ -301,19 +300,16 @@ def main():
         learn_data = DataSet(dataset.examples[low:high], values=dataset.values)
         test_exs = dataset.examples[high:high + section_length]
 
+        # creates a learned tree based on simple id3 algorithm
+        learn_result = learn(learn_data)
 
-    # print score_boost
-        # print score_test
+        # classify on test data
+        test_exs = dataset.examples[high:high + section_length]
+        score_test += classify_on(learn_result, test_exs, dataset.target, False) / section_length
 
-        # learn_result = learn(learn_data)
-
-        # # classify on test data
-        # test_exs = dataset.examples[high:high + section_length]
-        # score_test += classify_on(learn_result, test_exs, dataset.target) / section_length
-
-        # # classify on training data
-        # training_exs = dataset.examples[low:high]
-        # score_train += classify_on(learn_result, training_exs, dataset.target) / section_length
+        # classify on training data
+        training_exs = dataset.examples[low:high]
+        score_train += classify_on(learn_result, training_exs, dataset.target, False) / section_length
 
 # # PART B: Post pruning
 
@@ -387,16 +383,17 @@ def main():
 
         #     learn_result = adaBoost(r, learn_data, 1)
         #     score_test += classify_on(learn_result, test_exs, dataset.target, True)
-        #     score_training += classify_on(learn_result, learn_data.examples, dataset.target, True)
+        #     score_train += classify_on(learn_result, learn_data.examples, dataset.target, True)
         #     score_boost_test[r] += score_test / float(k)
-        #     score_boost_training[r] += score_training / float(k)
+        #     score_boost_training[r] += score_train / float(k)
         #     score_test = 0
-        #     score_training = 0
+        #     score_train = 0
 
-    print score_pruned_test
-    print score_original_test
+    # print score_pruned_test
+    # print score_original_test
     # print score_boost_test
     # print score_boost_training
+    print score_pruned_training
 
 #     #print 'pruned', mean(score_pruned_test)
 #     #print 'original', mean(score_original_test)
