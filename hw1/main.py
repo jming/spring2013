@@ -290,8 +290,6 @@ def main():
     score_original_test = [0 for x in range(valSetSize + 1)]
     score_pruned_train = [0 for x in range(valSetSize + 1)]
     score_original_train = [0 for x in range(valSetSize + 1)]
-    # score_boost_depth = [0. for x in range(4)]
-    # score_boost = [0. for x in range(31)]
     score_boost_test = [0. for x in range(boostRounds + 1)]
     score_boost_train = [0. for x in range(boostRounds + 1)]
 
@@ -316,7 +314,7 @@ def main():
         training_exs = dataset.examples[low:high]
         score_train += classify_on(learn_result, training_exs, dataset.target, False) / section_length
 
-# # PART B: Post pruning
+# PART B: Post pruning
 
         if pruneFlag:
 
@@ -347,96 +345,29 @@ def main():
                 score_pruned_train[validation_size] += pruned_accuracy_train / k
                 score_original_train[validation_size] += original_accuracy_train / k
 
-# # PART C adaBoost
+# PART C adaBoost
 
         if boostRounds != -1 and maxDepth != -1:
+            # generate array of scores for given number of rounds
             for r in range(1, boostRounds + 1):
-                learn_result = adaBoost(10, learn_data, maxDepth)
+                # run adaboost given number of rounds for tree of given depth
+                learn_result = adaBoost(boostRounds, learn_data, maxDepth)
+                # check classification on test and training data
                 score_test = classify_on(learn_result, test_exs, dataset.target, True)
                 score_train = classify_on(learn_result, learn_data.examples, dataset.target, True)
+                # add values to array
                 score_boost_test[r] += score_test / float(k)
                 score_boost_train[r] += score_train / float(k)
 
-
-    # Part A: Effect of maximum depth on cross-validated test performance for boosting
-
-        # # 10 rounds, depth 1
-        # learn_result = adaBoost(10, learn_data, 1)
-        # score_test = classify_on(learn_result, test_exs, dataset.target, True)
-        # score_boost_depth[0] += score_test / float(k)
-
-        # # 30 rounds, depth 1
-        # learn_result = adaBoost(30, learn_data, 1)
-        # score_test = classify_on(learn_result, test_exs, dataset.target, True)
-        # score_boost_depth[1] += score_test / float(k)
-
-        # # 10 rounds, depth 2
-        # learn_result = adaBoost(10, learn_data, 2)
-        # score_test = classify_on(learn_result, test_exs, dataset.target, True)
-        # score_boost_depth[2] += score_test / float(k)
-
-        # # 30 rounds, depth 2
-        # learn_result = adaBoost(30, learn_data, 2)
-        # score_test = classify_on(learn_result, test_exs, dataset.target, True)
-        # score_boost_depth[3] += score_test / float(k)
-
-    # Part B: Cross-validated Test performance over
-        # for r in range(1, 31):
-        #     learn_result = adaBoost(r, learn_data, 1)
-        #     score_test = classify_on(learn_result, test_exs, dataset.target, True)
-        #     score_boost[r] += score_test / float(k)
-
-    # Part C: Cross validated test performance of boosting with or without pruning
-
-        # TODO: does this part need code??
-
-    # Part D: Training versus test performance
-
-        # for r in range(1, 16):
-
-        #     learn_result = adaBoost(r, learn_data, 1)
-        #     score_test = classify_on(learn_result, test_exs, dataset.target, True)
-        #     score_train = classify_on(learn_result, learn_data.examples, dataset.target, True)
-        #     score_boost_test[r] += score_test / float(k)
-        #     score_boost_training[r] += score_train / float(k)
-
-    # print score_test, score_test / 10.
-    # print score_train
-    # print sum(score_pruned_test) / 80., max(score_pruned_test), score_pruned_test
-    # print sum(score_original_test) / 80., max(score_original_test), score_original_test
-    # print sum(score_boost_test) / 15., max(score_boost_test), score_boost_test
-    # print sum(score_boost) / 30., max(score_boost), score_boost
-    # print score_boost_training
-    # print score_pruned_training
-
-#     #print 'pruned', mean(score_pruned_test)
-#     #print 'original', mean(score_original_test)
-#     #print mean(score_pruned_training)
-
-#     '''CODE FOR PLOTTING REMOVE LATER
-#     plt.clf()
-#     xs = range(1, len(score_pruned_training))
-#     training1 = score_pruned_training[1:81]
-#     #training2 = score_original_training[1:81]
-#     test1 = score_pruned_test[1:81]
-#     #test2 = score_original_test[1:81]
-#     p1, = plt.plot(xs, training1, color='b')
-#     #p2, = plt.plot(xs, training2, color='r')
-#     p3, = plt.plot(xs, test1, color='r')
-#     #p4, = plt.plot(xs, test2, color='r', ls = 'dotted')
-#     plt.title('Cross-Validated Performance vs. Validation Size (Noisy)')
-#     plt.xlabel('Validation Set Size')
-#     plt.ylabel('Accuracy')
-#     plt.axis([0, len(xs), .7, 1])
-#     plt.legend(((p1,), (p3,)), ('pruned training','pruned test'), 'lower center')
-#     savefig('nguyen-ming-noisy.pdf') # save the figure to a file
-#     plt.show() # show the figure'''
-
-#     # print score_validation
-#     # print score_original
-
-#     #print score_pruned_training
-#     #print score_original_training
+    # print necessary results
+    print score_test
+    print score_train
+    print score_pruned_test[1:]
+    print score_original_test[1:]
+    print score_pruned_train[1:]
+    print score_original_train[1:]
+    print score_boost_test[1:]
+    print score_boost_train[1:]
 
 
 main()
