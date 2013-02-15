@@ -21,17 +21,34 @@ Joy Ming and Alisa Nguyen (9 February 2013)\\
 \begin{enumerate}
 \item ID3 will chose to split on \fbox{A} because it has a higher information gain.
 	\begin{itemize}
-	\item Splitting on A will have an information gain of $Gain(X_k,A)=H(A)-Remainder(X_k,A)=0.02$, 
+	\item Splitting on A will have an information gain of $Gain(X_k,A)=H(A)-Remainder(X_k,A)=$ \fbox{0.025}, 
 		where $H(A) = \frac{3}{7}\log_2 \frac{7}{3} + \frac{4}{7}\log_2\frac{7}{4}=0.985$, % Not sure about this part sorry
-		and $Remainder(X_k,A)=\frac{4}{7}(\frac{2}{4}\log_2 2+\frac{2}{4}\log_2 2+\frac{3}{7}(\frac{2}{3}\log_2 \frac{3}{2} + \frac{1}{3}\log_2 3) = 0.965$
-	\item Splitting on B will have an information gain of $Gain(X_k,B)=H(B)-Remainder(X_k,B)=0.005$, 
-		where $H(B) = \frac{2}{7}\log_2 \frac{7}{2} + \frac{5}{7}\log_2\frac{7}{5}=0.985$, % Not sure about this part sorry
+		and $Remainder(X_k,A)=\frac{4}{7}(\frac{2}{4}\log_2 2+\frac{2}{4}\log_2 2+\frac{3}{7}(\frac{2}{3}\log_2 \frac{3}{2} + \frac{1}{3}\log_2 3) = 0.96$
+	\item Splitting on B will have an information gain of $Gain(X_k,B)=H(B)-Remainder(X_k,B)=$ \fbox{0.005}, 
+		where $H(B) = \frac{4}{7}\log_2 \frac{7}{4} + \frac{2}{7}\log_2\frac{7}{2}=0.985$, % Not sure about this part sorry
 		and $Remainder(X_k,B)=\frac{2}{7}(\frac{1}{2}\log_2 2+\frac{1}{2}\log_2 2+\frac{5}{7}(\frac{3}{5}\log_2 \frac{5}{3} + \frac{2}{5}\log_2 \frac{5}{2})=0.98$
 	\end{itemize}
-This example shows that ID3 has an inductive bias of strongly preferring extreme partitions and larger subsets. In this case, looking at the results of the 
-\item In this example, a tree that could be formed would split first on A, then B, then C, as shown below.
+This example shows that ID3 has an inductive bias of strongly preferring extreme partitions and larger subsets. In this case, looking at the results of the of when both A and B are true, they have the same 1:1 ratio of positive and negative outputs, but A is preferred because it has two data points for each whereas B only has one. IS THIS TRUE??
+\item In this example, a tree that could be formed would split first on A, then B, then C, as shown below.\\
+	\includegraphics[width=90mm]{Q1PB.jpg}\\
+	This tree splits first at A, without a tie. 
+	\\ Then following A = 1, both B and C have the same information gain so we split on B to proceed alphabetically. 
+	\begin{itemize}
+	\item Where B = 1 there is only one output, Label = 0, so we return a leaf.  
+	\item Where B = 0 there are different outputs so we split on C, which returning two leaves: when C = 1, Label = 0 and when C = 0, Label = 1. 
+	\end{itemize}
+	Following A = 0, both B and C have same information gain, and we split on B for the same reasons as above. 
+	\begin{itemize}
+	\item When B = 1, there is only one value for Label, or Label = 1. 
+	\item When B = 0 we split on C because it has higher information gain than D. Since there are no cases where A = 0, B = 0 and C = 1, we return the majority Label = 1. Since there are still too many possible labels for C = 0, we split on D.
+		\begin{itemize}
+		\item Since there are no examples where A = 0, B = 0, C = 0, D = 0, we return the majority Label = 1.
+		\item Since there are equal number of examples for both possible labels for D = 0, we broke this tie be returning the majority label, in this case, Label = 1. 
+		\end{itemize}
+	\end{itemize}
 % \Tree [.A [.0 [.B [.0 [.C [.0 ?] [.1 ?]]] [.1 .1]]] [.1 [.B [.0 [.C [.0 .1] [.1 .1]]] [.1 [??]]]]]
-\item By eyeballing the data
+% Does the tree compile on your computer? 
+\item By eyeballing the data we can see first and foremost since there are equal numbers of B = 0 and C = 0 as well as B = 1 and C = 1 respectively for the A = 0 case, that splitting on the C branch is unnecessary. Therefore, creating a tree that, for the A = 0 path splits only on B and then D would create a tree with the same training error as the one produced by ID3. From this example we can learn that the ID3 algorithm has inductive bias, especially because it is greedy and only chooses the single attribute with the highest information gain. 
 \end{enumerate}
 
 \item ID3 with Pruning
@@ -67,7 +84,7 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 				N & 2 & 0.81 & 0.79 \\ \hline
 				NN & 2 & 0.87 & 0.87\\
 				\hline
-				\end{tabular}
+				\end{tabular}\\
 			For each given set of data that is the same noisyness and number of rounds, it seems the greater the maximum depth the less accurate the created learner is. This is in part because the bigger the tree, the less of a "weak" learner it is. In this example, the greater the depth the more splits the tree will go through and thus will create a higher probabilitiy of overfitting. NEEDS MORE BUZZ WORDS
 			\item Effect of number of boosting rounds on cross-validated performance of decision trees\\
 			(graph)\\
