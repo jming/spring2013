@@ -30,8 +30,8 @@ Joy Ming and Alisa Nguyen (9 February 2013)\\
 	\end{itemize}
 This example shows that ID3 has an inductive bias of strongly preferring extreme partitions and larger subsets. In this case, looking at the results of the of when both A and B are true, they have the same 1:1 ratio of positive and negative outputs, but A is preferred because it has two data points for each whereas B only has one. IS THIS TRUE??
 \item In this example, a tree that could be formed would split first on A, then B, then C, as shown below.\\
-	\includegraphics[width=90mm]{Q1PB.jpg}\\
-	This tree splits first at A, without a tie. 
+	$$\includegraphics[width=90mm]{Q1PB.jpg}$$
+	\\This tree splits first at A, without a tie.
 	\\ Then following A = 1, both B and C have the same information gain so we split on B to proceed alphabetically. 
 	\begin{itemize}
 	\item Where B = 1 there is only one output, Label = 0, so we return a leaf.  
@@ -60,7 +60,7 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 	\end{itemize}
 \item After the pruning function:
 	\begin{enumerate}
-	\item Graph
+	\item $$\includegraphics[width=150mm]{nguyen-ming-2bi.pdf}$$
 	\item The cross-validated performance of the validation set pruning improves at first, as the valdiation increases from 1, peaks at a point around size 40 to 60, and then worsens in performance as the validation set size becomes too large and overfitting becomes an issue.
 	\item The validation set pruning improves the cross-validated performance of ID3 on these data for all the data points leading up to the peak when comparing against validation-size. After the peak, pruning gives us similar and sometimes slightly worse results than the cross-validated performance of ID3. On the nosy data, the average cross-validated test perfromance with pruning on the non-noisy dataset is 0.8599 and without pruning 0.855.
 	\item Overfitting is an issue for these data, as evidenced by the dropoff after a peak when the validation set size gets too large. ELABORATE.
@@ -75,19 +75,21 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 	\begin{enumerate} 
 	\item Analyze the effectiveness of boosting:
 		\begin{enumerate}
-			\item Effect of maximum depth on cross validated boosting in noisy and not noisy data
+			\item Effect of maximum depth on cross validated boosting in noisy(Y) and noise-less(N) data
+				\begin{center}
 				\begin{tabular}{|c|c|c|c|}
 				\hline
 				Noisy? & Max depth & $R = 10$ & $R = 30$\\ \hline
-				N & 1 & 0.82 & 0.84\\ \hline
-				NN & 1 & 0.89 & 0.91\\ \hline
-				N & 2 & 0.81 & 0.79 \\ \hline
-				NN & 2 & 0.87 & 0.87\\
+				Y & 1 & 0.82 & 0.84\\ \hline
+				N & 1 & 0.89 & 0.91\\ \hline
+				Y & 2 & 0.81 & 0.79 \\ \hline
+				N & 2 & 0.87 & 0.87\\
 				\hline
-				\end{tabular}\\
+				\end{tabular}
+				\end{center}
 			For each given set of data that is the same noisyness and number of rounds, it seems the greater the maximum depth the less accurate the created learner is. This is in part because the bigger the tree, the less of a "weak" learner it is. In this example, the greater the depth the more splits the tree will go through and thus will create a higher probabilitiy of overfitting. NEEDS MORE BUZZ WORDS
-			\item Effect of number of boosting rounds on cross-validated performance of decision trees\\
-			(graph)\\
+			\item Effect of number of boosting rounds on cross-validated performance of decision trees
+			 $$\includegraphics[width=150mm]{nguyen-ming-boosting.pdf}$$
 			This is expected based on our theoretical discussion of boosting in class because
 			\item Comparing cross-validated test performance of boosting with ID3 with and without pruning.
 			\item Comparing cross-validated training and test performance for boosting with weak learners of depth 1 over a number of rounds in [1, 15].\\
