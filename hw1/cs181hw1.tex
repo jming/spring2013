@@ -28,7 +28,7 @@ Joy Ming and Alisa Nguyen (9 February 2013)\\
 		where $H(B) = \frac{4}{7}\log_2 \frac{7}{4} + \frac{2}{7}\log_2\frac{7}{2}=0.985$, % Not sure about this part sorry
 		and $Remainder(X_k,B)=\frac{2}{7}(\frac{1}{2}\log_2 2+\frac{1}{2}\log_2 2+\frac{5}{7}(\frac{3}{5}\log_2 \frac{5}{3} + \frac{2}{5}\log_2 \frac{5}{2})=0.98$
 	\end{itemize}
-This example shows that ID3 has an inductive bias of strongly preferring extreme partitions and larger subsets. In this case, looking at the results of the of when both A and B are true, they have the same 1:1 ratio of positive and negative outputs, but A is preferred because it has two data points for each whereas B only has one. IS THIS TRUE??
+This example shows that ID3 has an inductive bias of strongly preferring extreme partitions and larger subsets. In this case, looking at the results of the of when both A and B are true, they have the same 1:1 ratio of positive and negative outputs, but A is preferred because it has two data points for each whereas B only has one.
 \item In this example, a tree that could be formed would split first on A, then B, then C, as shown below.\\
 	$$\includegraphics[width=80mm]{Q1PB.jpg}$$
 	\\This tree splits first at A, without a tie.
@@ -92,11 +92,9 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 			\item Comparing performance of boosting with ID3 without pruning, we see that the original ID3 without pruning has an average cross-validated training performance of 0.87 on noiseless test data. This is less than the average 0.90 of the performance of the boosting on a depth 1 tree over [1,15] rounds on the noiseless data. It has a maximum of 0.92. It makes sense that the ID3 algorithm without boosting or pruning would not have a performance that was as good as the modified algorithm.
 			\item Looking at the ID3 with pruning we see that there is a mean of 0.874 for non-noisy data over all validation set sizes [1, 80]with a maximum of 0.92. Though these numbers do not correlate exactly for comparision, for purposes of this discussion, the peaks are greater than the original ID3 without pruning or boosting. However, it is equal to the maximum of the boosting performance.
 			\end{itemize}
-			\item Comparing cross-validated training and test performance for boosting with weak learners of depth 1 over a number of rounds in [1, 15].\\
-			(graph)\\
 			\item Comparing cross-validated training and test performance for boosting with weak learners of depth 1 over a number of rounds in [1, 15].
 			$$\includegraphics[width=150mm]{nguyen-ming-3D.pdf}$$
-			Training and test performance seem to be closely related in that performance for both over increasing number of rounds seem to move in very similar patterns. However the test data seems to reflect changes in performance more extremely than the training data.
+			Training and test performance seem to be closely related in that performance for both over increasing number of rounds seem to move in very similar patterns. However the test data seems to show changes to more of an extreme than training data, 
 		\end{enumerate}
 	\end{enumerate}
 \end{enumerate}
