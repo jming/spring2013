@@ -90,7 +90,7 @@ def parseArgs(args):
 def validateInput(args):
     args_map = parseArgs(args)
     valSetSize = 0
-    noisyFlag = True
+    noisyFlag = False
     pruneFlag = False
     boostRounds = -1
     maxDepth = -1
@@ -327,22 +327,22 @@ def main():
             # Prune tree on validation data
             pruned_tree = prune(learn_result_p, dataset.examples[mid:high])
 
+            # print out best tree
+            # if validation_size == 20:
+            #     print i, pruned_tree
+
             # Test tree on test data
             test_data_p = dataset.examples[high:high + section_length]
             pruned_accuracy_test = classify_on(pruned_tree, test_data_p, dataset.target, False)
             original_accuracy_test = classify_on(learn_result_p2, test_data_p, dataset.target, False)
             score_pruned_test[validation_size] += pruned_accuracy_test / k
             score_original_test[validation_size] += original_accuracy_test / k
-			
+
             # Test tree on training data
             pruned_accuracy_training = classify_on(pruned_tree, learn_data_p.examples, dataset.target, False)
             original_accuracy_trainig = classify_on(learn_result_p2, learn_data_p.examples, dataset.target, False)
             score_pruned_training[validation_size] += pruned_accuracy_training / k
             score_original_training[validation_size] += original_accuracy_trainig / k
-	
-            # print out best tree
-            if validation_size == 19:
-                print i, pruned_tree, 'test:', pruned_accuracy_test, 'training:', pruned_accuracy_training
 
 # # PART C adaBoost
 
@@ -369,13 +369,12 @@ def main():
         # score_boost_depth[3] += score_test / float(k)
 
     # Part B: Cross-validated Test performance over
-        # for r in range(1, 31):
-        #     learn_result = adaBoost(r, learn_data, 1)
-        #     score_test += classify_on(learn_result, test_exs, dataset.target, True)
-        #     # for data in test_exs:
-        #         # score_test += classify_multi(learn_result, data, dataset.values[dataset.target]) / float(section_length)
-        #     score_boost[r] += score_test / float(k)
-        #     score_test = 0
+        for r in range(1, 31):
+            learn_result = adaBoost(r, learn_data, 1)
+            score_test = classify_on(learn_result, test_exs, dataset.target, True)
+            # for data in test_exs:
+                # score_test += classify_multi(learn_result, data, dataset.values[dataset.target]) / float(section_length)
+            score_boost[r] += score_test / float(k)
 
     # Part C: Cross validated test performance of boosting with or without pruning
 
@@ -391,9 +390,12 @@ def main():
             score_boost_test[r] += score_test / float(k)
             score_boost_training[r] += score_train / float(k)
 
-    # print score_pruned_test
-    # print score_original_test
-    # print score_boost_test
+    print score_test, score_test / 10.
+    # print score_train
+    print sum(score_pruned_test) / 80., max(score_pruned_test), score_pruned_test
+    print sum(score_original_test) / 80., max(score_original_test), score_original_test
+    print sum(score_boost_test) / 15., max(score_boost_test), score_boost_test
+    print sum(score_boost) / 30., max(score_boost), score_boost
     # print score_boost_training
     # print score_pruned_training
 
