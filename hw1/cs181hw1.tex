@@ -51,8 +51,34 @@ This example shows that ID3 has an inductive bias of strongly preferring extreme
 \end{enumerate}
 
 \item Boosting
-% \begin{enumerate}
-% \end{enumerate}
+\begin{enumerate}
+	\item The weighted entropy of the set can be calculated:\\
+	$W=0.5 + \frac{0.5}{N-1}(N-1) = 1$
+	$H = 0.5\log_2 \frac{1}{0.5} + 0.5\log_2 \frac{1}{0.5} =$ \fbox{1}
+	\begin{enumerate} 
+	\item Analyze the effectiveness of boosting:
+		\begin{enumerate}
+			\item Effect of maximum depth on cross validated boosting in noisy and not noisy data
+				\begin{tabular}{|c|c|c|c|}
+				\hline
+				Noisy? & Max depth & $R = 10$ & $R = 30$\\ \hline
+				N & 1 & 0.82 & 0.84\\ \hline
+				NN & 1 & 0.89 & 0.91\\ \hline
+				N & 2 & 0.81 & 0.79 \\ \hline
+				NN & 2 & 0.87 & 0.87\\
+				\hline
+				\end{tabular}
+			For each given set of data that is the same noisyness and number of rounds, it seems the greater the maximum depth the less accurate the created learner is. This is in part because the bigger the tree, the less of a "weak" learner it is. In this example, the greater the depth the more splits the tree will go through and thus will create a higher probabilitiy of overfitting. NEEDS MORE BUZZ WORDS
+			\item Effect of number of boosting rounds on cross-validated performance of decision trees\\
+			(graph)\\
+			This is expected based on our theoretical discussion of boosting in class because
+			\item Comparing cross-validated test performance of boosting with ID3 with and without pruning.
+			\item Comparing cross-validated training and test performance for boosting with weak learners of depth 1 over a number of rounds in [1, 15].\\
+			(graph)\\
+			The relationship between training and test performance shows that
+		\end{enumerate}
+	\end{enumerate}
+\end{enumerate}
 
 \item Tree Analysis
 % \begin{enumerate}
