@@ -360,6 +360,7 @@ def main():
                 score_boost_train[r] += score_train / float(k)
 
     # print necessary results
+    print "Original scores"
     print score_test
     print score_train
     print score_pruned_test[1:]
