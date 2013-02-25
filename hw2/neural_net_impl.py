@@ -45,26 +45,30 @@ def FeedForward(network, input):
     network.inputs[i].raw_value = input[i]
 
   # 2) Propagates to hidden layer
-  activations_hidden = []
+  #activations_hidden = []
   # go through all the nodes in the hidden nodes
   for node in network.hidden_nodes:
-    a = 0.
+    z = 0.
     # sum the product of the input and weight
     for i in range(len(network.inputs)):
-      a += network.inputs[i].raw_value * node.weight[i]
+      z += network.inputs[i].raw_value * node.weights[i]
     # append to array of all activations of hidden nodes
-    activations_hidden.append(Sigmoid(a))
+	# check node
+	node.raw_value = z
+    node.transformed_value = Sigmoid(z)
 
   # 3) Propagates to the output layer
-  activations_output = []
+  #activations_output = []
   # go through all nodes in output nodes
   for node in network.outputs:
-    a = 0.
+    z = 0.
     # sum the product of the input and weight
-    for i in range(len(activations_hidden)):
-      a += activations_hidden[i] * node.weight[i]
+    for i in range(len(network.hidden_nodes)):
+      z += network.hidden_nodes[i].transormed_value * node.weights[i]
     # append to array of all activations of output nodes
-    activations_output.append(Sigmoid(a))
+	# check python syntax for using node versus network.outputs[node]
+	node.raw_value = z
+	node.transformed_value = Sigmoid(z)
 
 #< --- Problem 3, Question 2
 
@@ -110,9 +114,28 @@ def Backprop(network, input, target, learning_rate):
   """
   network.CheckComplete()
   # 1) We first propagate the input through the network
+  FeedForward(network, inputs)
   # 2) Then we compute the errors and update the weigths starting with the last layer
+  errors_outputs = []
+  for k in len(range(network.outputs)):
+    errors_outputs[k] = target[k] - network.outputs[k].transformed_value
+    for i in len(range(network.hidden_nodes)):
+    # TODO: add alpha in later
+      network.outputs[k].weights[i] += network.outputs[k].transformed_value * errors_outputs[k] 
   # 3) We now propagate the errors to the hidden layer, and update the weights there too
-  pass
+  for node in len(range(network.hidden_nodes)):
+    e = 0.
+    for i in len(range(network.outputs)):
+      e += network.hidden_nodes.forward_weights[i] * errors[i]
+    errors_hidden[node] = SigmoidPrime(network.hidden_nodes[node].raw_value) * e
+    
+    for i in len(range(network.inputs)):
+    # TODO: add alpha in later
+      network.inputs[k].weights[node] += network.inputs[k].transformed_value * errors_hidden[node] 
+  
+  #TODO: for inputs BETTER: generalize for multilayer hidden networks
+
+
 
 # <--- Problem 3, Question 3 --->
 
