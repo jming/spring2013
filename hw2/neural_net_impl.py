@@ -118,16 +118,16 @@ def Backprop(network, input, target, learning_rate):
   # 2) Then we compute the errors and update the weigths starting with the last layer
   errors_outputs = []
   for k in len(range(network.outputs)):
-    errors_outputs[k] = target[k] - network.outputs[k].transformed_value
+    network.outputs[k].delta = SigmoidPrime(network.outputs[k].raw_value) * target[k] - network.outputs[k].transformed_value
     for i in len(range(network.hidden_nodes)):
     # TODO: add alpha in later
       network.outputs[k].weights[i] += network.outputs[k].transformed_value * errors_outputs[k] 
-  # 3) We now propagate the errors to the hidden layer, and update the weights there too
-  for node in len(range(network.hidden_nodes)):
+  # 3) We now propagate the errors to the hidden layer, and update the weights there too. Iterates through hidden nodes in reverse order
+  for node in len(range(network.hidden_nodes - 1, 0)):
     e = 0.
     for i in len(range(network.outputs)):
       e += network.hidden_nodes.forward_weights[i] * errors[i]
-    errors_hidden[node] = SigmoidPrime(network.hidden_nodes[node].raw_value) * e
+    network.hidden_nodes[node].delta = SigmoidPrime(network.hidden_nodes[node].raw_value) * e
     
     for i in len(range(network.inputs)):
     # TODO: add alpha in later
