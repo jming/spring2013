@@ -39,10 +39,32 @@ def FeedForward(network, input):
   network.inputs[i].raw_value = input[i]
   """
   network.CheckComplete()
+
   # 1) Assign input values to input nodes
+  for i in input:
+    network.inputs[i].raw_value = input[i]
+
   # 2) Propagates to hidden layer
+  activations_hidden = []
+  # go through all the nodes in the hidden nodes
+  for node in network.hidden_nodes:
+    a = 0.
+    # sum the product of the input and weight
+    for i in range(len(network.inputs)):
+      a += network.inputs[i].raw_value * node.weight[i]
+    # append to array of all activations of hidden nodes
+    activations_hidden.append(Sigmoid(a))
+
   # 3) Propagates to the output layer
-  pass
+  activations_output = []
+  # go through all nodes in output nodes
+  for node in network.outputs:
+    a = 0.
+    # sum the product of the input and weight
+    for i in range(len(activations_hidden)):
+      a += activations_hidden[i] * node.weight[i]
+    # append to array of all activations of output nodes
+    activations_output.append(Sigmoid(a))
 
 #< --- Problem 3, Question 2
 
