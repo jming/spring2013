@@ -134,7 +134,7 @@ def Backprop(network, input, target, learning_rate):
       network.inputs[k].weights[node] += network.inputs[k].transformed_value * errors_hidden[node] 
   
   #TODO: for inputs BETTER: generalize for multilayer hidden networks
-
+  #TODO: ? Move all update weights outside and do it together?
 
 
 # <--- Problem 3, Question 3 --->
