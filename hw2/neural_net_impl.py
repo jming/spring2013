@@ -203,7 +203,9 @@ class EncodedNetworkFramework(NetworkFramework):
     
     """
     # Replace line below by content of function
-    raise NotImplementedError
+    a = [0.0 for i in 10]
+    a[label] = 1.0
+    return a
 
   def GetNetworkLabel(self):
     """
@@ -233,7 +235,8 @@ class EncodedNetworkFramework(NetworkFramework):
     
     """
     # Replace line below by content of function
-    raise NotImplementedError
+    a = map(lambda node: node.transformed_value, self.network.outputs)
+    return a.index(max(a))
 
   def Convert(self, image):
     """
