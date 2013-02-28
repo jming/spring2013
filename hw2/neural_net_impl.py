@@ -36,13 +36,13 @@ def FeedForward(network, input):
   In particular, you should initialize the input nodes using these input
   values:
 
-  network.inputs[i].raw_value = input[i]
+  network.inputs[i].raw_value = input.values[i]
   """
   network.CheckComplete()
 
   # 1) Assign input values to input nodes
-  for i in input:
-    network.inputs[i].raw_value = input[i]
+  for i in range(len(input.values)):
+    network.inputs[i].raw_value = input.values[i]
 
   # 2) Propagates to hidden layer
   #activations_hidden = []
@@ -56,7 +56,7 @@ def FeedForward(network, input):
   
     # check node
     node.raw_value = z
-    node.transformed_value = Sigmoid(z)
+    node.transformed_value = network.Sigmoid(z)
 
   # 3) Propagates to the output layer
   #activations_output = []
@@ -70,7 +70,7 @@ def FeedForward(network, input):
   
     # check python syntax for using node versus network.outputs[node]
     node.raw_value = z
-    node.transformed_value = Sigmoid(z)
+    node.transformed_value = network.Sigmoid(z)
 
 #< --- Problem 3, Question 2
 
@@ -116,22 +116,22 @@ def Backprop(network, input, target, learning_rate):
   """
   network.CheckComplete()
   # 1) We first propagate the input through the network
-  FeedForward(network, inputs)
+  FeedForward(network, input)
   # 2) Then we compute the errors and update the weigths starting with the last layer
   errors_outputs = []
-  for k in len(range(network.outputs)):
-    network.outputs[k].delta = SigmoidPrime(network.outputs[k].raw_value) * target[k] - network.outputs[k].transformed_value
-    for i in len(range(network.hidden_nodes)):
+  for k in range(len(network.outputs)):
+    network.outputs[k].delta = network.SigmoidPrime(network.outputs[k].raw_value) * target[k] - network.outputs[k].transformed_value
+    for i in range(len(network.hidden_nodes)):
     # TODO: add alpha in later
       network.outputs[k].weights[i] += network.outputs[k].transformed_value * errors_outputs[k] 
   # 3) We now propagate the errors to the hidden layer, and update the weights there too. Iterates through hidden nodes in reverse order
-  for node in len(range(network.hidden_nodes - 1, 0)):
+  for node in range(len(network.hidden_nodes), 0):
     e = 0.
-    for i in len(range(network.outputs)):
-      e += network.hidden_nodes.forward_weights[i] * errors[i]
-    network.hidden_nodes[node].delta = SigmoidPrime(network.hidden_nodes[node].raw_value) * e
+    for i in range(len(network.outputs)):
+      e += network.hidden_nodes[node].forward_weights[i] * errors[i]
+    network.hidden_nodes[node].delta = network.SigmoidPrime(network.hidden_nodes[node].raw_value) * e
     
-    for i in len(range(network.inputs)):
+    for i in range(len(network.inputs)):
     # TODO: add alpha in later
       network.inputs[k].weights[node] += network.inputs[k].transformed_value * errors_hidden[node] 
   
@@ -142,6 +142,7 @@ def Backprop(network, input, target, learning_rate):
 # <--- Problem 3, Question 3 --->
 
 def Train(network, inputs, targets, learning_rate, epochs):
+
   """
   Arguments:
   ---------
@@ -164,7 +165,7 @@ def Train(network, inputs, targets, learning_rate, epochs):
   
   for epoch in range(epochs):
     for i in range(len(inputs)):
-      Backprop(network, inputs[i], target[i], learning_rate)
+      Backprop(network, inputs[i], targets[i], learning_rate)
 
 
 # <--- Problem 3, Question 4 --->
@@ -205,7 +206,7 @@ class EncodedNetworkFramework(NetworkFramework):
     
     """
     # Replace line below by content of function
-    a = [0.0 for i in 10]
+    a = [0.0 for i in range(10)]
     a[label] = 1.0
     return a
 
@@ -261,9 +262,14 @@ class EncodedNetworkFramework(NetworkFramework):
     value should be 1).
     
     """
+
+    inp = Input()
+
     for i in range(14):
       for j in range(14):
-        image.pixels[i][j] = image.pixels[i][j] / 256.
+        inp.values.append(image.pixels[i][j] / 256.)
+
+    return inp
 
   def InitializeWeights(self):
     """
@@ -286,7 +292,7 @@ class EncodedNetworkFramework(NetworkFramework):
     
     """
 
-    for i in len(self.network.weights):
+    for i in range(len(self.network.weights)):
       self.network.weights[i] = random.randrange(-.01, .01)
 
 
@@ -315,14 +321,14 @@ class SimpleNetwork(EncodedNetworkFramework):
     for i in range(196):
       n = Node()
       #n.AddInput(n, false, self.INPUT)
-      self.AddNode(n, self.INPUT)
+      self.network.AddNode(n, self.network.INPUT)
     # 2) Add an output node for each possible digit label.
     for i in range(10):
       n = Node()
-      self.AddNode(n, self.OUTPUT)
+      self.network.AddNode(n, self.network.OUTPUT)
     
-    for i in self.inputs:
-      for j in self.outputs:
+    for i in self.network.inputs:
+      for j in self.network.outputs:
         i.forward_neighbors.append(j)
         j.inputs.append(i)
     
