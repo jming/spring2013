@@ -54,7 +54,7 @@ def FeedForward(network, input):
       z += network.inputs[i].raw_value * node.weights[i]
     # append to array of all activations of hidden nodes
 	# check node
-	node.raw_value = z
+    node.raw_value = z
     node.transformed_value = Sigmoid(z)
 
   # 3) Propagates to the output layer
@@ -67,8 +67,8 @@ def FeedForward(network, input):
       z += network.hidden_nodes[i].transormed_value * node.weights[i]
     # append to array of all activations of output nodes
 	# check python syntax for using node versus network.outputs[node]
-	node.raw_value = z
-	node.transformed_value = Sigmoid(z)
+    node.raw_value = z
+    node.transformed_value = Sigmoid(z)
 
 #< --- Problem 3, Question 2
 
