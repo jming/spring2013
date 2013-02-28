@@ -40,19 +40,31 @@ def FeedForward(network, input):
   """
   network.CheckComplete()
 
-  # 1) Assign input values to input nodes
+  # (1) Assign input values to input nodes
+
   for i in range(len(input.values)):
     network.inputs[i].raw_value = input.values[i]
     network.inputs[i].transformed_value = network.Sigmoid(input.values[i])
 
+  # (2) Propogate from one layer to the next
+
+  # Pick a unit j all of whose parents have been processed
+  for node in (network.hidden_nodes + network.outputs):
+    z = 0.
+    for i in range(len(node.inputs)):
+      z += node.inputs[i].transformed_value * node.weights[i].value
+    node.raw_value = z
+    node.transformed_value = network.Sigmoid(z)
+
+  '''
   # 2) Propagates to hidden layer
   #activations_hidden = []
   # go through all the nodes in the hidden nodes
   for node in network.hidden_nodes:
     z = 0.
     # sum the product of the input and weight
-    for i in range(len(network.inputs)):
-      z += network.inputs[i].raw_value * node.weights[i]
+    for i in range(len(node.inputs)):
+      z += node.inputs[i].raw_value * node.weights[i].value
     # append to array of all activations of hidden nodes
     node.raw_value = z
     node.transformed_value = network.Sigmoid(z)
@@ -63,11 +75,12 @@ def FeedForward(network, input):
   for node in network.outputs:
     z = 0.
     # sum the product of the input and weight
-    for i in range(len(network.hidden_nodes)):
-      z += network.hidden_nodes[i].transormed_value * node.weights[i]
+    for i in range(len(node.inputs)):
+      z += node.inputs[i].transformed_value * node.weights[i].value
     # append to array of all activations of output nodes
     node.raw_value = z
     node.transformed_value = network.Sigmoid(z)
+  '''
 
 #< --- Problem 3, Question 2
 
@@ -132,6 +145,7 @@ def Backprop(network, input, target, learning_rate):
     network.inputs[k].weights[node] += network.inputs[k].transformed_value * network.hidden_nodes[i].delta
   #END COMMENT'''
 
+  '''
   #DOOVER
   for k in range(len(network.outputs)):
     network.outputs[k].delta = network.SigmoidPrime(network.outputs[k].raw_value) * (target[k] - network.outputs[k].transformed_value)
@@ -154,20 +168,38 @@ def Backprop(network, input, target, learning_rate):
   #   for m in range(len(network.inputs)):
   #     network.hidden_nodes[j].weights[m].value += network.inputs[m].transformed_value*network.hidden_nodes[j].delta*learning_rate
   
+  # update weights
   # for simplenetwork only
-
   for j in range(len(network.outputs)):
     for m in range(len(network.inputs)):
       #print network.outputs[j].weights[m].value, network.inputs[j].transformed_value, network.outputs[j].delta, learning_rate
       network.outputs[j].weights[m].value += network.inputs[j].transformed_value*network.outputs[j].delta*learning_rate
       #print network.outputs[j].weights[m].value
-  '''print "output weights"
+  print "output weights"
   for n in network.outputs:
     for i in range(len(n.weights)):
       print n.weights[i].value
-  '''
+  
   #TODO: for inputs BETTER: generalize for multilayer hidden networks
   #TODO: ? Move all update weights outside and do it together?
+  '''
+
+  # DOOVER 2??
+
+  nodes = network.outputs[::-1] + network.hidden_nodes[::-1] + network.inputs[::-1]
+  
+  for node in nodes:
+    if node in network.outputs:
+      node.e = target[network.outputs.index(node)] - node.transformed_value
+    else:
+      node.e = 0
+      for i in range(len(node.inputs)):
+        node.e += node.weight[i].value * node.delta
+    node.delta = network.SigmoidPrime(node.raw_value) * node.e
+
+  for node in nodes:
+    for m in range(len(node.inputs)):
+      node.weights[m].value += learning_rate * node.inputs[m].transformed_value * node.delta
 
 
 # <--- Problem 3, Question 3 --->
@@ -237,7 +269,6 @@ class EncodedNetworkFramework(NetworkFramework):
     Make sure that the elements of the encoding are floats.
     
     """
-    # Replace line below by content of function
     a = [0. for i in range(10)]
     a[label] = 1.
     return a
@@ -269,8 +300,8 @@ class EncodedNetworkFramework(NetworkFramework):
     # which is 3
     
     """
-    # Replace line below by content of function
     a = map(lambda node: node.transformed_value, self.network.outputs)
+    #print a, a.index(max(a))
     return a.index(max(a))
 
   def Convert(self, image):
