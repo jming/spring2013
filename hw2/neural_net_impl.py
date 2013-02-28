@@ -287,9 +287,10 @@ class EncodedNetworkFramework(NetworkFramework):
     of self.network.
     
     """
-
+    # print "insideweights", self.network.weights
     for i in range(len(self.network.weights)):
-      self.network.weights[i] = random.randrange(-.01, .01)
+      self.network.weights[i] = random.uniform(-.01, .01)
+    # print "outsideweights", self.network.weights
 
 
 #<--- Problem 3, Question 6 --->
@@ -312,21 +313,25 @@ class SimpleNetwork(EncodedNetworkFramework):
     should be connected to every output node.
     """
     super(SimpleNetwork, self).__init__() # < Don't remove this line >
-    
+
     # 1) Adds an input node for each pixel.
     for i in range(196):
       n = Node()
+      # n.weights.append(weight)
+      # n.forward_weights.append(weight)
       #n.AddInput(n, false, self.INPUT)
       self.network.AddNode(n, self.network.INPUT)
     # 2) Add an output node for each possible digit label.
     for i in range(10):
       n = Node()
+      for i in range(196):
+        n.AddInput(self.network.inputs[i], False, self.network)
       self.network.AddNode(n, self.network.OUTPUT)
     
-    for i in self.network.inputs:
-      for j in self.network.outputs:
-        i.forward_neighbors.append(j)
-        j.inputs.append(i)
+    # for i in self.network.inputs:
+    #   for j in self.network.outputs:
+    #     i.forward_neighbors.append(j)
+    #     j.inputs.append(i)
     
     #self.InitializeWeights()
     #magnitudes = [1.0, 0.1, 0.01, 0.001]

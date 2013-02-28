@@ -64,6 +64,7 @@ def main():
 
   # Initialize network weights
   network.InitializeWeights()
+  # print "weights", network.network.weights
   
 
   # Displays information
@@ -77,10 +78,10 @@ def main():
   # Train the network.
   # Train(network.network, images, validation, rate, epochs)
 
-  for image in images:
-    image = network.Convert(image)
-  for valid in validation:
-    valid = network.Convert(valid)
+  # for image in images:
+  #   image = network.Convert(image)
+  # for valid in validation:
+  #   valid = network.Convert(valid)
 
   network.Train(images, validation, rate, epochs)
 
