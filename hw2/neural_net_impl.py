@@ -53,8 +53,9 @@ def FeedForward(network, input):
     for i in range(len(network.inputs)):
       z += network.inputs[i].raw_value * node.weights[i]
     # append to array of all activations of hidden nodes
-	# check node
-	node.raw_value = z
+  
+    # check node
+    node.raw_value = z
     node.transformed_value = Sigmoid(z)
 
   # 3) Propagates to the output layer
@@ -66,9 +67,10 @@ def FeedForward(network, input):
     for i in range(len(network.hidden_nodes)):
       z += network.hidden_nodes[i].transormed_value * node.weights[i]
     # append to array of all activations of output nodes
-	# check python syntax for using node versus network.outputs[node]
-	node.raw_value = z
-	node.transformed_value = Sigmoid(z)
+  
+    # check python syntax for using node versus network.outputs[node]
+    node.raw_value = z
+    node.transformed_value = Sigmoid(z)
 
 #< --- Problem 3, Question 2
 
@@ -310,17 +312,17 @@ class SimpleNetwork(EncodedNetworkFramework):
     super(SimpleNetwork, self).__init__() # < Don't remove this line >
     
     # 1) Adds an input node for each pixel.
-    for(i in range(196)):
+    for i in range(196):
       n = Node()
       #n.AddInput(n, false, self.INPUT)
       self.AddNode(n, self.INPUT)
     # 2) Add an output node for each possible digit label.
-    for (i in range(10)):
+    for i in range(10):
       n = Node()
       self.AddNode(n, self.OUTPUT)
     
-    for(i in self.inputs):
-      for(j in self.outputs):
+    for i in self.inputs:
+      for j in self.outputs:
         i.forward_neighbors.append(j)
         j.inputs.append(i)
     
