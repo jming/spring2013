@@ -309,10 +309,27 @@ class SimpleNetwork(EncodedNetworkFramework):
     """
     super(SimpleNetwork, self).__init__() # < Don't remove this line >
     
-    # 1) Adds an input node for each pixel.    
+    # 1) Adds an input node for each pixel.
+    for(i in range(196)):
+      n = Node()
+      #n.AddInput(n, false, self.INPUT)
+      self.AddNode(n, self.INPUT)
     # 2) Add an output node for each possible digit label.
-    pass
-
+    for (i in range(10)):
+      n = Node()
+      self.AddNode(n, self.OUTPUT)
+    
+    for(i in self.inputs):
+      for(j in self.outputs):
+        i.forward_neighbors.append(j)
+        j.inputs.append(i)
+    
+    #self.InitializeWeights()
+    #magnitudes = [1.0, 0.1, 0.01, 0.001]
+    #performance = [0.0 for i in range(len(magnitudes))]
+    #for i in range(len(magnitudes)):
+      #Train(self.inputs, self.targets, magnitudes[i], 100)
+      #performance[i] = self.Performance()
 
 #<---- Problem 3, Question 7 --->
 
