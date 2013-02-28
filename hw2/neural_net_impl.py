@@ -115,44 +115,49 @@ def Backprop(network, input, target, learning_rate):
   FeedForward(network, input)
   # 2) Then we compute the errors and update the weigths starting with the last layer
   #BEGIN COMMENT
-  # errors_outputs = []
-  # for k in range(len(network.outputs)):
-  #   network.outputs[k].delta = network.SigmoidPrime(network.outputs[k].raw_value) * target[k] - network.outputs[k].transformed_value
-  #   for i in range(len(network.hidden_nodes)):
-  #   # TODO: add alpha in later
-  #     network.outputs[k].weights[i] += network.outputs[k].transformed_value * network.outputs[k].delta
-  # # 3) We now propagate the errors to the hidden layer, and update the weights there too. Iterates through hidden nodes in reverse order
-  # for node in range(len(network.hidden_nodes), 0):
-  #   e = 0.
-  #   for i in range(len(network.outputs)):
-  #     e += network.hidden_nodes[node].forward_weights[i] * network.outputs[i].delta
-  #   network.hidden_nodes[node].delta = network.SigmoidPrime(network.hidden_nodes[node].raw_value) * e
-  #   #update weights
-  #   network.inputs[k].weights[node] += network.inputs[k].transformed_value * network.hidden_nodes[i].delta
-  # #END COMMENT
- 
+  '''errors_outputs = []
+  for k in range(len(network.outputs)):
+    network.outputs[k].delta = network.SigmoidPrime(network.outputs[k].raw_value) * target[k] - network.outputs[k].transformed_value
+    for i in range(len(network.hidden_nodes)):
+    # TODO: add alpha in later
+      network.outputs[k].weights[i] += network.outputs[k].transformed_value * network.outputs[k].delta
+  # 3) We now propagate the errors to the hidden layer, and update the weights there too. Iterates through hidden nodes in reverse order
+  for node in range(len(network.hidden_nodes), 0):
+    e = 0.
+    for i in range(len(network.outputs)):
+      e += network.hidden_nodes[node].forward_weights[i] * network.outputs[i].delta
+    network.hidden_nodes[node].delta = network.SigmoidPrime(network.hidden_nodes[node].raw_value) * e
+    #update weights
+    network.inputs[k].weights[node] += network.inputs[k].transformed_value * network.hidden_nodes[i].delta
+  #END COMMENT'''
+
   #DOOVER
   for k in range(len(network.outputs)):
     network.outputs[k].delta = network.SigmoidPrime(network.outputs[k].raw_value) * (target[k] - network.Sigmoid(network.outputs[k].transformed_value))
   for k in range(len(network.hidden_nodes)):
+    network.hidden_nodes[k].e = 0
     for j in range(len(network.outputs)):
-      network.hidden_nodes[k].e += network.hidden_nodes[k].weights[j] * network.outputs[j].delta
+      network.hidden_nodes[k].e += network.hidden_nodes[k].weights[j].value * network.outputs[j].delta
     network.hidden_nodes[k].delta = network.SigmoidPrime(network.hidden_nodes[k].transformed_value) * (network.hidden_nodes[k].e)
   for k in range(len(network.inputs)):
+    network.inputs[k].e = 0
     for j in range(len(network.hidden_nodes)):
-      network.inputs[k].e += network.inputs[k].weights[j] * network.hidden_nodes[j].delta
+      network.inputs[k].e += network.inputs[k].weights[j].value * network.hidden_nodes[j].delta
     network.inputs[k].delta = network.SigmoidPrime(network.inputs[k].transformed_value) * (network.inputs[k].e)
   
   #UPDATES WEIGHTS, TO DO INCLUDE ALPHA
   for k in range(len(network.outputs)):
-    for j in range(len(network.outputs.inputs)):
-      network.outputs[k].weights[j] += network.Sigmoid(network.outputs[k].transformed_value)*network.outputs[k].delta
+    for j in range(len(network.hidden_nodes)):
+      network.outputs[k].weights[j].value += network.Sigmoid(network.outputs[k].transformed_value)*network.outputs[k].delta
   for k in range(len(network.hidden_nodes)):
-    for j in range(len(network.hidden_nodes.inputs)):
-      network.hidden_nodes[k].weights[j] += network.Sigmoid(network.hidden_nodes[k].transformed_value)*network.hidden_nodes[k].delta
+    for j in range(len(network.inputs)):
+      network.hidden_nodes[k].weights[j].value += network.Sigmoid(network.hidden_nodes[k].transformed_value)*network.hidden_nodes[k].delta
   
-  
-  
+  '''print "output weights"
+  for n in network.outputs:
+    for i in range(len(n.weights)):
+      print n.weights[i].value
+  '''
   #TODO: for inputs BETTER: generalize for multilayer hidden networks
   #TODO: ? Move all update weights outside and do it together?
 
@@ -311,7 +316,7 @@ class EncodedNetworkFramework(NetworkFramework):
     """
     # print "insideweights", self.network.weights
     for i in range(len(self.network.weights)):
-      self.network.weights[i] = random.uniform(-.01, .01)
+      self.network.weights[i].value = random.uniform(-.01, .01)
     # print "outsideweights", self.network.weights
 
 
