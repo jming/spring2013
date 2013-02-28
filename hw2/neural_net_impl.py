@@ -259,8 +259,9 @@ class EncodedNetworkFramework(NetworkFramework):
     value should be 1).
     
     """
-    # Replace line below by content of function
-    raise NotImplementedError
+    for i in range(14):
+      for j in range(14):
+        image.pixels[i][j] = image.pixels[i][j] / 256.
 
   def InitializeWeights(self):
     """
@@ -282,9 +283,9 @@ class EncodedNetworkFramework(NetworkFramework):
     of self.network.
     
     """
-    # replace line below by content of function
-    pass
 
+    for i in len(self.network.weights):
+      self.network.weights[i] = random.randrange(-.01, .01)
 
 
 #<--- Problem 3, Question 6 --->
