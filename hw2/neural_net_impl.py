@@ -43,6 +43,7 @@ def FeedForward(network, input):
   # 1) Assign input values to input nodes
   for i in range(len(input.values)):
     network.inputs[i].raw_value = input.values[i]
+    network.inputs[i].transformed_value = network.Sigmoid(input.values[i])
 
   # 2) Propagates to hidden layer
   #activations_hidden = []
@@ -133,26 +134,33 @@ def Backprop(network, input, target, learning_rate):
 
   #DOOVER
   for k in range(len(network.outputs)):
-    network.outputs[k].delta = network.SigmoidPrime(network.outputs[k].raw_value) * (target[k] - network.Sigmoid(network.outputs[k].transformed_value))
+    network.outputs[k].delta = network.SigmoidPrime(network.outputs[k].raw_value) * (target[k] - network.outputs[k].transformed_value)
   for k in range(len(network.hidden_nodes)):
     network.hidden_nodes[k].e = 0
     for j in range(len(network.outputs)):
       network.hidden_nodes[k].e += network.hidden_nodes[k].weights[j].value * network.outputs[j].delta
-    network.hidden_nodes[k].delta = network.SigmoidPrime(network.hidden_nodes[k].transformed_value) * (network.hidden_nodes[k].e)
+    network.hidden_nodes[k].delta = network.SigmoidPrime(network.hidden_nodes[k].raw_value) * (network.hidden_nodes[k].e)
   for k in range(len(network.inputs)):
     network.inputs[k].e = 0
     for j in range(len(network.hidden_nodes)):
       network.inputs[k].e += network.inputs[k].weights[j].value * network.hidden_nodes[j].delta
-    network.inputs[k].delta = network.SigmoidPrime(network.inputs[k].transformed_value) * (network.inputs[k].e)
+    network.inputs[k].delta = network.SigmoidPrime(network.inputs[k].raw_value) * (network.inputs[k].e)
   
   #UPDATES WEIGHTS, TO DO INCLUDE ALPHA
-  for k in range(len(network.outputs)):
-    for j in range(len(network.hidden_nodes)):
-      network.outputs[k].weights[j].value += network.Sigmoid(network.outputs[k].transformed_value)*network.outputs[k].delta
-  for k in range(len(network.hidden_nodes)):
-    for j in range(len(network.inputs)):
-      network.hidden_nodes[k].weights[j].value += network.Sigmoid(network.hidden_nodes[k].transformed_value)*network.hidden_nodes[k].delta
+  # for j in range(len(network.outputs)):
+  #   for m in range(len(network.hidden_nodes)):
+  #     network.outputs[j].weights[m].value += network.hidden_nodes[m].transformed_value*network.outputs[j].delta*learning_rate
+  # for j in range(len(network.hidden_nodes)):
+  #   for m in range(len(network.inputs)):
+  #     network.hidden_nodes[j].weights[m].value += network.inputs[m].transformed_value*network.hidden_nodes[j].delta*learning_rate
   
+  # for simplenetwork only
+
+  for j in range(len(network.outputs)):
+    for m in range(len(network.inputs)):
+      #print network.outputs[j].weights[m].value, network.inputs[j].transformed_value, network.outputs[j].delta, learning_rate
+      network.outputs[j].weights[m].value += network.inputs[j].transformed_value*network.outputs[j].delta*learning_rate
+      #print network.outputs[j].weights[m].value
   '''print "output weights"
   for n in network.outputs:
     for i in range(len(n.weights)):
@@ -189,6 +197,7 @@ def Train(network, inputs, targets, learning_rate, epochs):
   for epoch in range(epochs):
     for i in range(len(inputs)):
       Backprop(network, inputs[i], targets[i], learning_rate)
+      # print network.weights[12].value
 
 
 # <--- Problem 3, Question 4 --->
@@ -196,7 +205,7 @@ def Train(network, inputs, targets, learning_rate, epochs):
 class EncodedNetworkFramework(NetworkFramework):
   def __init__(self):
     """
-    Initializatio.
+    Initialization.
     YOU DO NOT NEED TO MODIFY THIS __init__ method
     """
     super(EncodedNetworkFramework, self).__init__() # < Don't remove this line >
@@ -229,8 +238,8 @@ class EncodedNetworkFramework(NetworkFramework):
     
     """
     # Replace line below by content of function
-    a = [0.0 for i in range(10)]
-    a[label] = 1.0
+    a = [0. for i in range(10)]
+    a[label] = 1.
     return a
 
   def GetNetworkLabel(self):
@@ -315,8 +324,10 @@ class EncodedNetworkFramework(NetworkFramework):
     
     """
     # print "insideweights", self.network.weights
+    random.seed()
     for i in range(len(self.network.weights)):
       self.network.weights[i].value = random.uniform(-.01, .01)
+      # print self.network.weights[i].value
     # print "outsideweights", self.network.weights
 
 
