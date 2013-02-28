@@ -159,8 +159,10 @@ def Train(network, inputs, targets, learning_rate, epochs):
   run the *Backprop* over the training set *epochs*-times
   """
   network.CheckComplete()
-  pass
   
+  for epoch in range(epochs):
+    for i in range(len(inputs)):
+      Backprop(network, inputs[i], target[i], learning_rate)
 
 
 # <--- Problem 3, Question 4 --->
