@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  1 MAR 2013 03:38
+=======
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.9)  1 MAR 2013 03:38
+>>>>>>> db4a829da234e4599bde1144ec3a2f2339488134
 entering extended mode
 **C:/Users/Alisa/Documents/GitHub/spring2013/hw2/alisanguyen-jming-hw2.tex
 (C:/Users/Alisa/Documents/GitHub/spring2013/hw2/alisanguyen-jming-hw2.tex
@@ -175,6 +179,7 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Try loading font information for U+msa on input line 22.
 
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
@@ -237,3 +242,6 @@ PDF statistics:
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
+=======
+(/usr/share/texlive/texm
+>>>>>>> db4a829da234e4599bde1144ec3a2f2339488134
