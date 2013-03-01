@@ -44,17 +44,18 @@ def FeedForward(network, input):
 
   for i in range(len(input.values)):
     network.inputs[i].raw_value = input.values[i]
-    network.inputs[i].transformed_value = network.Sigmoid(input.values[i])
+    network.inputs[i].transformed_value = input.values[i]
 
   # (2) Propogate from one layer to the next
 
   # Pick a unit j all of whose parents have been processed
   for node in (network.hidden_nodes + network.outputs):
-    z = 0.
-    for i in range(len(node.inputs)):
-      z += node.inputs[i].transformed_value * node.weights[i].value
-    node.raw_value = z
-    node.transformed_value = network.Sigmoid(z)
+    # z = 0.
+    # for i in range(len(node.inputs)):
+    #   z += node.inputs[i].transformed_value * node.weights[i].value
+    # node.raw_value = z
+    node.raw_value = network.ComputeRawValue(node)
+    node.transformed_value = network.Sigmoid(node.raw_value)
 
   '''
   # 2) Propagates to hidden layer
@@ -395,7 +396,7 @@ class SimpleNetwork(EncodedNetworkFramework):
     for i in range(10):
       n = Node()
       for j in range(196):
-        n.AddInput(self.network.inputs[j], False, self.network)
+        n.AddInput(self.network.inputs[j], None, self.network)
       self.network.AddNode(n, self.network.OUTPUT)
     
     # for i in self.network.inputs:
@@ -442,13 +443,13 @@ class HiddenNetwork(EncodedNetworkFramework):
     for i in range(number_of_hidden_nodes):
       n = Node()
       for j in range(len(self.network.inputs)):
-        n.AddInput(self.network.inputs[j], False, self.network)
+        n.AddInput(self.network.inputs[j], None, self.network)
       self.network.AddNode(n, self.network.HIDDEN)
     # 3) Adds an output node for each possible digit label.
     for i in range(10):
       n = Node()
       for j in range(len(self.network.hidden_nodes)):
-        n.AddInput(self.network.hidden_nodes[j], False, self.network)
+        n.AddInput(self.network.hidden_nodes[j], None, self.network)
       self.network.AddNode(n, self.network.OUTPUT)
     
 
