@@ -203,20 +203,27 @@ class NetworkFramework(object):
     performance_log = []
     performance_log.append((self.Performance(images), self.Performance(validation_images)))
     
-    # Loop through the specified number of training epochs.
-    for i in range(epochs):
-
+    # pre-defined tolerance for performance convergence
+    e = 0.0001
+    prev = 0.
+    perf_validate = 1.
+    # Loop through the specified number of training epochs while maximum epochs not reached
+    # And convergence tolerance threshold has not been reached yet
+    while perf_validate - prev > e or epochs > 0:
       # This calls your function in neural_net_impl.py.
       self.TrainFn(self.network, inputs, targets, learning_rate, 1)
 
       # Print out the current training and validation performance.
       perf_train = self.Performance(images)
       perf_validate = self.Performance(validation_images)
+
       print '%d Performance: %.8f %.3f' % (
         i + 1, perf_train, perf_validate)
 
       # updates log
       performance_log.append((perf_train, perf_validate))
+      prev = perf_validate
+      epochs -= 1
     return(performance_log)
 
   def RegisterFeedForwardFunction(self, fn):
