@@ -66,7 +66,8 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 \end{enumerate}
 \item Changing error function
 	\begin{enumerate}
-	\item Error function $C$ is implementing the idea of regularization, or that the less complex solution, or one that has less dimensions or degrees, is more desirable others that might work. In the new error function, different values are added onto the original loss function that will increase the sum depending on the increased complexity or layers of the network. This will penalize the loss function by squared weight values, making it more crucial to create less complicated graphs to minimize the loss function. 
+	\item Error function $C$ is implementing the idea of regularization, or that the less complex solution, or one that has less dimensions or degrees, is more desirable others that might work. In the new error function, different values are added onto the original loss function that will increase the sum depending on the increased complexity or layers of the network. This will penalize the loss function by squared weight values, making it more crucial to create less complicated graphs to minimize the loss function. This looks like the regularization example:
+		\[\text{Cost}(w)=L(w;D) + \lambda \cdot \text{Complexity}(w)\]
 	\item Our weight update rule for the error function $C$ derived from gradient descent is:
 	\end{enumerate}
 
