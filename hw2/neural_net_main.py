@@ -56,7 +56,6 @@ def main():
     assert len(image.pixels[0]) == 14
 
   # Initializing network
-
   if networkType == 'simple':
     network = SimpleNetwork()
   if networkType == 'hidden':
@@ -81,14 +80,8 @@ def main():
          (len(network.network.inputs), len(network.network.hidden_nodes),
           len(network.network.outputs)))
   print '* * * * * * * * *'
+ 
   # Train the network.
-  # Train(network.network, images, validation, rate, epochs)
-
-  # for image in images:
-  #   image = network.Convert(image)
-  # for valid in validation:
-  #   valid = network.Convert(valid)
-
   network.Train(images, validation, test, rate, epochs)
 
 if __name__ == "__main__":
