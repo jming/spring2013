@@ -19,7 +19,7 @@ def main():
 	plt.ylabel('Error')
 	plt.axis([1, 34, 0, 0.2])
 	plt.legend(((p1,),(p2,)), ('training', 'validation'), 'lower right')
-	savefig('nguyen-ming-37c.pdf') # save the figure to a file
+	savefig('nguyen-ming-37c_15.pdf') # save the figure to a file
 	plt.show() # show the figure
 
 main()
