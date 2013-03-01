@@ -39,7 +39,8 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 6. Experiment with simple networks
 \begin{enumerate}
 \item We used a learning rate of 0.1 based on this DATA:
-\item 
+\item
+$$\includegraphics[width=150mm]{nguyen-ming-36b.pdf}$$ 
 \begin{enumerate}
 \item Yes, we are in danger of overfitting by training for too many epochs as mentioned in lecture. The ways we discussed how to combat this include early stopping, model selection, weight pruning, regularization, and weight sharing.
 \item A good number of epochs to train for is around 25, as we determined experimentally.
@@ -51,12 +52,21 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 \end{enumerate} 
 7. Experiment with networks with a single hidden layer
 \begin{enumerate}
+<<<<<<< HEAD
+\item We decided that we wanted to use a learning rate of 0.3 for both 15 and 30 fully connected units in the hidden layer based on DATA.
+\item We determine when to stop training by checking the difference between the validation performance and the previous validation performance. If the difference is less than a given $\epsilon$, which in this case was 0.001, at least five times in a row, then stop the training.
+\item $$\includegraphics[width=150mm]{nguyen-ming-37c.pdf}$$
+\item We used 33 epochs for 15 hidden units and 28 epochs for 30 hidden units.
+\item Based on these experiements, we would use the network structure with 30 fully connected hidden units because both training set error and validation set error were lower for the 30 fully connected hidden units compared to the 15. By the 28th epoch round for the 30 hidden units, the training set error was 0.036 and the validation set error was 0.074, which is considerably less than the errors for 15 units by the 33rd round, which were 0.612 and 0.097 respectively.
+\item The test set performance of the network with 30 hidden units for 28 epochs was \fbox{0.949}. This is higher than the test set performance of the network with 15 hidden units for 33 epochs, which was 0.939. This compares to the committee of perceptrons by FILLIN.
+=======
 \item We decided that we wanted to use a learning rate of 0.3 for 15 fully connected units in the hidden layer and 0.3 for 30 fully connected units in the hidden layer based on experimental trials with different learning rates.
 \item We determine when to stop training by checking the difference between the validation performance and the previous validation performance. If the difference is less than a given $\epsilon$, which in this case was 0.001, at least five times in a row, then stop the training.
 \item GRAPH HERE
 \item We used FILLIN epochs for 15 hidden units and 28 epochs for 30 hidden units.
 \item Based on these experiements, we would use the network structure with FILLIN hidden units because FILLIN
 \item The test set performance of the network we chose is FILLIN. This compares to the committee of perceptrons by FILLIN.
+>>>>>>> 97068fb1c10e71c5d709776ceeee444f1bf53e9f
 \end{enumerate}
 8. CustomNetwork
 \begin{enumerate}
