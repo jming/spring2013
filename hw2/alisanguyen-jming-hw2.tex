@@ -35,7 +35,29 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 \newline
 \newline
 5. We normalize the input values from [0, 255] to between 0 and 1 so we are able to better utilize the logistic sigmoid function.\\ 
-7. We decided that we wanted to 
+\newline
+6. Experiment wit simple networks
+\begin{enumerate}
+\item We used a learning rate of 0.1 based on this DATA:
+\item 
+\begin{enumerate}
+\item Yes/No we are/are not in danger of overfitting by training for too many epochs.
+\item A good number of ephocs to train for is
+\\It is important that we use a validation set rather than the actual test set to tune the number of epochs because
+\end{enumerate}
+\item The training performance is
+\\ The validation performance is
+\\ The test performance is
+\end{enumerate} 
+7. Experiment with networks with a single hidden layer
+\begin{enumerate}
+\item We decided that we wanted to use a learning rate of FILLIN for 15 fully connected units in the hidden layer and FILLIN for 30 fully connected units in the hidden layer based on DATA.
+\item We determine when to stop training by
+\item GRAPH HERE
+\item We used FILLIN epochs for 15 hidden units and FILLIN epochs for 30 hidden units.
+\item Based on these experiements, we would use the network structure with FILLIN hidden units because FILLIN
+\item The test set performance of the network we chose is FILLIN. This compares to the committee of perceptrons by FILLIN.
+\end{enumerate}
 \item Changing error function
 	\begin{enumerate}
 	\item Error function $C$ is implementing the idea of regularization, or that the less complex solution, or one that has less dimensions or degrees, is more desirable others that might work. In the new error function, different values are added onto the original loss function that will increase the sum depending on the increased complexity or layers of the network. This will penalize the loss function by squared weight values, making it more crucial to create less complicated graphs to minimize the loss function. 
