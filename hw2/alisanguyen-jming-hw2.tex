@@ -46,27 +46,18 @@ $$\includegraphics[width=150mm]{nguyen-ming-36b.pdf}$$
 \item A good number of epochs to train for is around 25, as we determined experimentally.
 \\It is important that we use a validation set rather than the actual test set to tune the number of epochs because
 \end{enumerate}
-\item The training performance is
-\\ The validation performance is
-\\ The test performance is
+\item The training performance is 0.901.
+\\ The validation performance is 0.880.
+\\ The test performance is 0.913.
 \end{enumerate} 
 7. Experiment with networks with a single hidden layer
 \begin{enumerate}
-<<<<<<< HEAD
-\item We decided that we wanted to use a learning rate of 0.3 for both 15 and 30 fully connected units in the hidden layer based on DATA.
+\item We decided that we wanted to use a learning rate of 0.3 for both 15 and 30 fully connected units in the hidden layer based on previous experimental data.
 \item We determine when to stop training by checking the difference between the validation performance and the previous validation performance. If the difference is less than a given $\epsilon$, which in this case was 0.001, at least five times in a row, then stop the training.
 \item $$\includegraphics[width=150mm]{nguyen-ming-37c.pdf}$$
 \item We used 33 epochs for 15 hidden units and 28 epochs for 30 hidden units.
 \item Based on these experiements, we would use the network structure with 30 fully connected hidden units because both training set error and validation set error were lower for the 30 fully connected hidden units compared to the 15. By the 28th epoch round for the 30 hidden units, the training set error was 0.036 and the validation set error was 0.074, which is considerably less than the errors for 15 units by the 33rd round, which were 0.612 and 0.097 respectively.
 \item The test set performance of the network with 30 hidden units for 28 epochs was \fbox{0.949}. This is higher than the test set performance of the network with 15 hidden units for 33 epochs, which was 0.939. This compares to the committee of perceptrons by FILLIN.
-=======
-\item We decided that we wanted to use a learning rate of 0.3 for 15 fully connected units in the hidden layer and 0.3 for 30 fully connected units in the hidden layer based on experimental trials with different learning rates.
-\item We determine when to stop training by checking the difference between the validation performance and the previous validation performance. If the difference is less than a given $\epsilon$, which in this case was 0.001, at least five times in a row, then stop the training.
-\item GRAPH HERE
-\item We used FILLIN epochs for 15 hidden units and 28 epochs for 30 hidden units.
-\item Based on these experiements, we would use the network structure with FILLIN hidden units because FILLIN
-\item The test set performance of the network we chose is FILLIN. This compares to the committee of perceptrons by FILLIN.
->>>>>>> 97068fb1c10e71c5d709776ceeee444f1bf53e9f
 \end{enumerate}
 8. CustomNetwork
 \begin{enumerate}
@@ -79,7 +70,7 @@ $$\includegraphics[width=150mm]{nguyen-ming-36b.pdf}$$
 	\item Error function $C$ is implementing the idea of regularization, or that the less complex solution, or one that has less dimensions or degrees, is more desirable others that might work. In the new error function, different values are added onto the original loss function that will increase the sum depending on the increased complexity or layers of the network. This will penalize the loss function by squared weight values, making it more crucial to create less complicated graphs to minimize the loss function. This looks like the regularization example:
 		\[\text{Cost}(w)=L(w;D) + \lambda \cdot \text{Complexity}(w)\]
 	\item Our weight update rule for the error function $C$ derived from gradient descent is:
-		\[w_k^{(r+1)}\leftarrow w_k^{(r)} + 2 \alpha \lambda w_k + x_k\]
+		\[w_k^{(r+1)}\leftarrow w_k^{(r)} + \alpha(2 \lambda w_k + x_k \delta)\]
 	\end{enumerate}
 
 \end{enumerate}
