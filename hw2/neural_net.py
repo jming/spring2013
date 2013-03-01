@@ -204,7 +204,7 @@ class NetworkFramework(object):
     performance_log.append((self.Performance(images), self.Performance(validation_images), self.Performance(test)))
     
     # pre-defined tolerance for performance convergence
-    e = 0.0000001
+    e = 0.0001
     prev = 0.
     perf_validate = 1.
     diff = 1.
@@ -222,10 +222,10 @@ class NetworkFramework(object):
       perf_train = self.Performance(images)
       perf_validate = self.Performance(validation_images)
       perf_test = self.Performance(test)
-      print 'validate', perf_validate
+      #print 'validate', perf_validate
       diff = perf_validate - prev
       prev = perf_validate
-      print 'diff in loop', diff
+      #print 'diff in loop', diff
       epochs -= 1
       i += 1
       
@@ -240,7 +240,7 @@ class NetworkFramework(object):
       # updates log
       performance_log.append((perf_train, perf_validate, perf_test))
 
-    print 'diff', diff
+    #print 'diff', diff
     return(performance_log)
 
   def RegisterFeedForwardFunction(self, fn):
