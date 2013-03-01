@@ -26,23 +26,23 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 	\end{enumerate}
 \item Four different possible learning algorithms
 	\begin{enumerate}
-	\item Decision trees
-	\item Boosted decision stumps
-	\item Perceptrons
-	\item Multi-layer feed-forward neural networks
+	\item Decision trees are most effective when there are characteristics to split on with different values. However, it is difficult in this case to even determine which characteristics to split on, even if there were some way to implement continuous attributes. One possibility for splitting would be starting from a given pixel such as the top left pixel to see if its neighbors are activated or not. However, this would result in a lot of branches for each pixel and its neighbors. This could also be difficult to train and determine these splits.
+	\item Boosted decision stumps are especially useful for making prediction based on the value of a single input feature over a specific threshold. Though these decision stumps can reach a higher level of accuracy after boosting, their level of simplicity that contrasts that of the complicated features of the decision trees is well adapted for the problem. One way to approach this would be to have a separate decision stump for each pixel. However, this would result in it being very difficult to figure out the linking of the different, separate pixels. Combatting this inability to consider connected features would be to track the presence of certain patterns. However, it would still be difficult to even put the frequency of these patterns together as well.
+	\item Perceptrons are better than decision trees and decision stumps at learning about the set of data as opposed to individual pixels. This is because the perceptrons are looking at the sum of the different pixels. However, perceptrons do have some weaknesses, as evidenced by the previous problems. They are still limited only to linearly separable data and their decision boundaries have to be based on differentiable functions that will not be able to consider piecewise functions or connectedness. Therefore, though perceptrons are a step toward understanding, there have to be more layers to get a better grasp of the data. 
+	\item Multi-layer feed-forward neural networks is what we implemented in the problem set, which speaks to its validity as a means of approaching the problem of digit recognition. This problem has as many as 196 pixels for a 14x14 image, as spoken about many times in discounting the other methods. The multi-layer feed-forward network can help with this in that it can take many different inputs. The problem of digit recognition also has 10 distinct output categories, which is well embodied by the various output nodes in the multi-layer feed forward neural networks. One drawback is that this needs a lot of previous knowledge. 
 	\end{enumerate}
 \item Implementing a neural network
 \newline
 \newline
 5. We normalize the input values from [0, 255] to between 0 and 1 so we are able to better utilize the logistic sigmoid function.\\ 
 \newline
-6. Experiment wit simple networks
+6. Experiment with simple networks
 \begin{enumerate}
 \item We used a learning rate of 0.1 based on this DATA:
 \item 
 \begin{enumerate}
 \item Yes/No we are/are not in danger of overfitting by training for too many epochs.
-\item A good number of ephocs to train for is
+\item A good number of epochs to train for is
 \\It is important that we use a validation set rather than the actual test set to tune the number of epochs because
 \end{enumerate}
 \item The training performance is
@@ -52,16 +52,17 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 7. Experiment with networks with a single hidden layer
 \begin{enumerate}
 \item We decided that we wanted to use a learning rate of FILLIN for 15 fully connected units in the hidden layer and FILLIN for 30 fully connected units in the hidden layer based on DATA.
-\item We determine when to stop training by
+\item We determine when to stop training by checking the difference between the validation performance and the previous validation performance. If the difference is less than a given $\Epsilon$, which in this case was 0.001, whether it was positive or negative, at least five times in a row, then stop the training.
 \item GRAPH HERE
-\item We used FILLIN epochs for 15 hidden units and FILLIN epochs for 30 hidden units.
+\item We used FILLIN epochs for 15 hidden units and 27 epochs for 30 hidden units.
 \item Based on these experiements, we would use the network structure with FILLIN hidden units because FILLIN
 \item The test set performance of the network we chose is FILLIN. This compares to the committee of perceptrons by FILLIN.
 \end{enumerate}
 8. CustomNetwork
 \begin{enumerate}
-\item We chose to implement
-\item Our new network's test performance 
+\item We chose to implement more hidden layers to see how this impacts the performance of the neural networks. First we put in two hidden layers of 15 then we put in three hidden layers of 10. 
+\item Our new network's test performances include:
+\item It was surprising, at first that the performances were so drastically different. However, thinking more about the data, it seemed to make more sense 
 \end{enumerate}
 \item Changing error function
 	\begin{enumerate}

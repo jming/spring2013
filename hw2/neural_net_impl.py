@@ -471,4 +471,38 @@ class CustomNetwork(EncodedNetworkFramework):
     Surprise me!
     """
     super(CustomNetwork, self).__init__() # <Don't remove this line>
-    pass
+
+    number_of_hidden_nodes = 10
+
+    # 1) Adds an input node for each pixel
+    for i in range(196):
+      n = Node()
+      self.network.AddNode(n, self.network.INPUT)
+
+    # 2) Adds the first hidden layer
+    for i in range(number_of_hidden_nodes):
+      n = Node()
+      for j in range(len(self.network.inputs)):
+        n.AddInput(self.network.inputs[j], None, self.network)
+      self.network.AddNode(n, self.network.HIDDEN)
+
+    # 3) Adds the second hidden layer
+    for i in range(number_of_hidden_nodes):
+      n = Node()
+      for j in range(number_of_hidden_nodes):
+        n.AddInput(self.network.hidden_nodes[j], None, self.network)
+      self.network.AddNode(n, self.network.HIDDEN)
+
+    # 3) Adds the third hidden layer
+    for i in range(number_of_hidden_nodes):
+      n = Node()
+      for j in range(number_of_hidden_nodes):
+        n.AddInput(self.network.hidden_nodes[number_of_hidden_nodes+j], None, self.network)
+      self.network.AddNode(n, self.network.HIDDEN)
+
+    # 3) Adds an output node for each possible digit label.
+    for i in range(10):
+      n = Node()
+      for j in range(number_of_hidden_nodes):
+        n.AddInput(self.network.hidden_nodes[2*number_of_hidden_nodes + j], None, self.network)
+      self.network.AddNode(n, self.network.OUTPUT)
