@@ -190,7 +190,7 @@ def Backprop(network, input, target, learning_rate):
   
   for node in nodes:
     if node in network.outputs:
-      node.e = target[network.outputs.index(node)] - node.transformed_value
+      node.e = target.values[network.outputs.index(node)] - node.transformed_value
     else:
       node.e = 0.
       for i in range(len(node.forward_neighbors)):
@@ -269,9 +269,10 @@ class EncodedNetworkFramework(NetworkFramework):
     Make sure that the elements of the encoding are floats.
     
     """
-    a = [0. for i in range(10)]
-    a[label] = 1.
-    return a
+    t = Target()
+    t.values = [0. for i in range(10)]
+    t.values[label] = 1.
+    return t
 
   def GetNetworkLabel(self):
     """
