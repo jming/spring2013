@@ -204,13 +204,15 @@ class NetworkFramework(object):
     performance_log.append((self.Performance(images), self.Performance(validation_images)))
     
     # pre-defined tolerance for performance convergence
-    e = 0.0001
+    e = 0.0000001
     prev = 0.
     perf_validate = 1.
     i = 0
     # Loop through the specified number of training epochs while maximum epochs not reached
     # And convergence tolerance threshold has not been reached yet
-    while perf_validate - prev > e or i < epochs:
+    while perf_validate - prev > e and i < epochs:
+   # Loop through the specified number of training epochs.
+   # for i in range(epochs):
       # This calls your function in neural_net_impl.py.
       self.TrainFn(self.network, inputs, targets, learning_rate, 1)
 
@@ -226,6 +228,7 @@ class NetworkFramework(object):
       prev = perf_validate
       epochs -= 1
       i += 1
+    print perf_validate - prev
     return(performance_log)
 
   def RegisterFeedForwardFunction(self, fn):
