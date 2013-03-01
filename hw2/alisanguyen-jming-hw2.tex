@@ -40,29 +40,78 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 \begin{enumerate}
 \item We used a learning rate of 0.1 based on a running 15 epochs of four different learning rates:
 	\begin{itemize}
-	\item Performance for a learning rate of 1.0:
-		\begin{tabular}[|c|c|c|]
-		\hline
-		Epoch & Validation & Training\\
-		1 & 0.34900000 & 0.340\\ \hline
-		2 & 0.47555556 & 0.449\\ \hline
-		3 & 0.55900000 & 0.529\\ \hline
-		4 & 0.56588889 & 0.540\\ \hline
-		5 & 0.69877778 & 0.675\\ \hline
-		6 & 0.71755556 & 0.693\\ \hline
-		7 & 0.79322222 & 0.782\\ \hline
-		8 & 0.74711111 & 0.728\\ \hline
-		9 & 0.75333333 & 0.731\\ \hline
-		10 & 0.71777778 & 0.704\\ \hline
-		11 & 0.71500000 & 0.709\\ \hline
-		12 & 0.72066667 & 0.707\\ \hline
-		13 & 0.76622222 & 0.762\\ \hline
-		14 & 0.70933333 & 0.703\\ \hline
-		15 & 0.78533333 & 0.768\\ \hline
-		\end{tabular}
-	\item Learning rate of 0.1:
-	\item Learning rate of 0.01:
-	\item Learning rate of 0.001:
+	\item Validation and training performance for a learning rate of 1.0 for different epochs:
+		\begin{verbatim}
+		1 Performance: 0.34900000 0.340
+		2 Performance: 0.47555556 0.449
+		3 Performance: 0.55900000 0.529
+		4 Performance: 0.56588889 0.540
+		5 Performance: 0.69877778 0.675
+		6 Performance: 0.71755556 0.693
+		7 Performance: 0.79322222 0.782
+		8 Performance: 0.74711111 0.728
+		9 Performance: 0.75333333 0.731
+		10 Performance: 0.71777778 0.704
+		11 Performance: 0.71500000 0.709
+		12 Performance: 0.72066667 0.707
+		13 Performance: 0.76622222 0.762
+		14 Performance: 0.70933333 0.703
+		15 Performance: 0.78533333 0.768
+		\end{verbatim}
+	\item Validation and training performance for a learning rate of 0.1 for different epochs:
+		\begin{verbatim}
+		1 Performance: 0.55100000 0.514
+		2 Performance: 0.65055556 0.608
+		3 Performance: 0.71222222 0.690
+		4 Performance: 0.75144444 0.744
+		5 Performance: 0.77644444 0.764
+		6 Performance: 0.79433333 0.787
+		7 Performance: 0.80655556 0.797
+		8 Performance: 0.81500000 0.810
+		9 Performance: 0.82177778 0.815
+		10 Performance: 0.82666667 0.819
+		11 Performance: 0.82966667 0.825
+		12 Performance: 0.83422222 0.827
+		13 Performance: 0.83622222 0.828
+		14 Performance: 0.83733333 0.829
+		15 Performance: 0.84055556 0.830
+		\end{verbatim}
+	\item Validation and training performance for a learning rate of 0.01 for different epochs:
+		\begin{verbatim}
+		1 Performance: 0.27844444 0.296
+		2 Performance: 0.36988889 0.370
+		3 Performance: 0.40066667 0.388
+		4 Performance: 0.45244444 0.441
+		5 Performance: 0.49977778 0.473
+		6 Performance: 0.54100000 0.516
+		7 Performance: 0.57144444 0.548
+		8 Performance: 0.60288889 0.575
+		9 Performance: 0.62600000 0.596
+		10 Performance: 0.64577778 0.614
+		11 Performance: 0.66522222 0.630
+		12 Performance: 0.68511111 0.644
+		13 Performance: 0.70066667 0.670
+		14 Performance: 0.71355556 0.686
+		15 Performance: 0.72444444 0.702
+		\end{verbatim}
+	\item Validation and training performance for a learning rate of 0.001 for different epochs:
+		\begin{verbatim}
+		1 Performance: 0.11444444 0.090
+		2 Performance: 0.12455556 0.100
+		3 Performance: 0.17788889 0.162
+		4 Performance: 0.20377778 0.191
+		5 Performance: 0.22088889 0.208
+		6 Performance: 0.23300000 0.215
+		7 Performance: 0.24100000 0.226
+		8 Performance: 0.24988889 0.231
+		9 Performance: 0.25900000 0.241
+		10 Performance: 0.26888889 0.252
+		11 Performance: 0.27933333 0.264
+		12 Performance: 0.28944444 0.269
+		13 Performance: 0.29755556 0.274
+		14 Performance: 0.30788889 0.281
+		15 Performance: 0.31344444 0.289
+		\end{verbatim}
 	\end{itemize}
 	NOTE: These tests were actually run on the program before the bug mentioned in Piazza Post 105 of initializing the transformed values of each input node to be equal to the raw value was fixed. However, since these results are relative to each other, we kept the data just to show which learning rate had the best performance.
 \item
