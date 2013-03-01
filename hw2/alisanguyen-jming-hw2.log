@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  1 MAR 2013 03:45
-=======
-<<<<<<< HEAD
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.9)  1 MAR 2013 03:44
-=======
-<<<<<<< HEAD
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  1 MAR 2013 03:38
-=======
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.9)  1 MAR 2013 03:38
->>>>>>> db4a829da234e4599bde1144ec3a2f2339488134
->>>>>>> c0831d31be9de14b97ed6deb80b139d7ab1ec8bb
->>>>>>> 783d509e0236e361c58042619e12e14063340549
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  1 MAR 2013 04:04
 entering extended mode
 **C:/Users/Alisa/Documents/GitHub/spring2013/hw2/alisanguyen-jming-hw2.tex
 (C:/Users/Alisa/Documents/GitHub/spring2013/hw2/alisanguyen-jming-hw2.tex
@@ -187,32 +175,16 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Try loading font information for U+msa on input line 22.
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-=======
-<<<<<<< HEAD
->>>>>>> 783d509e0236e361c58042619e12e14063340549
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
->>>>>>> c0831d31be9de14b97ed6deb80b139d7ab1ec8bb
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 22.
 
-<<<<<<< HEAD
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-) [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-=======
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
->>>>>>> c0831d31be9de14b97ed6deb80b139d7ab1ec8bb
 Underfull \hbox (badness 10000) in paragraph at lines 34--40
 
  []
@@ -223,96 +195,46 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--40
  []
 
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
-<<<<<<< HEAD
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-=======
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
->>>>>>> c0831d31be9de14b97ed6deb80b139d7ab1ec8bb
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
-<<<<<<< HEAD
  [2]
-<nguyen-ming-36b.pdf, id=14, 578.16pt x 433.62pt>
+<nguyen-ming-36b.pdf, id=13, 578.16pt x 433.62pt>
 File: nguyen-ming-36b.pdf Graphic file (type pdf)
  <use nguyen-ming-36b.pdf>
 Package pdftex.def Info: nguyen-ming-36b.pdf used on input line 118.
 (pdftex.def)             Requested size: 426.79134pt x 320.09303pt.
 
-[3] <nguyen-ming-37c.pdf, id=18, 578.16pt x 433.62pt>
+[3] <nguyen-ming-37c.pdf, id=17, 578.16pt x 433.62pt>
 File: nguyen-ming-37c.pdf Graphic file (type pdf)
 
 <use nguyen-ming-37c.pdf>
 Package pdftex.def Info: nguyen-ming-37c.pdf used on input line 132.
 (pdftex.def)             Requested size: 426.79134pt x 320.09303pt.
- [4 <./nguyen-ming-36b.pdf>] [5 <./nguyen-ming-37c.pdf>] [6] (./alisanguyen-jmi
-ng-hw2.aux) ) 
+ [4 <C:/Users/Alisa/Documents/GitHub/spring2013/hw2/nguyen-ming-36b.pdf>] [5 <C
+:/Users/Alisa/Documents/GitHub/spring2013/hw2/nguyen-ming-37c.pdf>] [6]
+(C:\Users\Alisa\Documents\GitHub\spring2013\hw2\alisanguyen-jming-hw2.aux) ) 
 Here is how much of TeX's memory you used:
- 2402 strings out of 495059
- 31956 string characters out of 3182031
- 87973 words of memory out of 3000000
- 5550 multiletter control sequences out of 15000+200000
- 9072 words of font info for 37 fonts, out of 3000000 for 9000
- 14 hyphenation exceptions out of 8191
- 37i,5n,24p,854b,448s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on alisanguyen-jming-hw2.pdf (6 pages, 109781 bytes).
-PDF statistics:
- 132 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
-
-=======
-
-! Use of \@array doesn't match its definition.
-\hline ...lewidth \futurelet \reserved@a \@xhline 
-                                                  
-l.45 		\hline
-             
-? 
-! Emergency stop.
-\hline ...lewidth \futurelet \reserved@a \@xhline 
-                                                  
-l.45 		\hline
-             
-End of file on the terminal!
-
- 
-Here is how much of TeX's memory you used:
- 2030 strings out of 494045
- 25225 string characters out of 3148388
+ 2044 strings out of 494045
+ 25621 string characters out of 3148388
  79649 words of memory out of 3000000
- 5324 multiletter control sequences out of 15000+200000
- 8904 words of font info for 36 fonts, out of 3000000 for 9000
+ 5333 multiletter control sequences out of 15000+200000
+ 9072 words of font info for 37 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
-<<<<<<< HEAD
- 27i,4n,24p,901b,288s stack positions out of 5000i,500n,10000p,200000b,50000s
-!  ==> Fatal error occurred, no output PDF file produced!
-=======
- 27i,5n,24p,901b,288s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,5n,24p,999b,448s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:
 /Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program
  Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/
 fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
 e1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmsy10.pfb>
-Output written on alisanguyen-jming-hw2.pdf (5 pages, 106531 bytes).
+amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmtt10.pfb>
+Output written on alisanguyen-jming-hw2.pdf (6 pages, 120824 bytes).
 PDF statistics:
- 123 PDF objects out of 1000 (max. 8388607)
+ 130 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-=======
-(/usr/share/texlive/texm
->>>>>>> db4a829da234e4599bde1144ec3a2f2339488134
->>>>>>> c0831d31be9de14b97ed6deb80b139d7ab1ec8bb
->>>>>>> 783d509e0236e361c58042619e12e14063340549
