@@ -136,11 +136,11 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 	We chose to use 0.1 as the learning rate because within the 15 epochs, it scored consistently the highest and seemed to be moving most steadily toward progress.\\
 	NOTE: These tests were actually run on the program before the bug mentioned in Piazza Post 105 of initializing the transformed values of each input node to be equal to the raw value was fixed. However, since these results are relative to each other, we kept the data just to show which learning rate had the best performance.
 \item
-$$\includegraphics[width=150mm]{nguyen-ming-36b.pdf}$$ 
+$$\includegraphics[width=130mm]{nguyen-ming-36b.pdf}$$ 
 \begin{enumerate}
 \item Yes, we are in danger of overfitting by training for too many epochs as mentioned in lecture. The ways we discussed how to combat this include early stopping, model selection, weight pruning, regularization, and weight sharing.
 \item A good number of epochs to train for is around 25, as we determined experimentally.
-\\It is important that we use a validation set rather than the actual test set to tune the number of epochs because FILL IN
+\\It is important that we use a validation set rather than the actual test set to tune the number of epochs because the test set should remain untouched until we are ready to evaluate performance to present more accurate results and so we can minimize the error accurately.
 \end{enumerate}
 \item The training performance is 0.901.
 \\ The validation performance is 0.880.
@@ -149,8 +149,8 @@ $$\includegraphics[width=150mm]{nguyen-ming-36b.pdf}$$
 7. Experiment with networks with a single hidden layer
 \begin{enumerate}
 \item We decided that we wanted to use a learning rate of 0.3 for both 15 and 30 fully connected units in the hidden layer based on previous experimental data.
-\item We determine when to stop training by checking the improvement between the current epoch validation performance and the validation performance for the previous epoch. If the difference is less than a given $\epsilon$, which in this case was 0.001, at least five times in a row, then stop the training.
-\item $$\includegraphics[width=150mm]{nguyen-ming-37c.pdf}$$
+\item We determine when to stop training by checking the improvement between the current epoch validation performance and the validation performance for the previous epoch. If the difference is less than a given $\epsilon$, which in this case was 0.0001, at least five times in a row, then stop the training.
+\item $$\includegraphics[width=130mm]{nguyen-ming-37c.pdf}$$
 \item We used 33 epochs for 15 hidden units and 28 epochs for 30 hidden units.
 \item Based on these experiements, we would use the network structure with 30 fully connected hidden units because both training set error and validation set error were lower for the 30 fully connected hidden units compared to the 15. By the 28th epoch round for the 30 hidden units, the training set error was 0.036 and the validation set error was 0.074, which is considerably less than the errors for 15 units by the 33rd round, which were 0.612 and 0.097 respectively.
 \item The test set performance of the network with 30 hidden units for 28 epochs was \fbox{0.949}. This is higher than the test set performance of the network with 15 hidden units for 33 epochs, which was 0.939. Both the hidden unit performances are better than the performance of the simple neural network implemented earlier, which was 0.913. Compared to a boosting committee of perceptrons, we assume that our hidden unit performances will also be better.
@@ -187,7 +187,7 @@ $$\includegraphics[width=150mm]{nguyen-ming-36b.pdf}$$
 		5 Performance: 0.10077778 0.098 0.106
 		\end{verbatim}
 	\end{itemize}
-\item It was surprising, at first that the performances were so drastically low to begin with and they stopped pretty quickly after the minimum five rounds, meaning they did not improve significantly. However, thinking more about the data, it seemed to make more sense 
+\item It was surprising, at first that the performances were so drastically low to begin with and they stopped pretty quickly after the minimum five rounds, meaning they did not improve significantly. However, thinking more about the data, it seemed to make more sense that adding more hidden layers would complicate the problem unecessarily and would not actually improve performance. Even though the absolute performance of our custom network is significantly worse than that of the simple network and hidden network, it was enlightening to realize these results and attempt to find explanations for them based on what we learned from class.
 \end{enumerate}
 \item Changing error function
 	\begin{enumerate}
