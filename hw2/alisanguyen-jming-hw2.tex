@@ -41,8 +41,8 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 \item We used a learning rate of 0.1 based on this DATA:
 \item 
 \begin{enumerate}
-\item Yes/No we are/are not in danger of overfitting by training for too many epochs.
-\item A good number of epochs to train for is
+\item Yes, we are in danger of overfitting by training for too many epochs as mentioned in lecture. The ways we discussed how to combat this include early stopping, model selection, weight pruning, regularization, and weight sharing.
+\item A good number of epochs to train for is around 25, as we determined experimentally.
 \\It is important that we use a validation set rather than the actual test set to tune the number of epochs because
 \end{enumerate}
 \item The training performance is
@@ -51,10 +51,10 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 \end{enumerate} 
 7. Experiment with networks with a single hidden layer
 \begin{enumerate}
-\item We decided that we wanted to use a learning rate of FILLIN for 15 fully connected units in the hidden layer and FILLIN for 30 fully connected units in the hidden layer based on DATA.
+\item We decided that we wanted to use a learning rate of 0.3 for 15 fully connected units in the hidden layer and 0.3 for 30 fully connected units in the hidden layer based on experimental trials with different learning rates.
 \item We determine when to stop training by checking the difference between the validation performance and the previous validation performance. If the difference is less than a given $\epsilon$, which in this case was 0.001, at least five times in a row, then stop the training.
 \item GRAPH HERE
-\item We used FILLIN epochs for 15 hidden units and 27 epochs for 30 hidden units.
+\item We used FILLIN epochs for 15 hidden units and 28 epochs for 30 hidden units.
 \item Based on these experiements, we would use the network structure with FILLIN hidden units because FILLIN
 \item The test set performance of the network we chose is FILLIN. This compares to the committee of perceptrons by FILLIN.
 \end{enumerate}
