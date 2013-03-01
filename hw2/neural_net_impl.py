@@ -192,9 +192,9 @@ def Backprop(network, input, target, learning_rate):
     if node in network.outputs:
       node.e = target[network.outputs.index(node)] - node.transformed_value
     else:
-      node.e = 0
-      for i in range(len(node.inputs)):
-        node.e += node.weight[i].value * node.delta
+      node.e = 0.
+      for i in range(len(node.forward_neighbors)):
+        node.e += node.forward_weights[i].value * node.forward_neighbors[i].delta
     node.delta = network.SigmoidPrime(node.raw_value) * node.e
 
   for node in nodes:
@@ -393,8 +393,8 @@ class SimpleNetwork(EncodedNetworkFramework):
     # 2) Add an output node for each possible digit label.
     for i in range(10):
       n = Node()
-      for i in range(196):
-        n.AddInput(self.network.inputs[i], False, self.network)
+      for j in range(196):
+        n.AddInput(self.network.inputs[j], False, self.network)
       self.network.AddNode(n, self.network.OUTPUT)
     
     # for i in self.network.inputs:
@@ -434,9 +434,21 @@ class HiddenNetwork(EncodedNetworkFramework):
     super(HiddenNetwork, self).__init__() # < Don't remove this line >
 
     # 1) Adds an input node for each pixel
+    for i in range(196):
+      n = Node()
+      self.network.AddNode(n, self.network.INPUT)
     # 2) Adds the hidden layer
+    for i in range(number_of_hidden_nodes):
+      n = Node()
+      for j in range(len(self.network.inputs)):
+        n.AddInput(self.network.inputs[j], False, self.network)
+      self.network.AddNode(n, self.network.HIDDEN)
     # 3) Adds an output node for each possible digit label.
-    pass
+    for i in range(10):
+      n = Node()
+      for j in range(len(self.network.hidden_nodes)):
+        n.AddInput(self.network.hidden_nodes[j], False, self.network)
+      self.network.AddNode(n, self.network.OUTPUT)
     
 
 #<--- Problem 3, Question 8 ---> 
