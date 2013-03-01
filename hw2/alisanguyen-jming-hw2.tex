@@ -19,17 +19,17 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 
 \item Perceptron activation rule
 	\begin{enumerate}
-	\item Bright-or-dark is not able to be recognized by a perceptron. One possibility is to have the weights of all $n=9$ pixels be initialized to $1/n=1/9$. Then, multiplying the value if the pixel is on (1) or off (0) with the weights will give something greater than 0.75 if at least 75\% pixels are on and will give something less than 0.25 if at least 75\% pixels are off. However, this function of returning positive when the value is greater than 0.75 and less than 0.25 is piecewise and not differentiable. There cannot exist a perceptron that recognizes this feature because this feature is not linearly separable.
+	\item Bright-or-dark is not able to be recognized by a perceptron. One possibility is to have the weights of all $n=9$ pixels be initialized to $1/n=1/9$. Then, multiplying the value if the pixel is on (1) or off (0) with the weights will give something greater than 0.75 if at least 75\% pixels are on and will give something less than 0.25 if at least 75\% pixels are off. However, this function of returning positive when the value is greater than 0.75 and less than 0.25 is piecewise and not differentiable, therefore not able to be determined by a perceptron. There cannot exist a perceptron that recognizes this feature because this feature is not linearly separable.
 	% This perceptron would have the weights of all $n=9$ pixels to be initialzed to $1/n=1/9$. Then, multiplying the value if the pixel is on (1) or off (0) with the weights will give something greater than 0.75 if at least 75\% pixels are on and will give something less than 0.35 if at least 75\% pixels are off.
 	\item Top-bright is able to be recognized by a perceptron. This perceptron would have $1/3$ weights for the top three pixels and $-1/6$ weights for the bottom pixels. If both have the same fraction of pixels on in both rows then the result should be 0. However, if the top has a larger fraction it would be positive and if the bottom has a larger fraction it would be negative. Therefore, simply checking to see if the result is greater than zero can tell if a larger fraction of pixels is on the top row than in the bottom two rows.
-	\item It is not possible to present a perceptron that can check to see if a set of pixels that are on is connected because it is not possible to model when different points of data are correlated. Suppose for contradiction that there is a perceptron that could check to see if a set of pixels that are on is connected. Then for PROOF.
+	\item It is not possible to present a perceptron that can check to see if a set of pixels that are on is connected because it is not possible to model when different points of data are correlated. Suppose for contradiction that there is a perceptron that could check to see if a set of pixels that are on is connected. Then that given perceptron would be able to determine data that is not linearly separable, which is not possible. Therefore, there does not exist a perceptron that is able to see if a set of pixels is connected.
 	\end{enumerate}
 \item Four different possible learning algorithms
 	\begin{enumerate}
-	\item Decision trees are most effective when there are characteristics to split on with different values. However, it is difficult in this case to even determine which characteristics to split on, even if there were some way to implement continuous attributes. One possibility for splitting would be starting from a given pixel such as the top left pixel to see if its neighbors are activated or not. However, this would result in a lot of branches for each pixel and its neighbors. This could also be difficult to train and determine these splits. Therefore the fact that few attributes determine decisions and that they do not construct new features makes decision trees less robust in digit recognition. However, decision trees are useful in the cass of fast learning and easy to interpret models.
-	\item Boosted decision stumps are especially useful for making prediction based on the value of a single input feature over a specific threshold. Though these decision stumps can reach a higher level of accuracy after boosting, their level of simplicity that contrasts that of the complicated features of the decision trees is well adapted for the problem. One way to approach this would be to have a separate decision stump for each pixel. However, this would result in it being very difficult to figure out the linking of the different, separate pixels. Combatting this inability to consider connected features would be to track the presence of certain patterns. However, it would still be difficult to even put the frequency of these patterns together as well.
+	\item Decision trees are most effective when there are a few specific characteristics to split on with different values. However, it is difficult in this case to even determine which characteristics to split on, even if there were some way to implement continuous attributes. One possibility for splitting would be starting from a given pixel such as the top left pixel to see if its neighbors are activated or not. However, this would result in a lot of branches for each pixel and its neighbors. This could also be difficult to train and determine these splits. Therefore the fact that few attributes determine decisions and that they do not construct new features makes decision trees less robust in digit recognition. However, decision trees are useful in the cass of fast learning and easy to interpret models.
+	\item Boosted decision stumps are especially useful for making prediction based on the value of a single input feature over a specific threshold. Though these decision stumps can reach a higher level of accuracy after boosting, their level of simplicity that contrasts that of the complicated features of the decision trees is still not well adapted for the problem. One way to approach this would be to have a separate decision stump for each pixel. However, this would result in it being very difficult to figure out the linking of the different, separate pixels. Combatting this inability to consider connected features would be to track the presence of certain patterns. However, it would still be difficult to even put the frequency of these patterns together as well.
 	\item Perceptrons are better than decision trees and decision stumps at learning about the set of data as opposed to individual pixels. This is because the perceptrons are looking at the sum of the different pixels. However, perceptrons do have some weaknesses, as evidenced by the previous problems. They are still limited only to linearly separable data and their decision boundaries have to be based on differentiable functions that will not be able to consider piecewise functions or connectedness. Therefore, though perceptrons are a step toward understanding, there have to be more layers to get a better grasp of the data. 
-	\item Multi-layer feed-forward neural networks is what we implemented in the problem set, which speaks to its validity as a means of approaching the problem of digit recognition. This problem has as many as 196 pixels for a 14x14 image, as spoken about many times in discounting the other methods. The multi-layer feed-forward network can help with this in that it can take many different inputs. The problem of digit recognition also has 10 distinct output categories, which is well embodied by the various output nodes in the multi-layer feed forward neural networks. One drawback is that this needs a lot of previous knowledge. 
+	\item Multi-layer feed-forward neural networks is what we implemented in the problem set, which speaks to its validity as a means of approaching the problem of digit recognition. This problem has as many as 196 pixels for a 14x14 image, as spoken about many times in discounting the other methods. The multi-layer feed-forward network can help with this in that it can take many different inputs. The problem of digit recognition also has 10 distinct output categories, which is well embodied by the various output nodes in the multi-layer feed forward neural networks. One drawback is that this needs a lot of previous knowledge and learns fairly slowly.
 	\end{enumerate}
 \item Implementing a neural network
 \newline
@@ -38,7 +38,32 @@ Joy Ming and Alisa Nguyen (25 February 2013)\\
 \newline
 6. Experiment with simple networks
 \begin{enumerate}
-\item We used a learning rate of 0.1 based on this DATA:
+\item We used a learning rate of 0.1 based on a running 15 epochs of four different learning rates:
+	\begin{itemize}
+	\item Learning rate of 1.0:
+		% \begin{tabular}[|c|c|c|]
+		% Epoch & Validation & Training
+		% 1 Performance: 0.34900000 0.340
+		% 2 Performance: 0.47555556 0.449
+		% 3 Performance: 0.55900000 0.529
+		% 4 Performance: 0.56588889 0.540
+		% 5 Performance: 0.69877778 0.675
+		% 6 Performance: 0.71755556 0.693
+		% 7 Performance: 0.79322222 0.782
+		% 8 Performance: 0.74711111 0.728
+		% 9 Performance: 0.75333333 0.731
+		% 10 Performance: 0.71777778 0.704
+		% 11 Performance: 0.71500000 0.709
+		% 12 Performance: 0.72066667 0.707
+		% 13 Performance: 0.76622222 0.762
+		% 14 Performance: 0.70933333 0.703
+		% 15 Performance: 0.78533333 0.768
+		% \end{tabular}
+	\item Learning rate of 0.1:
+	\item Learning rate of 0.01:
+	\item Learning rate of 0.001:
+	\end{itemize}
+	NOTE: These tests were actually run on the program before the bug mentioned in Piazza Post 105 of initializing the transformed values of each input node to be equal to the raw value was fixed. However, since these results are relative to each other, we kept the data just to show which learning rate had the best performance.
 \item
 $$\includegraphics[width=150mm]{nguyen-ming-36b.pdf}$$ 
 \begin{enumerate}
