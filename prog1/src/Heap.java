@@ -24,7 +24,17 @@ public class Heap {
 	}
 	
 
+	public int parent(int i){
+		return (int) Math.floor(i/2.0);	
+	}
 	
+	public int left(int i){
+		return 2*i;
+	}
+	
+	public int right(int i){
+		return 2*i + 1;
+	}
 	
 
 }
