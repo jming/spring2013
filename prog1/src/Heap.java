@@ -36,7 +36,7 @@ public class Heap {
 		if (r < list.size() && list.get(r) < list.get(smallest))
 			smallest = r;
 		
-		System.out.println("smallest: " + list.get(smallest));
+		// System.out.println("smallest: " + list.get(smallest));
 		// swap if necessary
 		if (smallest != n) {
 			swap(n, smallest);
