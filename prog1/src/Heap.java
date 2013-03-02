@@ -16,32 +16,36 @@ public class Heap {
 	}
 	
 	// rearranges tree rooted at list.get(n) to be a maxHeap
-	public void maxHeapify(int n){
+	public void minHeapify(int n){
 		
 		// initialize variables
 		int l = left(list.indexOf(n));
 		int r = right(list.indexOf(n));
-		int largest = 0;
+		int smallest = 0;
 		
 		// set largest
-		if (l < list.size() && list.get(l) > list.get(n))
-			largest = l;
+		if (l < list.size() && list.get(l) < list.get(n))
+			smallest = l;
 		else
-			largest = n;
+			smallest = n;
 		
-		if (r < list.size() && list.get(r) > list.get(largest))
-			largest = r;
+		if (r < list.size() && list.get(r) < list.get(smallest))
+			smallest = r;
 		
 		// swap if necessary
-		if (largest != n) {
-			swap(n, largest);
-			maxHeapify(largest);
+		if (smallest != n) {
+			swap(n, smallest);
+			minHeapify(smallest);
 		}
 		
 	}
 	
-	public void buildHeap(ArrayList<int[]> list){
-		
+	// Given an unordered list a, builds a max-heap
+	public void buildHeap(ArrayList<int[]> a){
+		for(int i = (int) Math.floor((double) a.size()/2.0); i > 0; i--)
+		{
+			minHeapify(i);
+		}
 	}
 	
 	public void extractMax(){
