@@ -21,9 +21,10 @@ public class Heap {
 		// initialize variables
 		int l = left(n);
 		int r = right(n);
-		System.out.println("n:" + list.get(n));
-		System.out.println("l:" + list.get(l));
-		System.out.println("r:" + list.get(r));
+		/*System.out.println("n_val:" + list.get(n));
+		System.out.println("l_val:" + list.get(l));
+		if (r < list.size())
+			System.out.println("r_val:" + list.get(r));*/
 		int smallest = 0;
 		
 		// set smallest
@@ -35,7 +36,7 @@ public class Heap {
 		if (r < list.size() && list.get(r) < list.get(smallest))
 			smallest = r;
 		
-		System.out.println("smallest: " + list.get(smallest));
+		// System.out.println("smallest: " + list.get(smallest));
 		// swap if necessary
 		if (smallest != n) {
 			swap(n, smallest);
@@ -46,9 +47,9 @@ public class Heap {
 	
 	// Given an unordered list a, builds a max-heap
 	public void buildHeap(ArrayList<Integer> a){
-		list = a;
-		for(int i = (int) Math.floor((double) a.size()/2.0) - 1; i >= 0; i--)
+		for(int i = (int) Math.floor((double) a.size()/2.0); i > 0; i--)
 		{
+			//System.out.println(i);
 			minHeapify(i);
 		}
 	}
@@ -80,11 +81,11 @@ public class Heap {
 	}
 	
 	public int left(int i){
-		return 2*(i);
+		return 2*i + 1;
 	}
 
 	public int right(int i){
-		return 2*(i) + 1;
+		return 2*i + 2;
 	}
 	
 	public int size(){
