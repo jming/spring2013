@@ -51,13 +51,22 @@ public class Heap {
 	// given a non-empty heap returns top element and fixes the rest of the heap
 	public int extractMin(){
 		int min = list.get(0);
-		list.set(0, list.remove(list.size() - 1));
-		minHeapify(0);
+		if(list.size() > 1)
+		{
+			list.set(0, list.remove(list.size() - 1));
+			minHeapify(0);
+		}
 		return min;
 	}
 	
+	// Adds value v into max-heap H
 	public void insert(int v){
-		
+		list.add(v);
+		int n = list.size() - 1;
+		while(n != 0 && list.get(parent(n)) < list.get(n)){
+			swap(list.get(parent(n)), list.get(n));
+			n = parent(n);
+		}
 	}
 	
 
