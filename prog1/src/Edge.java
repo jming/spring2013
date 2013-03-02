@@ -10,5 +10,17 @@ public class Edge {
 		v = end;
 		w = weight;
 	}
+	
+	public Vertex getStart(){
+		return u;
+	}
+	
+	public Vertex getEnd(){
+		return v;
+	}
+	
+	public int getWeight(){
+		return w;
+	}
 
 }

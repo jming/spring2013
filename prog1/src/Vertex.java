@@ -27,4 +27,8 @@ public class Vertex {
 	public Vertex getPrev(){
 		return prev;
 	}
+	
+	public int getName(){
+		return name;
+	}
 }
