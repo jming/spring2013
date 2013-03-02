@@ -8,7 +8,7 @@ public class Heap {
 		list = new ArrayList<Integer>();	
 	}
 	
-	// swap the values in heap given two indicies
+	// swap the values in heap given two indices
 	public void swap(int a, int b){
 		int temp = list.get(a);
 		list.set(a, list.get(b));
