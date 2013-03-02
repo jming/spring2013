@@ -3,11 +3,11 @@
 public class Vertex {
 
 	private int dist;
-	private int name;
+//	private int name;
 	private Vertex prev;
 	
-	public Vertex(int n){
-		name = n;
+	public Vertex(){
+//		name = n;
 		dist = 2;
 		prev = null;
 	}
@@ -28,7 +28,7 @@ public class Vertex {
 		return prev;
 	}
 	
-	public int getName(){
-		return name;
-	}
+//	public int getName(){
+//		return name;
+//	}
 }

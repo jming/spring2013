@@ -23,8 +23,26 @@ public class helloworld {
 		for(int i = 0; i < h.size(); i++)
 			System.out.println(h.get(i));
 */
+	Generate(1, 5);
 	
+	}
 	
+	public static void Generate(int type, int n) {
+		Vertex[] V = new Vertex[n];
+		ArrayList<Edge> E = new ArrayList<Edge>();
+		
+		for (int i = 0; i < n; i++){
+			Vertex v = new Vertex();
+			V[i] = v;
+		}
+		for (int i = 0; i < n; i++){
+			for (int j = i+1; j <n; j++){
+				// TODO: Randomize w's
+				int w = 0;
+				Edge e = new Edge(V[i], V[j], w);
+				E.add(e);
+			}
+		}
 	}
 	
 	public void Prim() {
