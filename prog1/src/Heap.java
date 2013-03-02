@@ -2,15 +2,15 @@ import java.util.*;
 
 public class Heap {
 	
-	private ArrayList<Integer> list;
+	private ArrayList<Vertex> list;
 
 	public Heap(){
-		list = new ArrayList<Integer>();	
+		list = new ArrayList<Vertex>();	
 	}
 	
 	// swap the values in heap given two indices
 	public void swap(int a, int b){
-		int temp = list.get(a);
+		Vertex temp = list.get(a);
 		list.set(a, list.get(b));
 		list.set(b, temp);
 	}
@@ -28,12 +28,12 @@ public class Heap {
 		int smallest = 0;
 		
 		// set smallest
-		if (l < list.size() && list.get(l) < list.get(n))
+		if (l < list.size() && list.get(l).getDist() < list.get(n).getDist())
 			smallest = l;
 		else
 			smallest = n;
 		
-		if (r < list.size() && list.get(r) < list.get(smallest))
+		if (r < list.size() && list.get(r).getDist() < list.get(smallest).getDist())
 			smallest = r;
 		
 		// System.out.println("smallest: " + list.get(smallest));
@@ -46,7 +46,8 @@ public class Heap {
 	}
 	
 	// Given an unordered list a, builds a max-heap
-	public void buildHeap(ArrayList<Integer> a){
+	public void buildHeap(ArrayList<Vertex> a){
+		a = list;
 		for(int i = (int) Math.floor((double) a.size()/2.0); i > 0; i--)
 		{
 			//System.out.println(i);
@@ -56,25 +57,24 @@ public class Heap {
 	
 	// given a non-empty heap returns top element and fixes the rest of the heap
 	public int extractMin(){
-		int min = list.get(0);
+		Vertex min = list.get(0);
 		if(list.size() > 1)
 		{
 			list.set(0, list.remove(list.size() - 1));
 			minHeapify(0);
 		}
-		return min;
+		return min.getDist();
 	}
 	
 	// Adds value v into max-heap H
-	public void insert(int v){
+	public void insert(Vertex v){
 		list.add(v);
 		int n = list.size() - 1;
-		while(n != 0 && list.get(parent(n)) < list.get(n)){
-			swap(list.get(parent(n)), list.get(n));
+		while(n != 0 && list.get(parent(n)).getDist() < list.get(n).getDist()){
+			swap(parent(n), n);
 			n = parent(n);
 		}
 	}
-	
 
 	public int parent(int i){
 		return (int) Math.floor(i/2.0);	
@@ -92,7 +92,7 @@ public class Heap {
 		return list.size();
 	}
 	
-	public int get(int i){
+	public Vertex get(int i){
 		return list.get(i);
 	}
 

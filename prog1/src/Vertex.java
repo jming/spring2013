@@ -19,4 +19,12 @@ public class Vertex {
 	public void setDist(int d){
 		dist = d;
 	}
+	
+	public int getDist(){
+		return dist;
+	}
+	
+	public Vertex getPrev(){
+		return prev;
+	}
 }
