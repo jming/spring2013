@@ -48,8 +48,12 @@ public class Heap {
 		}
 	}
 	
-	public void extractMax(){
-		
+	// given a non-empty heap returns top element and fixes the rest of the heap
+	public int extractMin(){
+		int min = list.get(0);
+		list.set(0, list.remove(list.size() - 1));
+		minHeapify(0);
+		return min;
 	}
 	
 	public void insert(int v){
