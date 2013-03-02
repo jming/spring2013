@@ -17,10 +17,11 @@ public class Heap {
 	
 	// rearranges tree rooted at list.get(n) to be a maxHeap
 	public void minHeapify(int n){
-		n -= 1;
+		//n -= 1;
 		// initialize variables
 		int l = left(n);
 		int r = right(n);
+		System.out.println("n:" + list.get(n));
 		System.out.println("l:" + list.get(l));
 		System.out.println("r:" + list.get(r));
 		int smallest = 0;
@@ -46,7 +47,7 @@ public class Heap {
 	// Given an unordered list a, builds a max-heap
 	public void buildHeap(ArrayList<Integer> a){
 		list = a;
-		for(int i = (int) Math.floor((double) a.size()/2.0) - 1; i > 1; i--)
+		for(int i = (int) Math.floor((double) a.size()/2.0) - 1; i >= 0; i--)
 		{
 			minHeapify(i);
 		}
@@ -79,11 +80,11 @@ public class Heap {
 	}
 	
 	public int left(int i){
-		return 2*(i + 1);
+		return 2*(i);
 	}
 
 	public int right(int i){
-		return 2*(i + 1) + 1;
+		return 2*(i) + 1;
 	}
 	
 	public int size(){
