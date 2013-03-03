@@ -31,7 +31,7 @@ public class helloworld {
 	// Generates graphs
 	public static Graph Generate(int type, int n) {
 		
-		Vertex[] V = new Vertex[n];
+		ArrayList<Vertex> V = new ArrayList<Vertex>(n);
 		ArrayList<Edge> E = new ArrayList<Edge>();
 		
 		for (int i = 0; i < n; i++){
@@ -48,7 +48,7 @@ public class helloworld {
 			else if (type == 4){
 				v = new Vertex(Math.random(), Math.random(), Math.random(), Math.random());
 			}
-			V[i] = v;
+			V.set(i, v);
 		}
 		
 		for (int i = 0; i < n; i++){
@@ -58,15 +58,15 @@ public class helloworld {
 					w = Math.random();
 				}
 				else if (type == 2){
-					w = getDistance(V[i].getX(), V[j].getX(), V[i].getY(), V[j].getY());
+					w = getDistance(V.get(i).getX(), V.get(j).getX(), V.get(i).getY(), V.get(j).getY());
 				}
 				else if (type == 3){
-					w = getDistance(V[i].getX(), V[j].getX(), V[i].getY(), V[j].getY(), V[i].getZ(), V[j].getZ());
+					w = getDistance(V.get(i).getX(), V.get(j).getX(), V.get(i).getY(), V.get(j).getY(), V.get(i).getZ(), V.get(j).getZ());
 				}
 				else if (type == 4){
-					w = getDistance(V[i].getX(), V[j].getX(), V[i].getY(), V[j].getY(), V[i].getZ(), V[j].getZ(), V[i].getZZ(), V[j].getZZ());
+					w = getDistance(V.get(i).getX(), V.get(j).getX(), V.get(i).getY(), V.get(j).getY(), V.get(i).getZ(), V.get(j).getZ(), V.get(i).getZZ(), V.get(j).getZZ());
 				}
-				Edge e = new Edge(V[i], V[j], w);
+				Edge e = new Edge(V.get(i), V.get(j), w);
 				E.add(e);
 				System.out.println("i: " + i + " j: " + j + " w: " + w);
 			}
@@ -76,29 +76,36 @@ public class helloworld {
 		return g;
 	}
 	
-	public static ArrayList<Edge> Prim(Graph g) {
+	public static ArrayList<Vertex> Prim(Graph g) {
 		int n = 5;
-		int v = 0;
-		int w = 0;
-		int[] dist = new int[n];
-		int[] prev = new int[n];
-		ArrayList<Integer> s = new ArrayList<Integer>();
+		//int v = 0;
+		//int w = 0;
+		//int[] dist = new int[n];
+		//int[] prev = new int[n];
+		ArrayList<Vertex> S = new ArrayList<Vertex>();
 		//ArrayList<Integer> ve = new ArrayList<Integer>();
 		Heap h = new Heap();
 		// Build priority heap of vertices of Graph
 		h.buildHeap(g.getV());
 		// set dist and prev for each vertex
-		for(Vertex v: g.getV()){
-			dist[v] = 2;
-			prev[v] = null;
+		for(Vertex ve: g.getV()){
+			ve.setDist(2);
+			ve.setPrev(null);
 		}
 		//set distance of start vertex to 0
-		dist[0] = 0;
+		g.getV().get(0).setDist(0);
 		//while the heap is nonempty
+		while(h.size() > 0){
 			// delete the minimum v, add v to S
+			Vertex v = h.extractMin();
+			S.add(v);
+			
 			// for all the edges in E where the endpoint w is in V-S, do
 				// if dist[w] > length(v, w)
 					// dist[w] = length(v, w); prev[w] = v; insert(w, dist[w], heap)
+			
+		}
+
 		
 		return s;
 	}

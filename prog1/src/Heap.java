@@ -48,14 +48,14 @@ public class Heap {
 	}
 	
 	// given a non-empty heap returns top element and fixes the rest of the heap
-	public int extractMin(){
+	public Vertex extractMin(){
 		Vertex min = list.get(0);
 		if(list.size() > 1)
 		{
 			list.set(0, list.remove(list.size() - 1));
 			minHeapify(0);
 		}
-		return min.getDist();
+		return min;
 	}
 	
 	// Adds value v into max-heap H
