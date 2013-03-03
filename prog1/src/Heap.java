@@ -17,14 +17,8 @@ public class Heap {
 	
 	// rearranges tree rooted at list.get(n) to be a maxHeap
 	public void minHeapify(int n){
-		//n -= 1;
-		// initialize variables
 		int l = left(n);
 		int r = right(n);
-		/*System.out.println("n_val:" + list.get(n));
-		System.out.println("l_val:" + list.get(l));
-		if (r < list.size())
-			System.out.println("r_val:" + list.get(r));*/
 		int smallest = 0;
 		
 		// set smallest
@@ -35,8 +29,7 @@ public class Heap {
 		
 		if (r < list.size() && list.get(r).getDist() < list.get(smallest).getDist())
 			smallest = r;
-		
-		// System.out.println("smallest: " + list.get(smallest));
+
 		// swap if necessary
 		if (smallest != n) {
 			swap(n, smallest);
@@ -50,7 +43,6 @@ public class Heap {
 		a = list;
 		for(int i = (int) Math.floor((double) a.size()/2.0); i > 0; i--)
 		{
-			//System.out.println(i);
 			minHeapify(i);
 		}
 	}

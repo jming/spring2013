@@ -3,13 +3,13 @@
 public class Vertex {
 
 	private int dist;
-//	private int name;
 	private Vertex prev;
 	private double x;
 	private double y;
+	private double z;
+	private double zz;
 	
 	public Vertex(){
-//		name = n;
 		dist = 2;
 		prev = null;
 	}
@@ -21,6 +21,22 @@ public class Vertex {
 		prev = null;
 	}
 	
+	public Vertex(double posx, double posy, double posz) {
+		x = posx;
+		y = posy;
+		z = posz;
+		dist = 2;
+		prev = null;
+	}
+	
+	public Vertex(double posx, double posy, double posz, double poszz){
+		x = posx;
+		y = posy;
+		z = posz;
+		zz = poszz;
+		dist = 2;
+		prev = null;
+	}
 	public void setPrev(Vertex v){
 		prev = v;
 	}
@@ -45,7 +61,11 @@ public class Vertex {
 		return y;
 	}
 	
-//	public int getName(){
-//		return name;
-//	}
+	public double getZ(){
+		return z;
+	}
+	
+	public double getZZ(){
+		return zz;
+	}
 }
