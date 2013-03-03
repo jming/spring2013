@@ -3,9 +3,9 @@ public class Edge {
 	
 	private Vertex u;
 	private Vertex v;
-	private int w;
+	private double w;
 	
-	public Edge(Vertex start, Vertex end, int weight){
+	public Edge(Vertex start, Vertex end, double weight){
 		u = start;
 		v = end;
 		w = weight;
@@ -19,7 +19,7 @@ public class Edge {
 		return v;
 	}
 	
-	public int getWeight(){
+	public double getWeight(){
 		return w;
 	}
 
