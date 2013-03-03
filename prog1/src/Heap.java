@@ -40,7 +40,7 @@ public class Heap {
 	
 	// Given an unordered list a, builds a max-heap
 	public void buildHeap(ArrayList<Vertex> a){
-		a = list;
+		list = a;
 		for(int i = (int) Math.floor((double) a.size()/2.0); i > 0; i--)
 		{
 			minHeapify(i);

@@ -2,7 +2,7 @@
 
 public class Vertex {
 
-	private int dist;
+	private double dist;
 	private Vertex prev;
 	private double x;
 	private double y;
@@ -41,11 +41,11 @@ public class Vertex {
 		prev = v;
 	}
 	
-	public void setDist(int d){
+	public void setDist(double d){
 		dist = d;
 	}
 	
-	public int getDist(){
+	public double getDist(){
 		return dist;
 	}
 	
