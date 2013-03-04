@@ -29,6 +29,8 @@ public class helloworld {
 				
 				// System.out.println(g.getV().get(0) == res.get(0));
 				
+				// ADD UP DISTANCES IN VERTEX LIST
+				
 				// sum up all distances in vertex list
 				double dist = 0.;
 				for (Vertex v: res)
@@ -36,10 +38,13 @@ public class helloworld {
 				// add onto array of averages
 				avg[t - 1] += dist / times;
 				
+				// ADD UP DISTANCES USING PREV POINTERS
 				double dist2 = 0.;
-				// try adding up distances using prev pointers
+				// for each vertex
 				for (Vertex v: res){
+					// find the weight between 2 vertices
 					if (v.getPrev() != null){
+						// really stupid way to get the edge between 2 vertices
 						for (Edge e: g.getE()){
 							if (e.getStart() == v.getPrev() && e.getEnd() == v) {
 								dist2 += e.getWeight();
@@ -47,6 +52,7 @@ public class helloworld {
 						}
 					}
 				}
+				// add onto array of averages
 				avg2[t - 1] += dist2/times;
 			}
 		}
@@ -54,10 +60,10 @@ public class helloworld {
 		// print out averages for each type of graph
 		for (double a: avg)
 			System.out.println(a);
-		// output: average numpoints numtrials dimension
-		//System.out.println(0 + " " + n + " " + times + " " + type);
 		for (double a2: avg2)
 			System.out.println(a2);
+		// output: average numpoints numtrials dimension
+		//System.out.println(0 + " " + n + " " + times + " " + type);
 	}
 	
 	// TODO: Is there a better way to declare a method with optional args?
