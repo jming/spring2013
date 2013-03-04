@@ -6,19 +6,23 @@ public class helloworld {
 
 	public static void main(String[] args) {
 		
-		int n = 5;
-		int times = 5;
+		int n = Integer.parseInt(args[1]);
+		int times = Integer.parseInt(args[2]);
+		int type = Integer.parseInt(args[3]);
+			
+		//int n = 5;
+		//int times = 5;
 		double[] avg = new double[4];
 		Arrays.fill(avg, 0.);
 		
 		for (int i = 0; i < times; i++){
-			for (int type = 1; type < 5; type++) {
-				Graph g = Generate(type, n);
+			for (int t = 1; t < 5; t++) {
+				Graph g = Generate(t, n);
 				ArrayList<Vertex> res = Prim(g);
 				double dist = 0.;
 				for (Vertex v: res)
 					dist += v.getDist();
-				avg[type - 1] += dist / times;
+				avg[t - 1] += dist / times;
 			}
 		}
 		
