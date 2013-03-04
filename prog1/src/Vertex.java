@@ -68,4 +68,8 @@ public class Vertex {
 	public double getZZ(){
 		return zz;
 	}
+	
+	public String toString(){
+		return "X: " + x + ", Y: " + y + ", Dist: " + dist;
+	}
 }

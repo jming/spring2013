@@ -23,4 +23,8 @@ public class Edge {
 		return w;
 	}
 
+	public String toString(){
+		return "u: " + u + ", v:" + v + ", w :" + w;
+	}
+	
 }

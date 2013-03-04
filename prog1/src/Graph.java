@@ -18,5 +18,18 @@ public class Graph {
 	public ArrayList<Edge> getE(){
 		return E;
 	}
+	
+	public String toString(){
+		String s = "Vertices: ";
+		for(Vertex v : V){
+			s += v + ", ";
+		}
+		s += "\n Edges: ";
+		for(Edge e : E){
+			s += e + ", ";
+		}
+		
+		return s;
+	}
 
 }

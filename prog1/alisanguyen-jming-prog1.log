@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  3 MAR 2013 21:00
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  3 MAR 2013 20:59
 entering extended mode
-**C:/Users/Alisa/Documents/GitHub/spring2013/hw2/alisanguyen-jming-hw2.tex
-(C:/Users/Alisa/Documents/GitHub/spring2013/hw2/alisanguyen-jming-hw2.tex
+**C:/Users/Alisa/Documents/GitHub/spring2013/prog1/alisanguyen-jming-prog1.tex
+(C:/Users/Alisa/Documents/GitHub/spring2013/prog1/alisanguyen-jming-prog1.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -137,7 +137,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen112
 \Gin@req@width=\dimen113
 )
-(C:\Users\Alisa\Documents\GitHub\spring2013\hw2\alisanguyen-jming-hw2.aux)
+(C:\Users\Alisa\Documents\GitHub\spring2013\prog1\alisanguyen-jming-prog1.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
@@ -169,72 +169,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--16
 
  []
 
-LaTeX Font Info:    Try loading font information for U+lasy on input line 22.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 20.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 22.
+LaTeX Font Info:    Try loading font information for U+msa on input line 20.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 22.
+LaTeX Font Info:    Try loading font information for U+msb on input line 20.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 34--40
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 34--40
-
- []
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
- [2] [3]
-<nguyen-ming-36b.pdf, id=16, 578.16pt x 433.62pt>
-File: nguyen-ming-36b.pdf Graphic file (type pdf)
- <use nguyen-ming-36b.pdf>
-Package pdftex.def Info: nguyen-ming-36b.pdf used on input line 139.
-(pdftex.def)             Requested size: 369.88582pt x 277.40999pt.
-
-[4 <C:/Users/Alisa/Documents/GitHub/spring2013/hw2/nguyen-ming-36b.pdf>]
-<nguyen-ming-37c.pdf, id=62, 578.16pt x 433.62pt>
-File: nguyen-ming-37c.pdf Graphic file (type pdf)
- <use nguyen-ming-37c.pdf>
-Package pdftex.def Info: nguyen-ming-37c.pdf used on input line 153.
-(pdftex.def)             Requested size: 369.88582pt x 277.40999pt.
-
-[5 <C:/Users/Alisa/Documents/GitHub/spring2013/hw2/nguyen-ming-37c.pdf>]
-[6] (C:\Users\Alisa\Documents\GitHub\spring2013\hw2\alisanguyen-jming-hw2.aux) 
+(C:\Users\Alisa\Documents\GitHub\spring2013\prog1\alisanguyen-jming-prog1.aux) 
 ) 
 Here is how much of TeX's memory you used:
- 2044 strings out of 494045
- 25621 string characters out of 3148388
- 79649 words of memory out of 3000000
- 5333 multiletter control sequences out of 15000+200000
- 9072 words of font info for 37 fonts, out of 3000000 for 9000
+ 2015 strings out of 494045
+ 25112 string characters out of 3148388
+ 74649 words of memory out of 3000000
+ 5310 multiletter control sequences out of 15000+200000
+ 8904 words of font info for 36 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 27i,5n,24p,999b,448s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,4n,24p,297b,146s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmtt10.pfb>
-Output written on alisanguyen-jming-hw2.pdf (6 pages, 126673 bytes).
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program File
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb>
+Output written on alisanguyen-jming-prog1.pdf (1 page, 35751 bytes).
 PDF statistics:
- 130 PDF objects out of 1000 (max. 8388607)
+ 18 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

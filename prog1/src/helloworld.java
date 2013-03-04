@@ -5,12 +5,14 @@ public class helloworld {
 
 	public static void main(String[] args) {
 
-	Graph one =	Generate(1, 2);
-	Graph two = Generate(2, 2);
-	Graph three = Generate(3, 2);
-	Graph four = Generate(4, 2);
+	Graph one =	Generate(1, 5);
+	Graph two = Generate(2, 5);
+	Graph three = Generate(3, 5);
+	Graph four = Generate(4, 5);
 	
-	// Goal: Determine how expected average weight of minimum spanning three grows as a function of n
+	System.out.println(one);
+	
+	/*// Goal: Determine how expected average weight of minimum spanning tree grows as a function of n
 	ArrayList<Vertex> eone = Prim(one);
 	System.out.println("size eone: " + eone.size());
 	ArrayList<Vertex> etwo = Prim(two);
@@ -35,7 +37,7 @@ public class helloworld {
 	System.out.println("ethree \n");
 	for(Vertex v : efour){
 		System.out.println("x: " +v.getX() + "y: "+ v.getY() + "dist: " + v.getDist());
-	}
+	}*/
 	
 	}
 	
