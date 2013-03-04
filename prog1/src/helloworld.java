@@ -6,64 +6,54 @@ public class helloworld {
 
 	public static void main(String[] args) {
 		
-		// parse args from command line input
-		int n = Integer.parseInt(args[1]);
-		int times = Integer.parseInt(args[2]);
-		int type = Integer.parseInt(args[3]);
+		Vertex v1 = new Vertex();
+		Vertex v2 = new Vertex();
+		Vertex v3 = new Vertex();
+		Vertex v4 = new Vertex();
+		
+		ArrayList<Vertex> vlist = new ArrayList<Vertex>();
+		vlist.add(v1);
+		vlist.add(v2);
+		vlist.add(v3);
+		vlist.add(v4);
 
-		// initialize avg array of all 0.'s
-		double[] avg = new double[4];
-		Arrays.fill(avg, 0.);
+		Edge e12 = new Edge(v1, v2, .7);
+		Edge e13 = new Edge(v1, v3, .2);
+		Edge e14 = new Edge(v1, v4, .3);
+		Edge e23 = new Edge(v2, v3, .5);
+		Edge e24 = new Edge(v2, v4, .1);
+		Edge e34 = new Edge(v3, v4, .5);
+
+		ArrayList<Edge> elist = new ArrayList<Edge>();
+		elist.add(e12);
+		elist.add(e13);
+		elist.add(e14);
+		elist.add(e23);
+		elist.add(e24);
+		elist.add(e34);
+
+		Graph test = new Graph(vlist, elist);
+
+		ArrayList<Vertex> res = Prim(test);
+
+		System.out.println("getDist: ");
+		for (Vertex r: res)
+			System.out.println(r.getDist());
 		
-		double[] avg2 = new double[4];
-		Arrays.fill(avg2, 0.);
-		
-		// for each time
-		for (int i = 0; i < times; i++){
-			// for each type of graph
-			for (int t = 1; t < 5; t++) {
-				// generate a graph of type t with n vertices
-				Graph g = Generate(t, n);
-				// store result vertex list from prim
-				ArrayList<Vertex> res = Prim(g);
-				
-				// System.out.println(g.getV().get(0) == res.get(0));
-				
-				// ADD UP DISTANCES IN VERTEX LIST
-				
-				// sum up all distances in vertex list
-				double dist = 0.;
-				for (Vertex v: res)
-					dist += v.getDist();
-				// add onto array of averages
-				avg[t - 1] += dist / times;
-				
-				// ADD UP DISTANCES USING PREV POINTERS
-				double dist2 = 0.;
-				// for each vertex
-				for (Vertex v: res){
-					// find the weight between 2 vertices
-					if (v.getPrev() != null){
-						// really stupid way to get the edge between 2 vertices
-						for (Edge e: g.getE()){
-							if (e.getStart() == v.getPrev() && e.getEnd() == v) {
-								dist2 += e.getWeight();
-							}
-						}
-					}
+		System.out.println("getPrev: ");
+		for (Vertex v: res){
+			System.out.println("v: " + v);
+			// find the weight between 2 vertices
+			if (v.getPrev() != null){
+				// really stupid way to get the edge between 2 vertices
+				for (Edge e: test.getE()){
+					if (e.getStart() == v.getPrev() && e.getEnd() == v) {
+						System.out.println(e.getWeight());
+					} else if (e.getEnd() == v.getPrev() && e.getStart() == v) 
+						System.out.println(e.getWeight());
 				}
-				// add onto array of averages
-				avg2[t - 1] += dist2/times;
 			}
 		}
-		
-		// print out averages for each type of graph
-		for (double a: avg)
-			System.out.println(a);
-		for (double a2: avg2)
-			System.out.println(a2);
-		// output: average numpoints numtrials dimension
-		//System.out.println(0 + " " + n + " " + times + " " + type);
 	}
 	
 	// TODO: Is there a better way to declare a method with optional args?
@@ -128,11 +118,13 @@ public class helloworld {
 	}
 	
 	public static ArrayList<Vertex> Prim(Graph g) {
+		
 		// Get all vertices and edges of graph
 		ArrayList<Vertex> V = g.getV();
 		ArrayList<Edge> E = g.getE();
 		// Initialize final set of vertices
 		ArrayList<Vertex> S = new ArrayList<Vertex>();
+		
 		// Create heap for finding min distance at each point
 		Heap h = new Heap();
 		// Place on heap only starting vertex
@@ -140,6 +132,7 @@ public class helloworld {
 		V.get(0).setDist(0);
 		start.add(V.get(0));
 		h.buildHeap(start);
+		
 		// Keep adding and taking off of heap
 		while(h.size() > 0){
 			// delete the minimum v, add v to S
@@ -148,19 +141,57 @@ public class helloworld {
 			if(!S.contains(v)){
 				S.add(v);
 			}
-			// for all the edges in E where the start point is v and the endpoint w is in V-S
+			// for all the edges in E where the startpoint or endpoint is v and the other point is in V-S
 			for(Edge e : E){
-				if(e.getStart() == v && !S.contains(e.getEnd())){
-					// if the dist of the endpoint is greater than the weight between the two points
-					if(e.getEnd().getDist() > e.getWeight()){
-						// set dist and prev of endpoint
-						e.getEnd().setDist(e.getWeight());
-						e.getEnd().setPrev(e.getStart());
-						// add endpoint to heap
-						h.insert(e.getEnd());
-					}
+//				Vertex a = null;
+//				Vertex b = null;
+				Vertex v1 = null;
+				
+				if (e.getStart() == v && !S.contains(e.getEnd())) {
+					v1 = e.getEnd();
 				}
-			}		
+				else if (e.getEnd() == v && !S.contains(e.getStart())) {
+					v1 = e.getStart();
+				}
+//				
+//				if (e.getStart() == v && !S.contains(e.getEnd())) {
+//					a = v;
+//					b = e.getEnd();
+//				}
+//				else if (e.getEnd() == v && !S.contains(e.getStart())) {
+//					a = e.getStart();
+//					b = v;
+//				}
+//				if (a != null && b != null & b.getDist() > e.getWeight()) {
+//					b.setDist(e.getWeight());
+//					b.setPrev(a);
+//					h.insert(b);
+//				}
+				if (v1!=null && v1.getDist() > e.getWeight()) {
+					v1.setDist(e.getWeight());
+					v1.setPrev(v);
+					h.insert(v1);
+				}
+//				if ((e.getStart() == v && !S.contains(e.getEnd())) || 
+//						(e.getEnd() == v && !S.contains(e.getStart()))) {
+//					// if the dist of the endpoint is greater than the weight between the two points
+//					if(e.getEnd().getDist() > e.getWeight()){
+//						// set dist and prev of endpoint
+//						e.getEnd().setDist(e.getWeight());
+//						e.getEnd().setPrev(e.getStart());
+//						// add endpoint to heap
+//						h.insert(e.getEnd());
+//					}
+//				}
+			}
+			System.out.println("H: ");
+			for (Vertex i: h.getList()){
+				System.out.println("v: " + i);
+			}
+			System.out.println("S: ");
+			for (Vertex s: S){
+				System.out.println("s: " + s);
+			}
 		}
 		// return set of vertices with updated dist and weight
 		return S;

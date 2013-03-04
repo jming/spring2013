@@ -51,11 +51,14 @@ public class Heap {
 	
 	// given a non-empty heap returns top element and fixes the rest of the heap
 	public Vertex extractMin(){
-		Vertex min = list.get(0);
+		Vertex min = list.get(list.size() - 1);
 		if(list.size() > 1)
 		{
 			list.set(0, list.remove(list.size() - 1));
 			minHeapify(0);
+		}
+		else{
+			list.remove(list.get(0));
 		}
 		size--;
 		return min;
@@ -63,13 +66,21 @@ public class Heap {
 	
 	// Adds value v into max-heap H
 	public void insert(Vertex v){
-		list.add(v);
-		int n = list.size() - 1;
-		while(n != 0 && list.get(parent(n)).getDist() < list.get(n).getDist()){
-			swap(parent(n), n);
-			n = parent(n);
+		// MUST GET RID OF DUPLICATES!!!!!!
+		//System.out.println(list.contains(v));
+		if (list.contains(v)) {
+			list.get(list.indexOf(v)).setDist(v.getDist());
+			list.get(list.indexOf(v)).setPrev(v.getPrev());
 		}
-		size++;
+		else {
+			list.add(v);
+			int n = list.size() - 1;
+			while(n != 0 && list.get(parent(n)).getDist() < list.get(n).getDist()){
+				swap(parent(n), n);
+				n = parent(n);
+			}
+			size++;
+		}
 	}
 
 	public int parent(int i){
@@ -91,6 +102,10 @@ public class Heap {
 	
 	public Vertex get(int i){
 		return list.get(i);
+	}
+	
+	public ArrayList<Vertex> getList(){
+		return list;
 	}
 
 }
