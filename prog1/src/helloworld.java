@@ -104,14 +104,16 @@ public class helloworld {
 //			System.out.println("vertices in graph: " + ver.getX() + ", " + ver.getY());
 //		}
 		// Build priority heap of vertices of Graph
-		h.buildHeap(V);
+		ArrayList<Vertex> start = new ArrayList<Vertex>();
+		V.get(0).setDist(0);
+		start.add(V.get(0));
+		h.buildHeap(start);
 		// set dist and prev for each vertex
 //		for(Vertex ve: V){
 //			ve.setDist(2);
 //			ve.setPrev(null);
 //		}
 		//set distance of start vertex to 0
-		V.get(0).setDist(0);
 		//while the heap is nonempty
 		//System.out.println("size heap: " + h.size());
 		while(h.size() > 0){
@@ -125,7 +127,7 @@ public class helloworld {
 
 			// for all the edges in E where the endpoint w is in V-S, do
 			for(Edge e : E){
-				if(S.contains(e.getEnd())){
+				if(e.getStart() == v && !S.contains(e.getEnd())){
 					if(e.getEnd().getDist() > e.getWeight()){
 						e.getEnd().setDist(e.getWeight());
 						e.getEnd().setPrev(e.getStart());
