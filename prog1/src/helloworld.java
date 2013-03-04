@@ -1,42 +1,62 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class helloworld {
 
 	public static void main(String[] args) {
 		
-		Vertex v1 = new Vertex();
-		Vertex v2 = new Vertex();
-		Vertex v3 = new Vertex();
-		Vertex v4 = new Vertex();
+		int n = 5;
+		int times = 5;
+		double[] avg = new double[4];
+		Arrays.fill(avg, 0.);
 		
-		ArrayList<Vertex> vlist = new ArrayList<Vertex>();
-		vlist.add(v1);
-		vlist.add(v2);
-		vlist.add(v3);
-		vlist.add(v4);
+		for (int i = 0; i < times; i++){
+			for (int type = 1; type < 5; type++) {
+				Graph g = Generate(type, n);
+				ArrayList<Vertex> res = Prim(g);
+				double dist = 0.;
+				for (Vertex v: res)
+					dist += v.getDist();
+				avg[type - 1] += dist / times;
+			}
+		}
 		
-		Edge e12 = new Edge(v1, v2, .1);
-		Edge e13 = new Edge(v1, v3, .5);
-		Edge e14 = new Edge(v1, v4, .1);
-		Edge e23 = new Edge(v2, v3, .4);
-		Edge e24 = new Edge(v2, v4, .1);
-		Edge e34 = new Edge(v3, v4, .3);
+		for (double a: avg)
+			System.out.println(a);
 		
-		ArrayList<Edge> elist = new ArrayList<Edge>();
-		elist.add(e12);
-		elist.add(e13);
-		elist.add(e14);
-		elist.add(e23);
-		elist.add(e24);
-		elist.add(e34);
-		
-		Graph test = new Graph(vlist, elist);
-		
-		ArrayList<Vertex> res = Prim(test);
-		
-		for (Vertex r: res)
-			System.out.println(r.getDist());
+//		Vertex v1 = new Vertex();
+//		Vertex v2 = new Vertex();
+//		Vertex v3 = new Vertex();
+//		Vertex v4 = new Vertex();
+//		
+//		ArrayList<Vertex> vlist = new ArrayList<Vertex>();
+//		vlist.add(v1);
+//		vlist.add(v2);
+//		vlist.add(v3);
+//		vlist.add(v4);
+//		
+//		Edge e12 = new Edge(v1, v2, .1);
+//		Edge e13 = new Edge(v1, v3, .5);
+//		Edge e14 = new Edge(v1, v4, .1);
+//		Edge e23 = new Edge(v2, v3, .4);
+//		Edge e24 = new Edge(v2, v4, .1);
+//		Edge e34 = new Edge(v3, v4, .3);
+//		
+//		ArrayList<Edge> elist = new ArrayList<Edge>();
+//		elist.add(e12);
+//		elist.add(e13);
+//		elist.add(e14);
+//		elist.add(e23);
+//		elist.add(e24);
+//		elist.add(e34);
+//		
+//		Graph test = new Graph(vlist, elist);
+//		
+//		ArrayList<Vertex> res = Prim(test);
+//		
+//		for (Vertex r: res)
+//			System.out.println(r.getDist());
 		
 
 //		Graph one =	Generate(1, 2);
@@ -140,9 +160,9 @@ public class helloworld {
 		Heap h = new Heap();
 		ArrayList<Vertex> V = g.getV();
 		ArrayList<Edge> E = g.getE();
-		for(Vertex ver: V){
-			System.out.println("vertices in graph: " + ver.getX() + ", " + ver.getY());
-		}
+//		for(Vertex ver: V){
+//			System.out.println("vertices in graph: " + ver.getX() + ", " + ver.getY());
+//		}
 		// Build priority heap of vertices of Graph
 		h.buildHeap(V);
 		// set dist and prev for each vertex
@@ -153,14 +173,14 @@ public class helloworld {
 		//set distance of start vertex to 0
 		V.get(0).setDist(0);
 		//while the heap is nonempty
-		System.out.println("size heap: " + h.size());
+		//System.out.println("size heap: " + h.size());
 		while(h.size() > 0){
 			// delete the minimum v, add v to S
 			Vertex v = h.extractMin();
 			// add v to the set S
 			if(!S.contains(v)){
 				S.add(v);
-				System.out.println("S: " + S.get(0).getX()+ ", " + S.get(0).getY());
+				//System.out.println("S: " + S.get(0).getX()+ ", " + S.get(0).getY());
 			}
 
 			// for all the edges in E where the endpoint w is in V-S, do
