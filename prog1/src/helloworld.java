@@ -26,8 +26,10 @@ public class helloworld {
 			}
 		}
 		
+		for (double a: avg)
+			System.out.println(a);
 		// output: average numpoints numtrials dimension
-		System.out.println(0 + " " + n + " " + times + " " + type);
+		//System.out.println(0 + " " + n + " " + times + " " + type);
 	
 	}
 	
