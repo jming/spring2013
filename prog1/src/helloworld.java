@@ -6,31 +6,58 @@ public class helloworld {
 
 	public static void main(String[] args) {
 		
+		// parse args from command line input
 		int n = Integer.parseInt(args[1]);
 		int times = Integer.parseInt(args[2]);
 		int type = Integer.parseInt(args[3]);
-			
-		//int n = 5;
-		//int times = 5;
+
+		// initialize avg array of all 0.'s
 		double[] avg = new double[4];
 		Arrays.fill(avg, 0.);
 		
+		double[] avg2 = new double[4];
+		Arrays.fill(avg2, 0.);
+		
+		// for each time
 		for (int i = 0; i < times; i++){
+			// for each type of graph
 			for (int t = 1; t < 5; t++) {
+				// generate a graph of type t with n vertices
 				Graph g = Generate(t, n);
+				// store result vertex list from prim
 				ArrayList<Vertex> res = Prim(g);
+				
+				// System.out.println(g.getV().get(0) == res.get(0));
+				
+				// sum up all distances in vertex list
 				double dist = 0.;
 				for (Vertex v: res)
 					dist += v.getDist();
+				// add onto array of averages
 				avg[t - 1] += dist / times;
+				
+				double dist2 = 0.;
+				// try adding up distances using prev pointers
+				for (Vertex v: res){
+					if (v.getPrev() != null){
+						for (Edge e: g.getE()){
+							if (e.getStart() == v.getPrev() && e.getEnd() == v) {
+								dist2 += e.getWeight();
+							}
+						}
+					}
+				}
+				avg2[t - 1] += dist2/times;
 			}
 		}
 		
+		// print out averages for each type of graph
 		for (double a: avg)
 			System.out.println(a);
 		// output: average numpoints numtrials dimension
 		//System.out.println(0 + " " + n + " " + times + " " + type);
-	
+		for (double a2: avg2)
+			System.out.println(a2);
 	}
 	
 	// TODO: Is there a better way to declare a method with optional args?
@@ -95,47 +122,41 @@ public class helloworld {
 	}
 	
 	public static ArrayList<Vertex> Prim(Graph g) {
-		ArrayList<Vertex> S = new ArrayList<Vertex>();
-		//ArrayList<Integer> ve = new ArrayList<Integer>();
-		Heap h = new Heap();
+		// Get all vertices and edges of graph
 		ArrayList<Vertex> V = g.getV();
 		ArrayList<Edge> E = g.getE();
-//		for(Vertex ver: V){
-//			System.out.println("vertices in graph: " + ver.getX() + ", " + ver.getY());
-//		}
-		// Build priority heap of vertices of Graph
+		// Initialize final set of vertices
+		ArrayList<Vertex> S = new ArrayList<Vertex>();
+		// Create heap for finding min distance at each point
+		Heap h = new Heap();
+		// Place on heap only starting vertex
 		ArrayList<Vertex> start = new ArrayList<Vertex>();
 		V.get(0).setDist(0);
 		start.add(V.get(0));
 		h.buildHeap(start);
-		// set dist and prev for each vertex
-//		for(Vertex ve: V){
-//			ve.setDist(2);
-//			ve.setPrev(null);
-//		}
-		//set distance of start vertex to 0
-		//while the heap is nonempty
-		//System.out.println("size heap: " + h.size());
+		// Keep adding and taking off of heap
 		while(h.size() > 0){
 			// delete the minimum v, add v to S
 			Vertex v = h.extractMin();
 			// add v to the set S
 			if(!S.contains(v)){
 				S.add(v);
-				//System.out.println("S: " + S.get(0).getX()+ ", " + S.get(0).getY());
 			}
-
-			// for all the edges in E where the endpoint w is in V-S, do
+			// for all the edges in E where the start point is v and the endpoint w is in V-S
 			for(Edge e : E){
 				if(e.getStart() == v && !S.contains(e.getEnd())){
+					// if the dist of the endpoint is greater than the weight between the two points
 					if(e.getEnd().getDist() > e.getWeight()){
+						// set dist and prev of endpoint
 						e.getEnd().setDist(e.getWeight());
 						e.getEnd().setPrev(e.getStart());
+						// add endpoint to heap
 						h.insert(e.getEnd());
 					}
 				}
 			}		
 		}
+		// return set of vertices with updated dist and weight
 		return S;
 	}
 	
