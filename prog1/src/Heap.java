@@ -3,6 +3,7 @@ import java.util.*;
 public class Heap {
 	
 	private ArrayList<Vertex> list;
+	private int size;
 
 	public Heap(){
 		list = new ArrayList<Vertex>();	
@@ -41,6 +42,7 @@ public class Heap {
 	// Given an unordered list a, builds a max-heap
 	public void buildHeap(ArrayList<Vertex> a){
 		list = a;
+		size = a.size();
 		for(int i = (int) Math.floor((double) a.size()/2.0); i > 0; i--)
 		{
 			minHeapify(i);
@@ -55,6 +57,7 @@ public class Heap {
 			list.set(0, list.remove(list.size() - 1));
 			minHeapify(0);
 		}
+		size--;
 		return min;
 	}
 	
@@ -66,6 +69,7 @@ public class Heap {
 			swap(parent(n), n);
 			n = parent(n);
 		}
+		size++;
 	}
 
 	public int parent(int i){
@@ -81,7 +85,8 @@ public class Heap {
 	}
 	
 	public int size(){
-		return list.size();
+		return size;
+		//return list.size();
 	}
 	
 	public Vertex get(int i){
