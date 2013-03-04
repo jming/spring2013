@@ -26,8 +26,6 @@ public class helloworld {
 				// store result vertex list from prim
 				ArrayList<Vertex> res = Prim(g);
 
-				// System.out.println(g.getV().get(0) == res.get(0));
-
 				// ADD UP DISTANCES IN VERTEX LIST
 
 				// sum up all distances in vertex list
@@ -45,7 +43,9 @@ public class helloworld {
 					if (v.getPrev() != null) {
 						// really stupid way to get the edge between 2 vertices
 						for (Edge e : g.getE()) {
-							if (e.getStart() == v.getPrev() && e.getEnd() == v) {
+							// need to account for prev pointing forward (incr) and backward (decr)
+							if ((e.getStart() == v.getPrev() && e.getEnd() == v) || 
+									(e.getEnd() == v.getPrev() && e.getStart() == v)) {
 								dist2 += e.getWeight();
 							}
 						}
@@ -63,8 +63,6 @@ public class helloworld {
 		System.out.println("getPrev: ");
 		for (double a2 : avg2)
 			System.out.println(a2);
-		// output: average numpoints numtrials dimension
-		// System.out.println(0 + " " + n + " " + times + " " + type);
 	}
 
 	// TODO: Is there a better way to declare a method with optional args?
@@ -124,7 +122,6 @@ public class helloworld {
 				}
 				Edge e = new Edge(V.get(i), V.get(j), w);
 				E.add(e);
-				// System.out.println("i: " + i + " j: " + j + " w: " + w);
 			}
 		}
 
@@ -156,11 +153,8 @@ public class helloworld {
 			if (!S.contains(v)) {
 				S.add(v);
 			}
-			// for all the edges in E where the startpoint or endpoint is v and
-			// the other point is in V-S
+			// for all the edges in E where the start/end is v and the other is in V-S
 			for (Edge e : E) {
-				// Vertex a = null;
-				// Vertex b = null;
 				Vertex v1 = null;
 
 				if (e.getStart() == v && !S.contains(e.getEnd())) {
@@ -168,46 +162,12 @@ public class helloworld {
 				} else if (e.getEnd() == v && !S.contains(e.getStart())) {
 					v1 = e.getStart();
 				}
-				//
-				// if (e.getStart() == v && !S.contains(e.getEnd())) {
-				// a = v;
-				// b = e.getEnd();
-				// }
-				// else if (e.getEnd() == v && !S.contains(e.getStart())) {
-				// a = e.getStart();
-				// b = v;
-				// }
-				// if (a != null && b != null & b.getDist() > e.getWeight()) {
-				// b.setDist(e.getWeight());
-				// b.setPrev(a);
-				// h.insert(b);
-				// }
 				if (v1 != null && v1.getDist() > e.getWeight()) {
 					v1.setDist(e.getWeight());
 					v1.setPrev(v);
 					h.insert(v1);
 				}
-				// if ((e.getStart() == v && !S.contains(e.getEnd())) ||
-				// (e.getEnd() == v && !S.contains(e.getStart()))) {
-				// // if the dist of the endpoint is greater than the weight
-				// between the two points
-				// if(e.getEnd().getDist() > e.getWeight()){
-				// // set dist and prev of endpoint
-				// e.getEnd().setDist(e.getWeight());
-				// e.getEnd().setPrev(e.getStart());
-				// // add endpoint to heap
-				// h.insert(e.getEnd());
-				// }
-				// }
 			}
-//			System.out.println("H: ");
-//			for (Vertex i : h.getList()) {
-//				System.out.println("v: " + i);
-//			}
-//			System.out.println("S: ");
-//			for (Vertex s : S) {
-//				System.out.println("s: " + s);
-//			}
 		}
 		// return set of vertices with updated dist and weight
 		return S;

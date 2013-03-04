@@ -66,8 +66,6 @@ public class Heap {
 	
 	// Adds value v into max-heap H
 	public void insert(Vertex v){
-		// MUST GET RID OF DUPLICATES!!!!!!
-		//System.out.println(list.contains(v));
 		if (list.contains(v)) {
 			list.get(list.indexOf(v)).setDist(v.getDist());
 			list.get(list.indexOf(v)).setPrev(v.getPrev());
@@ -95,9 +93,9 @@ public class Heap {
 		return 2*i + 2;
 	}
 	
+	// TODO: I don't think this is necessary??
 	public int size(){
 		return size;
-		//return list.size();
 	}
 	
 	public Vertex get(int i){
