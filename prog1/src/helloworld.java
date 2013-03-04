@@ -4,38 +4,72 @@ import java.util.ArrayList;
 public class helloworld {
 
 	public static void main(String[] args) {
+		
+		Vertex v1 = new Vertex();
+		Vertex v2 = new Vertex();
+		Vertex v3 = new Vertex();
+		Vertex v4 = new Vertex();
+		
+		ArrayList<Vertex> vlist = new ArrayList<Vertex>();
+		vlist.add(v1);
+		vlist.add(v2);
+		vlist.add(v3);
+		vlist.add(v4);
+		
+		Edge e12 = new Edge(v1, v2, .1);
+		Edge e13 = new Edge(v1, v3, .5);
+		Edge e14 = new Edge(v1, v4, .1);
+		Edge e23 = new Edge(v2, v3, .4);
+		Edge e24 = new Edge(v2, v4, .1);
+		Edge e34 = new Edge(v3, v4, .3);
+		
+		ArrayList<Edge> elist = new ArrayList<Edge>();
+		elist.add(e12);
+		elist.add(e13);
+		elist.add(e14);
+		elist.add(e23);
+		elist.add(e24);
+		elist.add(e34);
+		
+		Graph test = new Graph(vlist, elist);
+		
+		ArrayList<Vertex> res = Prim(test);
+		
+		for (Vertex r: res)
+			System.out.println(r.getDist());
+		
 
-	Graph one =	Generate(1, 2);
-	Graph two = Generate(2, 2);
-	Graph three = Generate(3, 2);
-	Graph four = Generate(4, 2);
-	
-	// Goal: Determine how expected average weight of minimum spanning three grows as a function of n
-	ArrayList<Vertex> eone = Prim(one);
-	System.out.println("size eone: " + eone.size());
-	ArrayList<Vertex> etwo = Prim(two);
-	System.out.println("size etwo: " + etwo.size());
-	ArrayList<Vertex> ethree = Prim(three);
-	System.out.println("size ethree: " + ethree.size());
-	ArrayList<Vertex> efour = Prim(four);
-	System.out.println("size efour: " + efour.size());
-	
-	System.out.println("eone \n");
-	for(Vertex v : eone){
-		System.out.println("x: " +v.getX() + "y: "+ v.getY() + "dist: " + v.getDist());
-	}
-	System.out.println("etwo \n");
-	for(Vertex v : etwo){
-		System.out.println("x: " +v.getX() + "y: "+ v.getY() + "dist: " + v.getDist());
-	}
-	System.out.println("etwo \n");
-	for(Vertex v : ethree){
-		System.out.println("x: " +v.getX() + "y: "+ v.getY() + "dist: " + v.getDist());
-	}
-	System.out.println("ethree \n");
-	for(Vertex v : efour){
-		System.out.println("x: " +v.getX() + "y: "+ v.getY() + "dist: " + v.getDist());
-	}
+//		Graph one =	Generate(1, 2);
+//		Graph two = Generate(2, 2);
+//		Graph three = Generate(3, 2);
+//		Graph four = Generate(4, 2);
+//		
+//		// Goal: Determine how expected average weight of minimum spanning three grows as a function of n
+//		ArrayList<Vertex> eone = Prim(one);
+//		System.out.println("size eone: " + eone.size());
+//		ArrayList<Vertex> etwo = Prim(two);
+//		System.out.println("size etwo: " + etwo.size());
+//		ArrayList<Vertex> ethree = Prim(three);
+//		System.out.println("size ethree: " + ethree.size());
+//		ArrayList<Vertex> efour = Prim(four);
+//		System.out.println("size efour: " + efour.size());
+//		
+//		System.out.println("eone \n");
+//		for(Vertex v : eone){
+//			System.out.println("x: " +v.getX() + "y: "+ v.getY() + "dist: " + v.getDist());
+//		}
+//		System.out.println("etwo \n");
+//		for(Vertex v : etwo){
+//			System.out.println("x: " +v.getX() + "y: "+ v.getY() + "dist: " + v.getDist());
+//		}
+//		System.out.println("etwo \n");
+//		for(Vertex v : ethree){
+//			System.out.println("x: " +v.getX() + "y: "+ v.getY() + "dist: " + v.getDist());
+//		}
+//		System.out.println("ethree \n");
+//		for(Vertex v : efour){
+//			System.out.println("x: " +v.getX() + "y: "+ v.getY() + "dist: " + v.getDist());
+//		}
 	
 	}
 	
