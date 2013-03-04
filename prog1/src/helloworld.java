@@ -106,10 +106,10 @@ public class helloworld {
 		// Build priority heap of vertices of Graph
 		h.buildHeap(V);
 		// set dist and prev for each vertex
-		for(Vertex ve: V){
-			ve.setDist(2);
-			ve.setPrev(null);
-		}
+//		for(Vertex ve: V){
+//			ve.setDist(2);
+//			ve.setPrev(null);
+//		}
 		//set distance of start vertex to 0
 		V.get(0).setDist(0);
 		//while the heap is nonempty
