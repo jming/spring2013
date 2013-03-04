@@ -10,14 +10,14 @@ public class Vertex {
 	private double zz;
 	
 	public Vertex(){
-		dist = 2;
+		dist = Double.POSITIVE_INFINITY;
 		prev = null;
 	}
 	
 	public Vertex(double posx, double posy){
 		x = posx;
 		y = posy; 
-		dist = 2;
+		dist = Double.POSITIVE_INFINITY;
 		prev = null;
 	}
 	
@@ -25,7 +25,7 @@ public class Vertex {
 		x = posx;
 		y = posy;
 		z = posz;
-		dist = 2;
+		dist = Double.POSITIVE_INFINITY;
 		prev = null;
 	}
 	
@@ -34,7 +34,7 @@ public class Vertex {
 		y = posy;
 		z = posz;
 		zz = poszz;
-		dist = 2;
+		dist = Double.POSITIVE_INFINITY;
 		prev = null;
 	}
 	public void setPrev(Vertex v){
