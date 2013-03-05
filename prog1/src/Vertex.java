@@ -72,7 +72,6 @@ public class Vertex implements Comparable<Object>{
 	}
 
 	public int compareTo(Object v) {
-		// TODO Auto-generated method stub
 		if (this.getDist() < ((Vertex) v).getDist())
 			return -1;	
 		else

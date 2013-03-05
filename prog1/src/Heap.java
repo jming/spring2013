@@ -52,29 +52,19 @@ public class Heap {
 	// given a non-empty heap returns top element and fixes the rest of the heap
 	public Vertex extractMin() {
 		Vertex min = list.remove(0);
-		// System.out.println("Min: " + min);
 		if (list.size() > 1) {
-			// Vertex a = list.remove(list.size() -1);
-			// list.set(0, a);
 			minHeapify(0);
 		}
-		// else{
-		// list.remove(list.get(0));
-		// }
 		size--;
 		return min;
 	}
 
-	// Adds value v into max-heap H
+	// Adds value v into min-heap H
 	public void insert(Vertex v) {
 		if (list.contains(v)) {
 			int in = list.indexOf(v);
-			// list.get(in).setDist(v.getDist());
-			// list.get(in).setPrev(v.getPrev());
 			list.remove(in);
-			// minHeapify(0);
 		}
-		// else {
 		list.add(v);
 		int n = list.size() - 1;
 		while (n != 0 && list.get(parent(n)).getDist() > list.get(n).getDist()) {
@@ -82,7 +72,6 @@ public class Heap {
 			n = parent(n);
 		}
 		size++;
-		// }
 	}
 
 	public int parent(int i){
@@ -97,7 +86,6 @@ public class Heap {
 		return 2 * i + 2;
 	}
 
-	// TODO: I don't think this is necessary??
 	public int size() {
 		return size;
 	}

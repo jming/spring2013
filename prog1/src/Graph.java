@@ -4,9 +4,9 @@ import java.util.ArrayList;
 public class Graph {
 	
 	private ArrayList<Vertex> V;
-	private ArrayList<Edge> E;
+	private ArrayList<ArrayList<Edge>> E;
 	
-	public Graph(ArrayList<Vertex> vertices, ArrayList<Edge> edges){
+	public Graph(ArrayList<Vertex> vertices, ArrayList<ArrayList<Edge>> edges){
 		V = vertices;
 		E = edges;
 	}
@@ -15,7 +15,7 @@ public class Graph {
 		return V;
 	}
 	
-	public ArrayList<Edge> getE(){
+	public ArrayList<ArrayList<Edge>> getE(){
 		return E;
 	}
 	
@@ -25,9 +25,9 @@ public class Graph {
 			s += v + ", ";
 		}
 		s += "\n Edges: ";
-		for(Edge e : E){
-			s += e + ", ";
-		}
+//		for(Edge e : E){
+//			s += e + ", ";
+//		}
 		
 		return s;
 	}
