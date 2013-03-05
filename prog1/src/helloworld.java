@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+
 // import java.util.PriorityQueue;
 
 public class helloworld {
@@ -136,22 +137,29 @@ public class helloworld {
 		for (int i = 0; i < n; i++) {
 			for (int j = i + 1; j < n; j++) {
 				double w = 0.;
+				boolean add = false;
 				if (type == 1) {
 					w = Math.random();
+					add = (w < 0.3334);
 				} else if (type == 2) {
 					w = getDistance(V.get(i).getX(), V.get(j).getX(), V.get(i)
 							.getY(), V.get(j).getY());
+					add = (w < 0.5215);
 				} else if (type == 3) {
 					w = getDistance(V.get(i).getX(), V.get(j).getX(), V.get(i)
 							.getY(), V.get(j).getY(), V.get(i).getZ(), V.get(j)
 							.getZ());
+					add = (w < 0.6618);
 				} else if (type == 4) {
 					w = getDistance(V.get(i).getX(), V.get(j).getX(), V.get(i)
 							.getY(), V.get(j).getY(), V.get(i).getZ(), V.get(j)
 							.getZ(), V.get(i).getZZ(), V.get(j).getZZ());
+					add = (w < 0.7777);
 				}
-				Edge e = new Edge(V.get(i), V.get(j), w);
-				E.add(e);
+				if (add) {
+					Edge e = new Edge(V.get(i), V.get(j), w);
+					E.add(e);
+				}
 			}
 		}
 
@@ -164,10 +172,10 @@ public class helloworld {
 		// Get all vertices and edges of graph
 		ArrayList<Vertex> V = g.getV();
 		ArrayList<Edge> E = g.getE();
-//		System.out.println("E: ");
-//		for (Edge e : E) {
-//			System.out.println(e);
-//		}
+		// System.out.println("E: ");
+		// for (Edge e : E) {
+		// System.out.println(e);
+		// }
 		// Initialize final set of vertices
 		ArrayList<Vertex> S = new ArrayList<Vertex>();
 
@@ -182,11 +190,11 @@ public class helloworld {
 
 		// Keep adding and taking off of heap
 		while (h.getList().size() > 0) {
-//			// System.out.println("hsize: " + h.getLsize());
-//			System.out.println("H: ");
-//			for (Vertex i : h.getList()) {
-//				System.out.println("v: " + i);
-//			}
+			// // System.out.println("hsize: " + h.getLsize());
+			// System.out.println("H: ");
+			// for (Vertex i : h.getList()) {
+			// System.out.println("v: " + i);
+			// }
 			// delete the minimum v, add v to S
 			Vertex v = h.extractMin();
 			// Vertex v = queue.peek();
@@ -196,10 +204,10 @@ public class helloworld {
 				S.add(v);
 			}
 
-//			System.out.println("S: ");
-//			for (Vertex s : S) {
-//				System.out.println("s: " + s);
-//			}
+			// System.out.println("S: ");
+			// for (Vertex s : S) {
+			// System.out.println("s: " + s);
+			// }
 			// for all the edges in E where the start/end is v and the other is
 			// in V-S
 			for (Edge e : E) {
