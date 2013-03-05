@@ -4,34 +4,8 @@ import java.lang.System;
 
 // import java.util.PriorityQueue;
 
-public class helloworld {
+public class randmst {
 
-	// public static void main(String[] args) {
-	//
-	// // parse args from command line input
-	// int n = Integer.parseInt(args[1]);
-	// int times = Integer.parseInt(args[2]);
-	// // int type = Integer.parseInt(args[3]);
-	//
-	// // initialize avg array of all 0.'s
-	// int t = 1;
-	// // for each time
-	// Graph g = Generate(t, n);
-	// // store result vertex list from prim
-	// ArrayList<Vertex> res = Prim(g);
-	//
-	// // ADD UP DISTANCES IN VERTEX LIST
-	//
-	// // sum up all distances in vertex list
-	// double dist = 0.;
-	// for (Vertex v : res) {
-	// dist += v.getDist();
-	// System.out.println(v);
-	// }
-	// // add onto array of averages
-	// System.out.println("Result: " + dist);
-	//
-	// }
 	public static void main(String[] args) {
 		
 		long start = System.currentTimeMillis();

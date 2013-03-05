@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  5 MAR 2013 00:20
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  5 MAR 2013 04:07
 entering extended mode
 **C:/Users/Alisa/Documents/GitHub/spring2013/prog1/alisanguyen-jming-prog1.tex
 (C:/Users/Alisa/Documents/GitHub/spring2013/prog1/alisanguyen-jming-prog1.tex
@@ -183,41 +183,120 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 18.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 22--26
+<weightmsttable.jpg, id=1, 670.75594pt x 176.15813pt>
+File: weightmsttable.jpg Graphic file (type jpg)
+ <use weightmsttable.jpg>
+Package pdftex.def Info: weightmsttable.jpg used on input line 19.
+(pdftex.def)             Requested size: 512.1496pt x 134.50247pt.
 
+Overfull \hbox (6.2596pt too wide) detected at line 19
+[]
  []
 
+<weightmst.jpg, id=2, 530.73282pt x 307.1475pt>
+File: weightmst.jpg Graphic file (type jpg)
+ <use weightmst.jpg>
+Package pdftex.def Info: weightmst.jpg used on input line 20.
+(pdftex.def)             Requested size: 530.73152pt x 307.14674pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 26--31
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 31--35
-
+Overfull \hbox (24.84152pt too wide) detected at line 20
+[]
  []
 
 [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Alisa/Documents/
+GitHub/spring2013/prog1/weightmsttable.jpg> <C:/Users/Alisa/Documents/GitHub/sp
+ring2013/prog1/weightmst.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 36--40
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--45
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--50
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--50
+
+ []
+
+[2] <runtime.jpg, id=18, 365.86688pt x 220.57407pt>
+File: runtime.jpg Graphic file (type jpg)
+ <use runtime.jpg>
+Package pdftex.def Info: runtime.jpg used on input line 50.
+(pdftex.def)             Requested size: 365.86598pt x 220.57352pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--55
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--59
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 60.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 60.
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--63
+
+ []
+
+<prune.jpg, id=19, 479.54156pt x 341.02406pt>
+File: prune.jpg Graphic file (type jpg)
+ <use prune.jpg>
+Package pdftex.def Info: prune.jpg used on input line 63.
+(pdftex.def)             Requested size: 479.54039pt x 341.02322pt.
+
+Overfull \hbox (25.11548pt too wide) detected at line 63
+[]
+ []
+
+[3 <C:/Users/Alisa/Documents/GitHub/spring2013/prog1/runtime.jpg>]
+<pruning.jpg, id=23, 366.61969pt x 140.02313pt>
+File: pruning.jpg Graphic file (type jpg)
+ <use pruning.jpg>
+Package pdftex.def Info: pruning.jpg used on input line 66.
+(pdftex.def)             Requested size: 366.61879pt x 140.02278pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 67--71
+
+ []
+
+[4 <C:/Users/Alisa/Documents/GitHub/spring2013/prog1/prune.jpg> <C:/Users/Alisa
+/Documents/GitHub/spring2013/prog1/pruning.jpg>] [5]
 (C:\Users\Alisa\Documents\GitHub\spring2013\prog1\alisanguyen-jming-prog1.aux) 
 ) 
 Here is how much of TeX's memory you used:
- 2034 strings out of 494045
- 25347 string characters out of 3148388
- 76649 words of memory out of 3000000
- 5326 multiletter control sequences out of 15000+200000
+ 2076 strings out of 494045
+ 26040 string characters out of 3148388
+ 79649 words of memory out of 3000000
+ 5360 multiletter control sequences out of 15000+200000
  12128 words of font info for 51 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 27i,4n,24p,910b,142s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,8n,24p,1023b,259s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pro
 gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fil
 es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on alisanguyen-jming-prog1.pdf (1 page, 62155 bytes).
+X 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb>
+Output written on alisanguyen-jming-prog1.pdf (5 pages, 361897 bytes).
 PDF statistics:
- 26 PDF objects out of 1000 (max. 8388607)
+ 55 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
