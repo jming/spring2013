@@ -1,6 +1,4 @@
-
-
-public class Vertex {
+public class Vertex implements Comparable<Object>{
 
 	private double dist;
 	private Vertex prev;
@@ -72,4 +70,13 @@ public class Vertex {
 	public String toString(){
 		return "X: " + x + ", Y: " + y + ", Dist: " + dist;
 	}
+
+	public int compareTo(Object v) {
+		// TODO Auto-generated method stub
+		if (this.getDist() < ((Vertex) v).getDist())
+			return -1;	
+		else
+			return 1;
+	}
+
 }

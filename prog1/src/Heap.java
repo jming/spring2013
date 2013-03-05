@@ -15,9 +15,9 @@ public class Heap {
 		list.set(a, list.get(b));
 		list.set(b, temp);
 	}
-
-	// rearranges tree rooted at list.get(n) to be a maxHeap
-	public void minHeapify(int n) {
+	
+	// rearranges tree rooted at list.get(n) to be a minHeap
+	public void minHeapify(int n){
 		int l = left(n);
 		int r = right(n);
 		int smallest = 0;
@@ -51,7 +51,6 @@ public class Heap {
 
 	// given a non-empty heap returns top element and fixes the rest of the heap
 	public Vertex extractMin() {
-		System.out.println("hlist:" + list.size());
 		Vertex min = list.remove(0);
 		// System.out.println("Min: " + min);
 		if (list.size() > 1) {
@@ -86,8 +85,8 @@ public class Heap {
 		// }
 	}
 
-	public int parent(int i) {
-		return (int) Math.floor(i / 2.0);
+	public int parent(int i){
+		return (int) Math.floor(i/2.0);	
 	}
 
 	public int left(int i) {
