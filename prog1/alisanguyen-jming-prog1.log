@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  4 MAR 2013 23:37
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  5 MAR 2013 00:20
 entering extended mode
 **C:/Users/Alisa/Documents/GitHub/spring2013/prog1/alisanguyen-jming-prog1.tex
 (C:/Users/Alisa/Documents/GitHub/spring2013/prog1/alisanguyen-jming-prog1.tex
@@ -188,7 +188,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 22--26
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 26--30
+Underfull \hbox (badness 10000) in paragraph at lines 26--31
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--35
 
  []
 
@@ -198,20 +203,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--30
 (C:\Users\Alisa\Documents\GitHub\spring2013\prog1\alisanguyen-jming-prog1.aux) 
 ) 
 Here is how much of TeX's memory you used:
- 2005 strings out of 494045
- 25026 string characters out of 3148388
- 75649 words of memory out of 3000000
- 5306 multiletter control sequences out of 15000+200000
- 7462 words of font info for 31 fonts, out of 3000000 for 9000
+ 2034 strings out of 494045
+ 25347 string characters out of 3148388
+ 76649 words of memory out of 3000000
+ 5326 multiletter control sequences out of 15000+200000
+ 12128 words of font info for 51 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 27i,4n,24p,358b,118s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,4n,24p,910b,142s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on alisanguyen-jming-prog1.pdf (1 page, 51760 bytes).
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr12.pfb>
+Output written on alisanguyen-jming-prog1.pdf (1 page, 62155 bytes).
 PDF statistics:
- 22 PDF objects out of 1000 (max. 8388607)
+ 26 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

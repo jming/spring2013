@@ -26,9 +26,14 @@ We chose to implement Prim's Algorithm because
 \item Growth Rates
 \newline
 \newline
-Initially, our data for the 0 dimension exhibiited a similar growth rate to the other dimensions, which we at first naively generalized as correct. However, upon further inspection of our implementation of a heap, we found that it was not in fact behaving as originally planned.
+Initially, our data for the 0 dimension exhibiited a similar growth rate to the other dimensions, which we at first naively generalized as correct. However, upon further inspection of our implementation of Heap, we found that it was not in fact behaving as originally planned. So, after debugging and modifying our Heap, we finally received accurate growth rates for each of the dimensions, which are discussed more in depth in section 2. We were surprised that the growth rate for the 0 dimension graphs were so different from the other dimensions, but after discussing the way in which the Java Random library generates streams of random numbers, we realized that it made sense that the Gaussian distribution of the random weights would not cause the weight of the whole MST to increase by more than a constant factor over time.
+\newline EXPLANATION FOR GROWTH RATES?
 \item Algorithm Run Time
+\newline
+\newline
+Our algorithm runs in under 30 seconds for values of $n$ up to 512, and then on the larger $n$ after simplifying the graph, our algorithm takes
 \item Random Number Generator
+\item Simplifying our Graph for large $n$
 \end{enumerate}
 
 \end{document}

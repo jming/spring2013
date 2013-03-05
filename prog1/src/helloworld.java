@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.lang.System;
 
 // import java.util.PriorityQueue;
 
@@ -32,6 +33,8 @@ public class helloworld {
 	//
 	// }
 	public static void main(String[] args) {
+		
+		long start = System.currentTimeMillis();
 
 		// parse args from command line input
 		int n = Integer.parseInt(args[1]);
@@ -85,6 +88,7 @@ public class helloworld {
 				avg2[t - 1] += dist2 / times;
 			}
 		}
+		long end = System.currentTimeMillis();
 
 		// print out averages for each type of graph
 		System.out.println("getDist: ");
@@ -93,6 +97,8 @@ public class helloworld {
 		System.out.println("getPrev: ");
 		for (double a2 : avg2)
 			System.out.println(a2);
+		
+		System.out.println("total runtime: " + (end - start));
 
 	}
 
