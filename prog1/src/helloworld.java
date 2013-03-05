@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
 public class helloworld {
 
@@ -145,22 +146,24 @@ public class helloworld {
 		ArrayList<Vertex> S = new ArrayList<Vertex>();
 
 		// Create heap for finding min distance at each point
-		Heap h = new Heap();
+		//Heap h = new Heap();
+		PriorityQueue<Vertex> queue = new PriorityQueue<Vertex>(V);
 		// Place on heap only starting vertex
 		ArrayList<Vertex> start = new ArrayList<Vertex>();
 		V.get(0).setDist(0);
 		start.add(V.get(0));
-		h.buildHeap(start);
+		//h.buildHeap(start);
 
 		// Keep adding and taking off of heap
-		while (h.size() > 0) {
+		while (queue.size() > 0) {
 			// System.out.println("H: ");
 //			for (Vertex i : h.getList()) {
 //				System.out.println("v: " + i);
 //			}
 			// delete the minimum v, add v to S
-			Vertex v = h.extractMin();
-
+			//Vertex v = h.extractMin();
+			Vertex v = queue.peek();
+			queue.remove(v);
 			// add v to the set S
 			if (!S.contains(v)) {
 				S.add(v);
@@ -184,7 +187,8 @@ public class helloworld {
 				if (v1 != null && v1.getDist() > e.getWeight()) {
 					v1.setDist(e.getWeight());
 					v1.setPrev(v);
-					h.insert(v1);
+					//h.insert(v1);
+					queue.add(v1);
 				}
 			}
 		}
