@@ -51,15 +51,17 @@ public class Heap {
 	
 	// given a non-empty heap returns top element and fixes the rest of the heap
 	public Vertex extractMin(){
-		Vertex min = list.get(list.size() - 1);
+		Vertex min = list.remove(list.size() - 1);
+		System.out.println("Min: " + min);
 		if(list.size() > 1)
 		{
-			list.set(0, list.remove(list.size() - 1));
+//			Vertex a = list.remove(list.size() -1);
+//			list.set(0, a);
 			minHeapify(0);
 		}
-		else{
-			list.remove(list.get(0));
-		}
+//		else{
+//			list.remove(list.get(0));
+//		}
 		size--;
 		return min;
 	}
@@ -67,8 +69,9 @@ public class Heap {
 	// Adds value v into max-heap H
 	public void insert(Vertex v){
 		if (list.contains(v)) {
-			list.get(list.indexOf(v)).setDist(v.getDist());
-			list.get(list.indexOf(v)).setPrev(v.getPrev());
+			int in = list.indexOf(v);
+			list.get(in).setDist(v.getDist());
+			list.get(in).setPrev(v.getPrev());
 		}
 		else {
 			list.add(v);
