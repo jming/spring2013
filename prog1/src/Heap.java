@@ -52,7 +52,11 @@ public class Heap {
 	// given a non-empty heap returns top element and fixes the rest of the heap
 	public Vertex extractMin(){
 		Vertex min = list.remove(list.size() - 1);
+<<<<<<< HEAD
 		System.out.println("Min: " + min);
+=======
+		//System.out.println("Min: " + min);
+>>>>>>> 6dfcf39647112cbf41930d208149570af45dbfc1
 		if(list.size() > 1)
 		{
 //			Vertex a = list.remove(list.size() -1);
