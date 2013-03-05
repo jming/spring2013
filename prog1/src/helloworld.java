@@ -164,10 +164,10 @@ public class helloworld {
 		// Get all vertices and edges of graph
 		ArrayList<Vertex> V = g.getV();
 		ArrayList<Edge> E = g.getE();
-		System.out.println("E: ");
-		for (Edge e : E) {
-			System.out.println(e);
-		}
+//		System.out.println("E: ");
+//		for (Edge e : E) {
+//			System.out.println(e);
+//		}
 		// Initialize final set of vertices
 		ArrayList<Vertex> S = new ArrayList<Vertex>();
 
@@ -182,11 +182,11 @@ public class helloworld {
 
 		// Keep adding and taking off of heap
 		while (h.getList().size() > 0) {
-			// System.out.println("hsize: " + h.getLsize());
-			System.out.println("H: ");
-			for (Vertex i : h.getList()) {
-				System.out.println("v: " + i);
-			}
+//			// System.out.println("hsize: " + h.getLsize());
+//			System.out.println("H: ");
+//			for (Vertex i : h.getList()) {
+//				System.out.println("v: " + i);
+//			}
 			// delete the minimum v, add v to S
 			//Vertex v = h.extractMin();
 			Vertex v = queue.peek();
@@ -196,10 +196,10 @@ public class helloworld {
 				S.add(v);
 			}
 
-			System.out.println("S: ");
-			for (Vertex s : S) {
-				System.out.println("s: " + s);
-			}
+//			System.out.println("S: ");
+//			for (Vertex s : S) {
+//				System.out.println("s: " + s);
+//			}
 			// for all the edges in E where the start/end is v and the other is
 			// in V-S
 			for (Edge e : E) {
