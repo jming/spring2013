@@ -3,6 +3,32 @@ import java.util.Arrays;
 
 public class helloworld {
 
+	// public static void main(String[] args) {
+	//
+	// // parse args from command line input
+	// int n = Integer.parseInt(args[1]);
+	// int times = Integer.parseInt(args[2]);
+	// // int type = Integer.parseInt(args[3]);
+	//
+	// // initialize avg array of all 0.'s
+	// int t = 1;
+	// // for each time
+	// Graph g = Generate(t, n);
+	// // store result vertex list from prim
+	// ArrayList<Vertex> res = Prim(g);
+	//
+	// // ADD UP DISTANCES IN VERTEX LIST
+	//
+	// // sum up all distances in vertex list
+	// double dist = 0.;
+	// for (Vertex v : res) {
+	// dist += v.getDist();
+	// System.out.println(v);
+	// }
+	// // add onto array of averages
+	// System.out.println("Result: " + dist);
+	//
+	// }
 	public static void main(String[] args) {
 
 		// parse args from command line input
@@ -137,10 +163,10 @@ public class helloworld {
 		// Get all vertices and edges of graph
 		ArrayList<Vertex> V = g.getV();
 		ArrayList<Edge> E = g.getE();
-		//System.out.println("E: ");
-//		for (Edge e : E) {
-//			System.out.println(e);
-//		}
+		System.out.println("E: ");
+		for (Edge e : E) {
+			System.out.println(e);
+		}
 		// Initialize final set of vertices
 		ArrayList<Vertex> S = new ArrayList<Vertex>();
 
@@ -153,11 +179,12 @@ public class helloworld {
 		h.buildHeap(start);
 
 		// Keep adding and taking off of heap
-		while (h.size() > 0) {
-			// System.out.println("H: ");
-//			for (Vertex i : h.getList()) {
-//				System.out.println("v: " + i);
-//			}
+		while (h.getList().size() > 0) {
+			// System.out.println("hsize: " + h.getLsize());
+			System.out.println("H: ");
+			for (Vertex i : h.getList()) {
+				System.out.println("v: " + i);
+			}
 			// delete the minimum v, add v to S
 			Vertex v = h.extractMin();
 
@@ -166,10 +193,10 @@ public class helloworld {
 				S.add(v);
 			}
 
-			//System.out.println("S: ");
-//			for (Vertex s : S) {
-//				System.out.println("s: " + s);
-//			}
+			System.out.println("S: ");
+			for (Vertex s : S) {
+				System.out.println("s: " + s);
+			}
 			// for all the edges in E where the start/end is v and the other is
 			// in V-S
 			for (Edge e : E) {
@@ -180,7 +207,7 @@ public class helloworld {
 				} else if (e.getEnd() == v && !S.contains(e.getStart())) {
 					v1 = e.getStart();
 				}
-				//System.out.println("v1: " + v1);
+				// System.out.println("v1: " + v1);
 				if (v1 != null && v1.getDist() > e.getWeight()) {
 					v1.setDist(e.getWeight());
 					v1.setPrev(v);
