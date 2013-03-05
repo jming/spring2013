@@ -16,7 +16,7 @@ public class Heap {
 		list.set(b, temp);
 	}
 	
-	// rearranges tree rooted at list.get(n) to be a maxHeap
+	// rearranges tree rooted at list.get(n) to be a minHeap
 	public void minHeapify(int n){
 		int l = left(n);
 		int r = right(n);
@@ -51,7 +51,7 @@ public class Heap {
 	
 	// given a non-empty heap returns top element and fixes the rest of the heap
 	public Vertex extractMin(){
-		Vertex min = list.get(list.size() - 1);
+		Vertex min = list.get(0);
 		if(list.size() > 1)
 		{
 			list.set(0, list.remove(list.size() - 1));
@@ -77,7 +77,7 @@ public class Heap {
 				swap(parent(n), n);
 				n = parent(n);
 			}
-			size++;
+		size++;
 		}
 	}
 
@@ -86,11 +86,17 @@ public class Heap {
 	}
 	
 	public int left(int i){
-		return 2*i + 1;
+		if(i >= 1)
+			return 2*(i-1);
+		else
+			return 0;
 	}
 
 	public int right(int i){
-		return 2*i + 2;
+		if(i > 0)
+			return 2*(i -1) + 1;
+		else
+			return 0;
 	}
 	
 	// TODO: I don't think this is necessary??
