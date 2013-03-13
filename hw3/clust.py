@@ -4,6 +4,8 @@
 
 import sys
 import random
+import copy
+from utils import *
 
 DATAFILE = "adults.txt"
 
@@ -72,9 +74,8 @@ def main():
 
     data = parseInput(dataset)
     
-    
     dataset.close()
-    printOutput(data,numExamples)
+    #printOutput(data,numExamples)
 
     # ==================== #
     # WRITE YOUR CODE HERE #
@@ -88,21 +89,48 @@ def main():
             if data[i] not in u:
                 u.append(data[i])
                 k += 1
+        #print 'u before', u
         r = [[0 for x in range(len(data))] for y in range(K)]
         #r = [[0 for x in range(K)] for x in range(len(data))]
         #Repeat until convergence:
         # TODO: Implement convergence param
-        converging = True
-        while (!converging):
+        converging = False
+        round = 0
+        while not converging:
+            prevr = copy.deepcopy(r)
             #For each n, r_nk =  1 for k = argmin_k'(||x_n - u_k'||^2), and r_nk = 0 otherwise
             for n in range(len(data)):
                 for k in range(K):
                     b = argmin(u, lambda l: squareDistance(data[n], l))
-                    r[k][n] = 1 if (k == b) else 0
-            #For each k, u_k = check notes!
+                    index = u.index(b)
+                    #print 'b', b
+                    r[k][n] = 1 if (k == index) else 0
+            #For each k, update u_k by taking the mean for each attribute of all examples in cluster k
             for k in range(K):
-                u[k] = sum([data[n]*r[k][n] for n in range(len(data))])/sum(r[k])
-
+                for a in range(len(u[k])):
+                    u[k][a] = sum([data[n][a]*r[k][n] for n in range(len(data))])/sum(r[k][n] for n in range (len(data)))
+            #if none of the examples are assigned to different clusters, convergence!
+            if r == prevr:
+                converging = True
+            #print 'round', round
+            round += 1
+        #for each value of K, compute the mean squared error (the mean squared distance of each point from its closest prototype vector)
+        sum_errors = [0. for x in range(K)]
+        means = []
+        for k in range(K):
+            counter = 0.;
+            for n in range(len(data)):
+                if r[k][n] == 1:
+                    sum_errors[k] += squareDistance(data[n], u[k])
+                    counter+=1.
+            #print 'error', sum_errors[k]
+            #print 'counter', counter
+            means.append(sum_errors[k]/counter)
+        #print 'r', r
+        #print 'u after', u
+        #print 'data', data
+        return sum(means)/len(means)
+            
     def HAC(data, k):
         pass
       #E = set of subsets of each individual example
@@ -110,6 +138,9 @@ def main():
         #Let A, B be the two closest clusters in E
         #Remove A and B from E
         #Insert A union B into E
+        
+    
+    print(kmeans(data[:numExamples], numClusters))
     
 
         
