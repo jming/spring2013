@@ -88,8 +88,17 @@ def main():
             if data[i] not in u:
                 u.append(data[i])
                 k += 1
+        r = [[0 for x in range(K)] for x in range(len(data))]
         #Repeat until convergence:
+        # TODO: Implement convergence param
+        converging = True
+        while (!converging):
             #For each n, r_nk =  1 for k = argmin_k'(||x_n - u_k'||^2), and r_nk = 0 otherwise
+            for n in range(len(data)):
+                for k in range(K):
+                    b = argmin(u, lambda l: squareDistance(data[n], l))
+                    r[n][k] = 1 if (k == b) else 0
+                
             #For each k, u_k = check notes!
 
     def HAC(data, k):
