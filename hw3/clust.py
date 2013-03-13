@@ -79,20 +79,28 @@ def main():
     # ==================== #
     # WRITE YOUR CODE HERE #
     # ==================== #
+    def kmeans(data, K):
+        #For each k, set u_k to a random vector
+        u = []
+        k = 0
+        while k < K:
+            i = random.randint(0,len(data)-1)
+            if data[i] not in u:
+                u.append(data[i])
+                k += 1
+        #Repeat until convergence:
+            #For each n, r_nk =  1 for k = argmin_k'(||x_n - u_k'||^2), and r_nk = 0 otherwise
+            #For each k, u_k = check notes!
 
+    def HAC(data, k):
+        pass
+      #E = set of subsets of each individual example
+      #Repeat until |E| = K
+        #Let A, B be the two closest clusters in E
+        #Remove A and B from E
+        #Insert A union B into E
     
-  def kmeans(data, k):
-    #For each k, set u_k to a random vector
-    #Repeat until convergence:
-      #For each n, r_nk =  1 for k = argmin_k'(||x_n - u_k'||^2), and r_nk = 0 otherwise
-      #For each k, u_k = check notes!
 
-  def HAC(data, k):
-    #E = set of subsets of each individual example
-    #Repeat until |E| = K
-      #Let A, B be the two closest clusters in E
-      #Remove A and B from E
-      #Insert A union B into E
         
     
 if __name__ == "__main__":
