@@ -141,12 +141,9 @@ def main():
         E = []
         for n in data:
             E.append([n])
-        # print 'E', E
-        #counter for printing
-        # counter = 0
+
         #Repeat until |E| = K
         while len(E) != K:
-            # print "THISEE", E
             dist = []
             for a in range(len(E)):
                 for b in range(a + 1, len(E)):
@@ -160,54 +157,30 @@ def main():
                         res = ccent(E[a], E[b], squareDistance)
                     dist.append({"a": E[a], "b": E[b], "d": res})
             
+            # Find a, b with smallest distance
             temp = [dist[c]["d"] for c in range(len(dist))]
             mmin = min(temp)
-            # mini = map(itemgetter('d'), dist).index(mmin)
             mini = temp.index(mmin)
 
-            # print mmin, mini, temp
-            # break
             a = dist[mini]["a"]
             b = dist[mini]["b"]
-            # print E, a, b
+
+            # Remove a, b and replace with union
             E.remove(a)
             E.remove(b)
             E.append(a+b)
-            # a = E.remove(dist[mini]["a"])
-            # E.append(E.remove(dist[mini]["a"])+E.remove(dist[mini]["b"]))
-            # print c
 
-            
-            # E.append(E.remove(dist[mini]["a"])+E.remove(dist[mini]["b"]))
-            
-            # temp = []
-            # for c in range(len(dist)):
-            #     temp.append(dist[c]["min"])
-            # mini = min(temp)
-            # index = temp.index(mini)
-            # a = dist[index]["a"]
-            # b = dist[index]["b"]
-            # newc = a + b
-            # E.remove(a)
-            # E.remove(b)
-            # E.append(newc)
-            #print 'E', E
-            #print 'counter', counter
-            # counter+=1
+        # find number of instances per cluster
         clusters = []
         for e in E:
             clusters.append(len(e))
-        return clusters, E
-            #Let A, B be the two closest clusters in E
-            #Remove A and B from E
-            #Insert A union B into E
 
+        # return number of instances per cluster and instance vectors
+        return clusters, E
     
     print(kmeans(data[:numExamples], numClusters))
     print(HAC(data[:numExamples], numClusters, "min"))
-    
-
-        
+       
     
 if __name__ == "__main__":
     validateInput()
