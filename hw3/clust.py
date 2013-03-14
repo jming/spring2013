@@ -7,7 +7,8 @@ import random
 import copy
 from utils import *
 
-DATAFILE = "adults.txt"
+#DATAFILE = "adults.txt"
+DATAFILE = "adults-small.txt"
 
 #validateInput()
 
@@ -140,24 +141,45 @@ def main():
         E = []
         for n in data:
             E.append([n])
-
+        print 'E', E
+        #counter for printing
+        counter = 0
         #Repeat until |E| = K
         while len(E) != K:
             dist = []
-            for a in range(len(E)):
-                for b in range(len(E)-a):
-                    cmin = cmin(a, b, squareDistance)
-                    cmax = cmax(a, b, squareDistance)
-                    cmean = cmean(a, b, squareDistance)
-                    ccent = ccent(a, b, squaredistance)
-                    dist.append({"a": a, "b": b, "min": cmin, "max": cmax, "mean": cmean, "cent": ccent})
+            for a in E:
+                E.remove(a)
+                print 'a', a
+                for b in E:
+                    xmin = cmin(a, b, squareDistance)
+                    xmax = cmax(a, b, squareDistance)
+                    xmean = cmean(a, b, squareDistance)
+                    xcent = ccent(a, b, squareDistance)
+                    dist.append({"a": a, "b": b, "min": xmin, "max": xmax, "mean": xmean, "cent": xcent})
+                E.append(a)
+            temp = []
+            for c in range(len(dist)):
+                temp.append(dist[c]["min"])
+            mini = min(temp)
+            index = temp.index(mini)
+            a = dist[index]["a"]
+            b = dist[index]["b"]
+            newc = [a, b]
+            E.remove(a)
+            E.remove(b)
+            E.append(newc)
+            print 'E', E
+            print 'counter', counter
+            counter+=1
             
+        return E
             #Let A, B be the two closest clusters in E
             #Remove A and B from E
             #Insert A union B into E
 
     
     print(kmeans(data[:numExamples], numClusters))
+    print(HAC(data[:numExamples], numClusters))
     
 
         

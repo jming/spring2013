@@ -16,7 +16,21 @@ Joy Ming and Alisa Nguyen (15 March 2013)\\
 
 \section{Problem 1}
 \begin{enumerate}
-\item The probability that all of the $M$ dimensions of $x - y$ are between $-\epsilon \text{ and } \epsilon$ is
+\item The probability that all of the $M$ dimensions of $x - y$ are between $-\epsilon \text{ and } \epsilon$ is \fbox{$(2\epsilon)^M$}.
+\\ For each dimension $i$ of $\chi$, the probability that $|x_i - y_i| \leq \epsilon$ is equivalent to 
+\begin{center}
+$P(|x_i - y_i| \leq \epsilon) = $ \\
+$P(- \epsilon \leq x_i - y_i \leq \epsilon) = $ \\
+$P(- \epsilon - x_i \leq - y_i \leq \epsilon - x_i) = $ \\
+$P(\epsilon + x_i \geq y_i \geq x_i - \epsilon) = $ \\
+$P(x_i - \epsilon \leq y_i \leq \epsilon + x_i)$
+\end{center}
+This distribution function is equivalent to $\int_{\epsilon + x_i}^{x_i - \epsilon} f(x)dx$, where $f(x)$ is the PDF of $y_i$, which we know to have a uniform distribution, so $f(x) = \frac{1}{b - a} = 1$. Thus, we get:
+\begin{center}
+$\int_{\epsilon + x_i}^{x_i - \epsilon} 1 dx = $ \\
+$\epsilon + x_i - (x_i - \epsilon) = 2\epsilon$
+\end{center} 
+Because we want to know the probability that all of the $M$ dimensions of $x - y$ are between $-\epsilon$ and $\epsilon$, we simply take $\Pi_{i = 1}^{M} P(|x_i - y_i| \leq \epsilon) = (2\epsilon)^M$.
 \item The probability of $max_m |x_m - y_m| \leq \epsilon$ is at most $p$
 \item If $x$ is any point in $\chi$, and $y$ is a point in $\chi$ drawn randomly from a uniform distribution on $\chi$, then the probabilty that $||x - y|| \leq \epsilon$ is also at most $p$
 \item Lowerbound on number $N$ of points needed to guarantee
