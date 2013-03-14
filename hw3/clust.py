@@ -6,6 +6,7 @@ import sys
 import random
 import copy
 from utils import *
+from operator import itemgetter
 
 #DATAFILE = "adults.txt"
 DATAFILE = "adults-small.txt"
@@ -133,51 +134,77 @@ def main():
         #return means
         return sum(means)/len(means)
         # return r
-            
-    metrics = ["min", "max", "mean", "cent"]
-    def HAC(data, K):
+
+    def HAC(data, K, param):
 
         #E = set of subsets of each individual example
         E = []
         for n in data:
             E.append([n])
-        print 'E', E
+        # print 'E', E
         #counter for printing
-        counter = 0
+        # counter = 0
         #Repeat until |E| = K
         while len(E) != K:
-            print "THISEE", E
+            # print "THISEE", E
             dist = []
             for a in range(len(E)):
                 for b in range(a + 1, len(E)):
-                    xmin = cmin(E[a], E[b], squareDistance)
-                    xmax = cmax(E[a], E[b], squareDistance)
-                    xmean = cmean(E[a], E[b], squareDistance)
-                    xcent = ccent(E[a], E[b], squareDistance)
-                    dist.append({"a": E[a], "b": E[b], "min": xmin, "max": xmax, "mean": xmean, "cent": xcent})
-            temp = []
-            for c in range(len(dist)):
-                temp.append(dist[c]["min"])
-            mini = min(temp)
-            index = temp.index(mini)
-            a = dist[index]["a"]
-            b = dist[index]["b"]
-            newc = a + b
+                    if param == "min":
+                        res = cmin(E[a], E[b], squareDistance)
+                    elif param == "max":
+                        res = cmax(E[a], E[b], squareDistance)
+                    elif param == "mean":
+                        res = cmean(E[a], E[b], squareDistance)
+                    elif param == "cent":
+                        res = ccent(E[a], E[b], squareDistance)
+                    dist.append({"a": E[a], "b": E[b], "d": res})
+            
+            temp = [dist[c]["d"] for c in range(len(dist))]
+            mmin = min(temp)
+            # mini = map(itemgetter('d'), dist).index(mmin)
+            mini = temp.index(mmin)
+
+            # print mmin, mini, temp
+            # break
+            a = dist[mini]["a"]
+            b = dist[mini]["b"]
+            # print E, a, b
             E.remove(a)
             E.remove(b)
-            E.append(newc)
-            print 'E', E
-            print 'counter', counter
-            counter+=1
+            E.append(a+b)
+            # a = E.remove(dist[mini]["a"])
+            # E.append(E.remove(dist[mini]["a"])+E.remove(dist[mini]["b"]))
+            # print c
+
             
-        return E
+            # E.append(E.remove(dist[mini]["a"])+E.remove(dist[mini]["b"]))
+            
+            # temp = []
+            # for c in range(len(dist)):
+            #     temp.append(dist[c]["min"])
+            # mini = min(temp)
+            # index = temp.index(mini)
+            # a = dist[index]["a"]
+            # b = dist[index]["b"]
+            # newc = a + b
+            # E.remove(a)
+            # E.remove(b)
+            # E.append(newc)
+            #print 'E', E
+            #print 'counter', counter
+            # counter+=1
+        clusters = []
+        for e in E:
+            clusters.append(len(e))
+        return clusters, E
             #Let A, B be the two closest clusters in E
             #Remove A and B from E
             #Insert A union B into E
 
     
     print(kmeans(data[:numExamples], numClusters))
-    print(HAC(data[:numExamples], numClusters))
+    print(HAC(data[:numExamples], numClusters, "min"))
     
 
         
