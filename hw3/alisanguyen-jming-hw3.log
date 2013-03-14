@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  13 MAR 2013 23:39
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.9.8)  14 MAR 2013 00:29
 entering extended mode
 **C:/Users/Alisa/Documents/GitHub/spring2013/hw3/alisanguyen-jming-hw3.tex
 (C:/Users/Alisa/Documents/GitHub/spring2013/hw3/alisanguyen-jming-hw3.tex
@@ -198,11 +198,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 42--45
 Here is how much of TeX's memory you used:
  2039 strings out of 494045
  25435 string characters out of 3148388
- 81014 words of memory out of 3000000
+ 82014 words of memory out of 3000000
  5330 multiletter control sequences out of 15000+200000
  9509 words of font info for 38 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 27i,5n,24p,702b,255s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,5n,24p,781b,215s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:
 /Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program
  Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/M
@@ -213,7 +213,7 @@ ic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
 8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C
 :/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on alisanguyen-jming-hw3.pdf (2 pages, 109199 bytes).
+Output written on alisanguyen-jming-hw3.pdf (2 pages, 112410 bytes).
 PDF statistics:
  49 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
