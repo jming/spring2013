@@ -129,15 +129,25 @@ def main():
         #print 'r', r
         #print 'u after', u
         #print 'data', data
+        #return means
         return sum(means)/len(means)
+        # return r
             
-    def HAC(data, k):
-        pass
-      #E = set of subsets of each individual example
-      #Repeat until |E| = K
-        #Let A, B be the two closest clusters in E
-        #Remove A and B from E
-        #Insert A union B into E
+    metrics = ["min", "max", "mean", "cent"]
+    def HAC(data, K):
+
+        #E = set of subsets of each individual example
+        E = []
+        for n in data:
+            E.append([n])
+
+        #Repeat until |E| = K
+        while len(E) != K:
+            for e in E:
+                
+                #Let A, B be the two closest clusters in E
+                #Remove A and B from E
+                #Insert A union B into E
         
     
     print(kmeans(data[:numExamples], numClusters))
