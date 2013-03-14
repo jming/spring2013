@@ -25,10 +25,15 @@ Joy Ming and Alisa Nguyen (15 March 2013)\\
 
 \section{Problem 2}
 \begin{enumerate}
-\item Given a prior
-\item MAP can be considered "more Bayesian" than ML because
-\item One advantage the MAP method enjoys over the Ml method
-\item The Beta distribution ins the conjugate prior of the Bernoulli
+\item Given a prior distribution $Pr(\theta)$ and likelihood $Pr(D|\theta)$, the predictive distribution $Pr(x|D)$ for a new datum, 
+	\begin{enumerate}
+	\item ML: $Pr(x|D)=Pr(x|\theta)=\underset{\theta}{\arg\max}(\ln(Pr(D|\theta)))$
+	\item MAP: $Pr(x|D)=Pr(x|D)=Pr(x|\theta)=\underset{\theta}{\arg\max}(\ln(P(D|\theta)P(\theta)))$
+	\item FB: $Pr(x|D)=\int \theta P(\theta|D)d\theta$
+	\end{enumerate}
+\item MAP can be considered "more Bayesian" than ML because it takes into account the distribution of $\theta$ instead of assuming same weight or uniformity.
+\item One advantage the MAP method enjoys over the ML method
+\item The Beta distribution is the conjugate prior of the Bernoulli.
 \item Under the ML approach
 \end{enumerate}
 
