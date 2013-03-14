@@ -7,6 +7,7 @@ import random
 import copy
 from utils import *
 from operator import itemgetter
+from numpy import *
 
 #DATAFILE = "adults.txt"
 DATAFILE = "adults-small.txt"
@@ -177,6 +178,41 @@ def main():
 
         # return number of instances per cluster and instance vectors
         return clusters, E
+    def autoclass(data, K):
+        #Set theta_c, theta_n^(1), theta_n^(0) to initial values
+        #TODO: what initial values?
+        thetac = 0
+        theta1 = [0 for x in range(len(data))]
+        theta0 = [0 for x in range(len(data))]
+        #Keep track of iterations until convergence
+        round = 0
+        #TODO implement convergence parameter
+        #Stop your algorithm if , where d is the Euclidean distance, for example. Make sure not to set epsilon too large or you won't actually be converging. Also, state your convergence criteria that you used. Anywhere from 1e-5 to 1e-10 should be a good value for epsilon.
+        converging = False
+        #Repeat until convergence:
+        #while not converging:  
+            #WAIT PSUEDOCODE ONLY FOR BINARY WHOOPS. Look here: https://piazza.com/class#spring2013/cs181/185
+            #Expectation Step
+            #E[N_1] = 0
+            #for each d, E[N_d^(0)] = 0
+            #for each d, E[E_d^(1)] = 0
+            
+            #For each instance x_n
+                #p1 = WOW PI PRODUCT THING
+                #p0 = WOW ANOTHER PI PRODUCT THING
+                #p(Y = 1 | X = x_n) = p1/(p1 + p0)
+                #E[N_1] += p(Y = 1 | X = x_n)
+                #For each attribute d
+                    #If (x_nd = 1)
+                        #E[N_d1^1] += p(Y = 1 | X = x_n)
+                        #E[N_d1^0] += 1 - p(Y = 1 | X = x_n)
+            
+            #Maximization step
+            #Theta_c = E[N1]/n
+            #For each attribute d
+                #Theta_d^1 = 
+                #Theta_d^0 = 
+
     
     print(kmeans(data[:numExamples], numClusters))
     print(HAC(data[:numExamples], numClusters, "min"))
