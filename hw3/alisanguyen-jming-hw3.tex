@@ -3,6 +3,7 @@
 \usepackage{amssymb,amsmath}
 \usepackage[pdftex]{graphicx}
 % \usepackage{qtree}
+\usepackage{enumerate}
 
 \topmargin = -.75in \textwidth=7in \textheight=9.3in
 \oddsidemargin = -.3in \evensidemargin = -.3in
@@ -15,8 +16,8 @@ CS181 Assignment 3
 Joy Ming and Alisa Nguyen (15 March 2013)\\
 
 \section{Problem 1}
-\begin{enumerate}
-\item The probability that all of the $M$ dimensions of $x - y$ are between $-\epsilon \text{ and } \epsilon$ is \fbox{$(2\epsilon)^M$}.
+\begin{enumerate}[a.]
+\item The probability that all of the $M$ dimensions of $x - y$ are between $-\epsilon \text{ and } \epsilon$ is \fbox{$ \rho = (2\epsilon)^M$}.
 \\ For each dimension $i$ of $\chi$, the probability that $|x_i - y_i| \leq \epsilon$ is equivalent to 
 \begin{center}
 $P(|x_i - y_i| \leq \epsilon) = $ \\
@@ -31,14 +32,32 @@ $\int_{\epsilon + x_i}^{x_i - \epsilon} 1 dx = $ \\
 $\epsilon + x_i - (x_i - \epsilon) = 2\epsilon$
 \end{center} 
 Because we want to know the probability that all of the $M$ dimensions of $x - y$ are between $-\epsilon$ and $\epsilon$, we simply take $\Pi_{i = 1}^{M} P(|x_i - y_i| \leq \epsilon) = (2\epsilon)^M$.
-\item The probability of $max_m |x_m - y_m| \leq \epsilon$ is at most $p$
-\item If $x$ is any point in $\chi$, and $y$ is a point in $\chi$ drawn randomly from a uniform distribution on $\chi$, then the probabilty that $||x - y|| \leq \epsilon$ is also at most $p$
-\item Lowerbound on number $N$ of points needed to guarantee
-\item We can conclude that the effectiveness of the hierarchical agglomerativ clustering algorithm in high dimensional spaces
+\item The probability of $max_m |x_m - y_m| \leq \epsilon$ is at most $\rho$ because as shown in (a), $\rho$ does not depend on $x_i$ and thus holds for all $x_i$. In addition, logically, if $x$ is the center point, the average distance from it to any other point $y$ is at most $\frac{1}{2}$ for any one dimension. As $x$ moves farther and farther away from the center, the average distance increases so that it becomes at most 1 in any one dimension. So, if $x$ is not in the center $max_m|x_m - y_m|$ grows and is less likely to be less than $\epsilon$, decreasing that probability so that it is less than $\rho$.
+\item We will show that $||x - y|| \geq max_m|x_m - y_m|$.
+\begin{center}
+$||x - y|| = \sqrt{\Sigma_{m = 1}^{M} (x_m - y_m)^2} $ \\
+$\sqrt{\Sigma_{m = 1}^{M} (x_m - y_m)^2} \geq max_m|x_m - y_m|$ \\
+$\Sigma_{m = 1}^{M} (x_m - y_m)^2 \geq (max_m|x_m - y_m|)^2$
+\end{center}
+This is true because the left side of the inequality includes the right side in its sum. $|| x - y ||$ is the total Euclidean distance between two points whereas $max_m|x_m - y_m|$ is only the distance between one dimension of two points. The left side must be larger.
+\newline \newline
+If $x$ is any point in $\chi$, and $y$ is a point in $\chi$ drawn randomly from a uniform distribution on $\chi$, then the probabilty that $||x - y|| \leq \epsilon$ is also at most $p$ because $||x - y||$ is greater than or equal to $max_m|x_m - y_m|$, making it less likely to be less than $\epsilon$ and thus giving it a probability lower than $\rho$ of being less than $\epsilon$.
+\item Lowerbound on number $N$ of points needed to guarantee that the nearest neighbor of point $x$
+ will be within a radius $\epsilon$ of it is \fbox{$log\delta / log(1 - (2\epsilon)^M)$}.
+\newline
+For the nearest neighbor not to be within a radius $\epsilon$, none of the neighbors can be within a radius $\epsilon$. The probability that any one neighbor is not within a radius $\epsilon$ of $x$ is $1 - (2\epsilon)^M$, so the probability that all the nighbors are not within a radius $\epsilon$ of $x$ is equivalent to $(1 - (2\epsilon)^M)^N$, where $N$ is the number of neighbors. So, the probability that at least one neighbor is within a radius $\epsilon$ is 1 - that quantity. Since we want to guarantee with probability at least $1 - \delta$ that the nearest neighbor will be within a radius $\epsilon$ of it, we can solve for a lower bound for N by setting the two equations equal to each other.
+\begin{center}
+$1 - \delta = 1 - (1 - (2\epsilon)^M)^N$ \\
+$1 - 1 + (1 - (2\epsilon)^M)^N = \delta$ \\
+$(1 - (2\epsilon)^M)^N = \delta $ \\
+$Nlog(1 - (2\epsilon)^M) = log\delta$ \\
+\fbox{$N = log\delta/log(1 - (2\epsilon)^M)$}
+\end{center}
+\item We can conclude that the effectiveness of the hierarchical agglomerative clustering algorithm in high dimensional spaces is ineffective as the dimension $M$ grows because $N$ would also grow too large and HAC would require too many $N$ points to actually be effective. As $M$ increases, the denominator of the lower bound for $N$ decreases, thus leading to an increase in $N$ overall. In addition, as covered in class, when the size of the dataset gets larger, the probability that two points from different clusters are closer to each other in terms of distance than two points from separate clusters converges to 1/2.
 \end{enumerate}
 
 \section{Problem 2}
-\begin{enumerate}
+\begin{enumerate}[a]
 \item Given a prior distribution $Pr(\theta)$ and likelihood $Pr(D|\theta)$, the predictive distribution $Pr(x|D)$ for a new datum, 
 	\begin{enumerate}
 	\item ML: $Pr(x|D)=Pr(x|\theta)=\underset{\theta}{\arg\max}(\ln(Pr(D|\theta)))$
@@ -52,7 +71,7 @@ Because we want to know the probability that all of the $M$ dimensions of $x - y
 \end{enumerate}
 
 \section{Problem 3}
-\begin{enumerate}
+\begin{enumerate}[a]
 \item The $K$ -means clustering objective is to minimize the sum of squared distances between prototype and data.
 \item PCA relates to $K$-means
 \end{enumerate}
