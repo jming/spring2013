@@ -143,12 +143,19 @@ def main():
 
         #Repeat until |E| = K
         while len(E) != K:
-            for e in E:
+            dist = []
+            for a in range(len(E)):
+                for b in range(len(E)-a):
+                    cmin = cmin(a, b, squareDistance)
+                    cmax = cmax(a, b, squareDistance)
+                    cmean = cmean(a, b, squareDistance)
+                    ccent = ccent(a, b, squaredistance)
+                    dist.append({"a": a, "b": b, "min": cmin, "max": cmax, "mean": cmean, "cent": ccent})
+            
+            #Let A, B be the two closest clusters in E
+            #Remove A and B from E
+            #Insert A union B into E
 
-                #Let A, B be the two closest clusters in E
-                #Remove A and B from E
-                #Insert A union B into E
-        
     
     print(kmeans(data[:numExamples], numClusters))
     
