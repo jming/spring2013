@@ -57,25 +57,69 @@ $Nlog(1 - (2\epsilon)^M) = log\delta$ \\
 \end{enumerate}
 
 \section{Problem 2}
-\begin{enumerate}[a]
+\begin{enumerate}[a.]
 \item Given a prior distribution $Pr(\theta)$ and likelihood $Pr(D|\theta)$, the predictive distribution $Pr(x|D)$ for a new datum, 
 	\begin{enumerate}
-	\item ML: $Pr(x|D)=Pr(x|\theta)=\underset{\theta}{\arg\max}(\ln(Pr(D|\theta)))$
-	\item MAP: $Pr(x|D)=Pr(x|D)=Pr(x|\theta)=\underset{\theta}{\arg\max}(\ln(P(D|\theta)P(\theta)))$
-	\item FB: $Pr(x|D)=\int \theta P(\theta|D)d\theta$
+	\item ML: $Pr(x|D)=Dist(\underset{\theta}{\arg\max}(\ln(Pr(D|\theta))))$, \\where $Dist()$ is a distribution applied to the $\theta$ we obtain with the given formula.
+	\item MAP: $Pr(x|D)=Dist(\underset{\theta}{\arg\max}(\ln(P(D|\theta)P(\theta))))$, \\where $Dist()$ is a distribution applied to the $\theta$ we obtain with the given formula.
+	\item FB: $Pr(x|D)=\int p(x|\theta) P(\theta|D)d\theta$
 	\end{enumerate}
 \item MAP can be considered "more Bayesian" than ML because it takes into account the distribution of $\theta$ instead of assuming same weight or uniformity.
-\item One advantage the MAP method enjoys over the ML method
+\item One advantage the MAP method enjoys over the ML method is that it accounts for the more likely distribution, as opposed to simply assuming uniformity, as with ML. FB, on the other hand, maintains a probability distribution is maintained over the set of all parameter values possible. However, because the normalizing factor contains an integration over all parameter values, it can be difficult to compute. This means that it also unnecessarily takes into account the less likely, meaning that FB is less practical than MAP to calculate. Therefore, MAP sits in the "sweet spot" of taking more into account in terms of distribution than ML but less excessively than FB.
+\item Soccer team example based on different Beta distributions as priors for the probability of a win,
+	\begin{itemize}
+	\item Beta(1,1)\\
+		\includegraphics[width=80mm]{beta11.png}\\
+	The Beta(1,1) distribution is equated with the Uniform(1,1) distribution.
+	\item Beta(3,3)\\
+		\includegraphics[width=80mm]{beta33.png}\\
+	\item Beta(2,5)\\
+		\includegraphics[width=80mm]{beta25.png}\\
+	\end{itemize}
 \item The Beta distribution is the conjugate prior of the Bernoulli.
 \item Under the ML approach
 \end{enumerate}
 
 \section{Problem 3}
-\begin{enumerate}[a]
+\begin{enumerate}[a.]
 \item The $K$ -means clustering objective is to minimize the sum of squared distances between prototype and data.
 \item PCA relates to $K$-means
 \end{enumerate}
 
 \section{Problem 4}
+\begin{enumerate}[a.]
+\item $K$-means clustering algorithm
+\item HAC algorithm
+	\begin{enumerate}
+	\item Comparing clusters formed using $min$ distance metric against clusters formed using $max$ distance metric
+		\begin{enumerate}
+		\item Table showing number of instances in each cluster\\
+			\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Metric & C1 & C2 & C3 & C4\\ \hline
+			$min$ & 1 & 1 & 73 & 25\\ \hline
+			$max$ & 7 & 21 & 46 & 26\\ 
+			\hline
+			\end{tabular}
+		\item Scatterplot of the instances in 3-dimensions
+		\end{enumerate}
+	It seems that the $min$ distance metric produced ?? clusters compared to the $max$ metric... This makes sense given the definition of the metrics because...
+	\item Comparing clusters formed using $mean$ distance metric against clusters formed using $centroid$ distance metric
+		\begin{enumerate}
+		\item Table showing number of instances in each cluster\\
+			\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Metric & C1 & C2 & C3 & C4\\ \hline
+			$mean$ & 1 & 1 & 46 & 152\\ \hline
+			$cent$ & 1 & 5 & 147 & 47\\ 
+			\hline
+			\end{tabular}
+		\item Scatterplot of the instances in 3-dimensions
+		\end{enumerate}
+	It seems that the $mean$ distance metric produced ?? clusters compared to the $cent$ metric... This makes sense given the definition of the metrics because...
+	\end{enumerate}
+
+\item Autoclass clustering algorithm
+\end{enumerate}
 
 \end{document}

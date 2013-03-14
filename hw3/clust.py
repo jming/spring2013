@@ -7,6 +7,7 @@ import random
 import copy
 from utils import *
 from operator import itemgetter
+# import numpy
 
 #DATAFILE = "adults.txt"
 DATAFILE = "adults-small.txt"
@@ -179,7 +180,7 @@ def main():
         return clusters, E
     
     print(kmeans(data[:numExamples], numClusters))
-    print(HAC(data[:numExamples], numClusters, "min"))
+    print(HAC(data[:numExamples], numClusters, "cent"))
        
     
 if __name__ == "__main__":
