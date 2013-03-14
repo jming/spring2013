@@ -146,17 +146,15 @@ def main():
         counter = 0
         #Repeat until |E| = K
         while len(E) != K:
+            print "THISEE", E
             dist = []
-            for a in E:
-                E.remove(a)
-                print 'a', a
-                for b in E:
-                    xmin = cmin(a, b, squareDistance)
-                    xmax = cmax(a, b, squareDistance)
-                    xmean = cmean(a, b, squareDistance)
-                    xcent = ccent(a, b, squareDistance)
-                    dist.append({"a": a, "b": b, "min": xmin, "max": xmax, "mean": xmean, "cent": xcent})
-                E.append(a)
+            for a in range(len(E)):
+                for b in range(a + 1, len(E)):
+                    xmin = cmin(E[a], E[b], squareDistance)
+                    xmax = cmax(E[a], E[b], squareDistance)
+                    xmean = cmean(E[a], E[b], squareDistance)
+                    xcent = ccent(E[a], E[b], squareDistance)
+                    dist.append({"a": E[a], "b": E[b], "min": xmin, "max": xmax, "mean": xmean, "cent": xcent})
             temp = []
             for c in range(len(dist)):
                 temp.append(dist[c]["min"])
@@ -164,7 +162,7 @@ def main():
             index = temp.index(mini)
             a = dist[index]["a"]
             b = dist[index]["b"]
-            newc = [a, b]
+            newc = a + b
             E.remove(a)
             E.remove(b)
             E.append(newc)
