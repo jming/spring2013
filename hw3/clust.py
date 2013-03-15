@@ -11,8 +11,8 @@ from operator import itemgetter
 # import numpy
 
 
-#DATAFILE = "adults.txt"
-DATAFILE = "adults-small.txt"
+DATAFILE = "adults.txt"
+#DATAFILE = "adults-small.txt"
 
 #validateInput()
 
@@ -117,7 +117,7 @@ def main():
             #if none of the examples are assigned to different clusters, convergence!
             if r == prevr:
                 converging = True
-            #print 'round', round
+            print 'round', round
             round += 1
         #for each value of K, compute the mean squared error (the mean squared distance of each point from its closest prototype vector)
         sum_errors = [0. for x in range(K)]
@@ -134,6 +134,7 @@ def main():
         #print 'r', r
         #print 'u after', u
         #print 'data', data
+        #print 'means', means
         #return means
         return sum(means)/len(means)
         # return r
@@ -217,7 +218,7 @@ def main():
 
     
     print(kmeans(data[:numExamples], numClusters))
-    print(HAC(data[:numExamples], numClusters, "max"))
+    #print(HAC(data[:numExamples], numClusters, "max"))
        
     
 if __name__ == "__main__":
