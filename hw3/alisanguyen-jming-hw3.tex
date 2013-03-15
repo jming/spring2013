@@ -84,15 +84,17 @@ In this case, the plot seems to be skewed toward the left, which the equation fo
 
 \section{Problem 3}
 \begin{enumerate}[a.]
-\item The $K$-means clustering objective is to minimize the sum of squared distances between prototype and data.
-\item PCA relates to $K$-means
+\item The $K$-means clustering objective is to minimize the sum of squared distances between prototype and data. The update steps can be derived by performing gradient descent on it by taking the partial derivative over all means and responsibilities. This means we can move along the negative gradient of the loss function, as shown in the lecture slides to be (???). 
+\item The principal components analysis (PCA) also has a squared-loss compression interpretation... 
 \end{enumerate}
 
 \section{Problem 4}
 \begin{enumerate}[a.]
 \item $K$-means clustering algorithm
 \begin{enumerate}
+\item Plot of mean squared error versus $K$\\
 \includegraphics[width=120mm]{graphkmeans.png}
+\item If we were to chose the best $K$ for this data based onthe plot generated in part (i) we would chose the value of $K$ that minimizes the mean squared error, which in this case is 10. It is important to minimize mean squared error because it is a measure of the difference between estimated values and true values, following in line with objectives mentioned in problem 3. 
 \end{enumerate}
 \item HAC algorithm
 \begin{enumerate}
@@ -114,7 +116,8 @@ $max$ & 7 & 21 & 46 & 26\\
 	\includegraphics[width=120mm]{graphhacmax.png}
 	\end{itemize}
 \end{enumerate}
-It seems that the $min$ distance metric produced ?? clusters compared to the $max$ metric... This makes sense given the definition of the metrics because...
+The $min$ distance metric considers the distance between the two closest points in two separate clusters, but the $max$ distance metric considers the distance between the two farthest points in the clusters. This results in the $min$ measure creating more distinct and consolidated clusters than the $max$ metric, which makes sense because by minimizing the smallest distance this brings the points closer to each other.
+% It seems that the $min$ distance metric produced ?? clusters compared to the $max$ metric... This makes sense given the definition of the metrics because...
 \item Comparing clusters formed using $mean$ distance metric against clusters formed using $centroid$ distance metric
 \begin{enumerate}
 \item Table showing number of instances in each cluster\\
@@ -133,10 +136,15 @@ $cent$ & 1 & 5 & 147 & 47\\
 	\includegraphics[width=120mm]{graphhaccent.png}
 	\end{itemize}
 \end{enumerate}
-It seems that the $mean$ distance metric produced ?? clusters compared to the $cent$ metric... This makes sense given the definition of the metrics because...
+The $mean$ distance metric looks at the average distances between each of the points in a cluster and $cent$ looks at the distances to the center of a cluster. In the clusters based on $mean$ the clusters are more distinct in a naive belief of what the clusters would look like whereas the $cent$ is a little different and less distinct.
 \end{enumerate}
 
 \item Autoclass clustering algorithm
+\begin{enumerate}
+\item It takes $x$ number of iterations for the parameters to converge.
+\item Plot of the log likelihood of the data versus number of iterations
+\item The run-time performance of auto-class seems to be much faster than that of $K$-means. (???)
+\end{enumerate}
 \end{enumerate}
 
 \end{document}

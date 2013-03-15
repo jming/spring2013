@@ -241,7 +241,6 @@ def main():
                     bottom = sum([P[x] for x in range(len(P))])
                     v = top/bottom
                     theta[k][d] = (m, v)
-
             round += 1 
 
         return 0
