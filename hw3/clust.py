@@ -192,13 +192,15 @@ def main():
         #Stop your algorithm if , where d is the Euclidean distance, for example. Make sure not to set epsilon too large or you won't actually be converging. Also, state your convergence criteria that you used. Anywhere from 1e-5 to 1e-10 should be a good value for epsilon.
         converging = False
         #Repeat until convergence:
-        #while not converging:  
+        while not converging:
+            # Expectation Step
+            # Maximization Step
             #WAIT PSUEDOCODE ONLY FOR BINARY WHOOPS. Look here: https://piazza.com/class#spring2013/cs181/185
             #Expectation Step
             #E[N_1] = 0
             #for each d, E[N_d^(0)] = 0
             #for each d, E[E_d^(1)] = 0
-            
+
             #For each instance x_n
                 #p1 = WOW PI PRODUCT THING
                 #p0 = WOW ANOTHER PI PRODUCT THING
@@ -208,18 +210,15 @@ def main():
                     #If (x_nd = 1)
                         #E[N_d1^1] += p(Y = 1 | X = x_n)
                         #E[N_d1^0] += 1 - p(Y = 1 | X = x_n)
-            
+
             #Maximization step
             #Theta_c = E[N1]/n
             #For each attribute d
-                #Theta_d^1 = 
-                #Theta_d^0 = 
-
-    
+                #Theta_d^1 =
+                #Theta_d^0 =
     print(kmeans(data[:numExamples], numClusters))
     print(HAC(data[:numExamples], numClusters, "max"))
-       
-    
+
 if __name__ == "__main__":
     validateInput()
     main()
