@@ -217,7 +217,7 @@ def main():
 
     
     print(kmeans(data[:numExamples], numClusters))
-    print(HAC(data[:numExamples], numClusters, "cent"))
+    print(HAC(data[:numExamples], numClusters, "max"))
        
     
 if __name__ == "__main__":

@@ -18,7 +18,7 @@ Joy Ming and Alisa Nguyen (15 March 2013)\\
 \section{Problem 1}
 \begin{enumerate}[a.]
 \item The probability that all of the $M$ dimensions of $x - y$ are between $-\epsilon \text{ and } \epsilon$ is \fbox{$ \rho = (2\epsilon)^M$}.
-\\ For each dimension $i$ of $\chi$, the probability that $|x_i - y_i| \leq \epsilon$ is equivalent to 
+\\ For each dimension $i$ of $\chi$, the probability that $|x_i - y_i| \leq \epsilon$ is equivalent to
 \begin{center}
 $P(|x_i - y_i| \leq \epsilon) = $ \\
 $P(- \epsilon \leq x_i - y_i \leq \epsilon) = $ \\
@@ -30,7 +30,7 @@ This distribution function is equivalent to $\int_{\epsilon + x_i}^{x_i - \epsil
 \begin{center}
 $\int_{\epsilon + x_i}^{x_i - \epsilon} 1 dx = $ \\
 $\epsilon + x_i - (x_i - \epsilon) = 2\epsilon$
-\end{center} 
+\end{center}
 Because we want to know the probability that all of the $M$ dimensions of $x - y$ are between $-\epsilon$ and $\epsilon$, we simply take $\Pi_{i = 1}^{M} P(|x_i - y_i| \leq \epsilon) = (2\epsilon)^M$.
 \item The probability of $max_m |x_m - y_m| \leq \epsilon$ is at most $\rho$ because as shown in (a), $\rho$ does not depend on $x_i$ and thus holds for all $x_i$. In addition, logically, if $x$ is the center point, the average distance from it to any other point $y$ is at most $\frac{1}{2}$ for any one dimension. As $x$ moves farther and farther away from the center, the average distance increases so that it becomes at most 1 in any one dimension. So, if $x$ is not in the center $max_m|x_m - y_m|$ grows and is less likely to be less than $\epsilon$, decreasing that probability so that it is less than $\rho$.
 \item We will show that $||x - y|| \geq max_m|x_m - y_m|$.
@@ -58,24 +58,26 @@ $Nlog(1 - (2\epsilon)^M) = log\delta$ \\
 
 \section{Problem 2}
 \begin{enumerate}[a.]
-\item Given a prior distribution $Pr(\theta)$ and likelihood $Pr(D|\theta)$, the predictive distribution $Pr(x|D)$ for a new datum, 
-	\begin{enumerate}
-	\item ML: $Pr(x|D)=Dist(\underset{\theta}{\arg\max}(\ln(Pr(D|\theta))))$, \\where $Dist()$ is a distribution applied to the $\theta$ we obtain with the given formula.
-	\item MAP: $Pr(x|D)=Dist(\underset{\theta}{\arg\max}(\ln(P(D|\theta)P(\theta))))$, \\where $Dist()$ is a distribution applied to the $\theta$ we obtain with the given formula.
-	\item FB: $Pr(x|D)=\int p(x|\theta) P(\theta|D)d\theta$
-	\end{enumerate}
+\item Given a prior distribution $Pr(\theta)$ and likelihood $Pr(D|\theta)$, the predictive distribution $Pr(x|D)$ for a new datum,
+\begin{enumerate}
+\item ML: $Pr(x|D)=Dist(\underset{\theta}{\arg\max}(\ln(Pr(D|\theta))))$, \\where $Dist()$ is a distribution applied to the $\theta$ we obtain with the given formula.
+\item MAP: $Pr(x|D)=Dist(\underset{\theta}{\arg\max}(\ln(P(D|\theta)P(\theta))))$, \\where $Dist()$ is a distribution applied to the $\theta$ we obtain with the given formula.
+\item FB: $Pr(x|D)=\int p(x|\theta) P(\theta|D)d\theta$
+\end{enumerate}
 \item MAP can be considered "more Bayesian" than ML because it takes into account the distribution of $\theta$ instead of assuming same weight or uniformity.
 \item One advantage the MAP method enjoys over the ML method is that it accounts for the more likely distribution, as opposed to simply assuming uniformity, as with ML. FB, on the other hand, maintains a probability distribution is maintained over the set of all parameter values possible. However, because the normalizing factor contains an integration over all parameter values, it can be difficult to compute. This means that it also unnecessarily takes into account the less likely, meaning that FB is less practical than MAP to calculate. Therefore, MAP sits in the "sweet spot" of taking more into account in terms of distribution than ML but less excessively than FB.
-\item Soccer team example based on different Beta distributions as priors for the probability of a win,
-	\begin{itemize}
-	\item Beta(1,1)\\
-		\includegraphics[width=80mm]{beta11.png}\\
-	The Beta(1,1) distribution is equated with the Uniform(1,1) distribution.
-	\item Beta(3,3)\\
-		\includegraphics[width=80mm]{beta33.png}\\
-	\item Beta(2,5)\\
-		\includegraphics[width=80mm]{beta25.png}\\
-	\end{itemize}
+\item Soccer team example based on different Beta distributions as priors for the probability of a win, the different possible distributions are:
+\begin{itemize}
+\item Beta(1,1)\\
+\includegraphics[width=80mm]{beta11.png}\\
+The Beta(1,1) distribution is equated with the Uniform(0,1) distribution, which is a number uniformly chosen between 0 and 1. Beta(1,1) is a uniform prior on $\theta$ which says there was just one positive and one negative example, essentially makes the probability of winning and losing equally likely. Often used as a "non-informative prior", this assumes uniformity and is not very descriptive in depicting the distribution of wins and losses otherwise.
+\item Beta(3,3)\\
+\includegraphics[width=80mm]{beta33.png}\\
+Based on the equation for the mode of a variate with a beta distribution, $x = \frac{\alpha - 1}{\alpha + \beta - 2}=\frac{3-1}{3+3-2}=\frac{2}{4}$. This means that this distribution says that it is as likely to win as it is to lose as the distribution is symmetrical. However, this is more descriptive than simply a Beta(1,1) distribution, as seen in the plot because it looks more at the distribution over the entire space, with a lower variance as it makes values in the middle more likely.
+\item Beta(2,5)\\
+\includegraphics[width=80mm]{beta25.png}\\
+In this case, the plot seems to be skewed toward the left, which the equation for the mode of a variate with a beta distribution show $x = \frac{\alpha - 1}{\alpha + \beta - 2}=\frac{2-1}{2+5-2}=\frac{1}{5}$ that this is true. This is more descriptive than Beta(1,1) in describing a distribution that is not necessarily uniform and it is also more more descriptive than Beta(3,3) in describing a distribution that is not necessarily as symmetrical.
+\end{itemize}
 \item The Beta distribution is the conjugate prior of the Bernoulli.
 \item Under the ML approach
 \end{enumerate}
@@ -90,34 +92,46 @@ $Nlog(1 - (2\epsilon)^M) = log\delta$ \\
 \begin{enumerate}[a.]
 \item $K$-means clustering algorithm
 \item HAC algorithm
-	\begin{enumerate}
-	\item Comparing clusters formed using $min$ distance metric against clusters formed using $max$ distance metric
-		\begin{enumerate}
-		\item Table showing number of instances in each cluster\\
-			\begin{tabular}{|c|c|c|c|c|}
-			\hline
-			Metric & C1 & C2 & C3 & C4\\ \hline
-			$min$ & 1 & 1 & 73 & 25\\ \hline
-			$max$ & 7 & 21 & 46 & 26\\ 
-			\hline
-			\end{tabular}
-		\item Scatterplot of the instances in 3-dimensions
-		\end{enumerate}
-	It seems that the $min$ distance metric produced ?? clusters compared to the $max$ metric... This makes sense given the definition of the metrics because...
-	\item Comparing clusters formed using $mean$ distance metric against clusters formed using $centroid$ distance metric
-		\begin{enumerate}
-		\item Table showing number of instances in each cluster\\
-			\begin{tabular}{|c|c|c|c|c|}
-			\hline
-			Metric & C1 & C2 & C3 & C4\\ \hline
-			$mean$ & 1 & 1 & 46 & 152\\ \hline
-			$cent$ & 1 & 5 & 147 & 47\\ 
-			\hline
-			\end{tabular}
-		\item Scatterplot of the instances in 3-dimensions
-		\end{enumerate}
-	It seems that the $mean$ distance metric produced ?? clusters compared to the $cent$ metric... This makes sense given the definition of the metrics because...
-	\end{enumerate}
+\begin{enumerate}
+\item Comparing clusters formed using $min$ distance metric against clusters formed using $max$ distance metric
+\begin{enumerate}
+\item Table showing number of instances in each cluster\\
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Metric & C1 & C2 & C3 & C4\\ \hline
+$min$ & 1 & 1 & 73 & 25\\ \hline
+$max$ & 7 & 21 & 46 & 26\\
+\hline
+\end{tabular}
+\item Scatterplot of the instances in 3-dimensions
+	\begin{itemize}
+	\item Based on $min$:\\
+	\includegraphics[width=120mm]{graphhac.png}
+	\item Based on $max$:\\
+	\includegraphics[width=120mm]{graphhacmax.png}
+	\end{itemize}
+\end{enumerate}
+It seems that the $min$ distance metric produced ?? clusters compared to the $max$ metric... This makes sense given the definition of the metrics because...
+\item Comparing clusters formed using $mean$ distance metric against clusters formed using $centroid$ distance metric
+\begin{enumerate}
+\item Table showing number of instances in each cluster\\
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Metric & C1 & C2 & C3 & C4\\ \hline
+$mean$ & 1 & 1 & 46 & 152\\ \hline
+$cent$ & 1 & 5 & 147 & 47\\
+\hline
+\end{tabular}
+\item Scatterplot of the instances in 3-dimensions
+\begin{itemize}
+	\item Based on $mean$:\\
+	\includegraphics[width=120mm]{graphhacmean.png}
+	\item Based on $cent$:\\
+	\includegraphics[width=120mm]{graphhaccent.png}
+	\end{itemize}
+\end{enumerate}
+It seems that the $mean$ distance metric produced ?? clusters compared to the $cent$ metric... This makes sense given the definition of the metrics because...
+\end{enumerate}
 
 \item Autoclass clustering algorithm
 \end{enumerate}
