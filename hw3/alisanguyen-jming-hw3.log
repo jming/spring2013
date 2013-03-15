@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.9)  14 MAR 2013 20:14
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.9)  14 MAR 2013 20:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -249,19 +249,19 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 File: beta11.png Graphic file (type png)
  <use beta11.png>
 Package pdftex.def Info: beta11.png used on input line 72.
-(pdftex.def)             Requested size: 227.62204pt x 158.85933pt.
+(pdftex.def)             Requested size: 142.26378pt x 99.2881pt.
  [2]
 <beta33.png, id=20, 385.44pt x 261.97874pt>
 File: beta33.png Graphic file (type png)
  <use beta33.png>
 Package pdftex.def Info: beta33.png used on input line 75.
-(pdftex.def)             Requested size: 227.62204pt x 154.71002pt.
+(pdftex.def)             Requested size: 142.26378pt x 96.69476pt.
 
 <beta25.png, id=21, 393.47pt x 278.03876pt>
 File: beta25.png Graphic file (type png)
  <use beta25.png>
 Package pdftex.def Info: beta25.png used on input line 78.
-(pdftex.def)             Requested size: 227.62204pt x 160.84258pt.
+(pdftex.def)             Requested size: 142.26378pt x 100.52661pt.
  [3 <./beta11.png> <./beta33.png> <./beta25.png>] <graphhac.png, id=25, 586.832
 4pt x 442.2924pt>
 File: graphhac.png Graphic file (type png)
@@ -308,7 +308,7 @@ are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on alisanguyen-jming-hw3.pdf (6 pages, 362883 bytes).
+Output written on alisanguyen-jming-hw3.pdf (6 pages, 362787 bytes).
 PDF statistics:
  75 PDF objects out of 1000 (max. 8388607)
  45 compressed objects within 1 object stream

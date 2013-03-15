@@ -69,13 +69,13 @@ $Nlog(1 - (2\epsilon)^M) = log\delta$ \\
 \item Soccer team example based on different Beta distributions as priors for the probability of a win, the different possible distributions are:
 \begin{itemize}
 \item Beta(1,1)\\
-\includegraphics[width=80mm]{beta11.png}\\
+\includegraphics[width=50mm]{beta11.png}\\
 The Beta(1,1) distribution is equated with the Uniform(0,1) distribution, which is a number uniformly chosen between 0 and 1. Beta(1,1) is a uniform prior on $\theta$ which says there was just one positive and one negative example, essentially makes the probability of winning and losing equally likely. Often used as a "non-informative prior", this assumes uniformity and is not very descriptive in depicting the distribution of wins and losses otherwise.
 \item Beta(3,3)\\
-\includegraphics[width=80mm]{beta33.png}\\
+\includegraphics[width=50mm]{beta33.png}\\
 Based on the equation for the mode of a variate with a beta distribution, $x = \frac{\alpha - 1}{\alpha + \beta - 2}=\frac{3-1}{3+3-2}=\frac{2}{4}$. This means that this distribution says that it is as likely to win as it is to lose as the distribution is symmetrical. However, this is more descriptive than simply a Beta(1,1) distribution, as seen in the plot because it looks more at the distribution over the entire space, with a lower variance as it makes values in the middle more likely.
 \item Beta(2,5)\\
-\includegraphics[width=80mm]{beta25.png}\\
+\includegraphics[width=50mm]{beta25.png}\\
 In this case, the plot seems to be skewed toward the left, which the equation for the mode of a variate with a beta distribution show $x = \frac{\alpha - 1}{\alpha + \beta - 2}=\frac{2-1}{2+5-2}=\frac{1}{5}$ that this is true. This is more descriptive than Beta(1,1) in describing a distribution that is not necessarily uniform and it is also more more descriptive than Beta(3,3) in describing a distribution that is not necessarily as symmetrical.
 \end{itemize}
 \item The Beta distribution is the conjugate prior of the Bernoulli.
@@ -84,7 +84,7 @@ In this case, the plot seems to be skewed toward the left, which the equation fo
 
 \section{Problem 3}
 \begin{enumerate}[a.]
-\item The $K$ -means clustering objective is to minimize the sum of squared distances between prototype and data.
+\item The $K$-means clustering objective is to minimize the sum of squared distances between prototype and data.
 \item PCA relates to $K$-means
 \end{enumerate}
 
