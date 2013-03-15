@@ -81,7 +81,10 @@ In this case, the plot seems to be skewed toward the left, which the equation fo
 \item The Beta distribution is the conjugate prior of the Bernoulli.
 \item Looking at the Harvard football team in the 2011-2012 season,
 	\begin{itemize}
-	\item Using the ML approach, 
+	\item Using the ML approach, we basically take the naive probability looking at the number of wins over the total number of games, so the probability they would win is $\frac{9}{10}$.
+	\item Using the MAP approach, we take into account the prior distribution, assuming a Beta distribution of Beta($\alpha,\beta$), \[\theta_{MAP} = \frac{n_w+\alpha-1}{n+\alpha+\beta-2}\]. Guessing the same prior we guess in class of Beta(5,3), which can be interpreted as though more winds than losses have been observed in the past, the equation becomes
+	\[\theta_{MAP} = \frac{n_w+\alpha-1}{n+\alpha+\beta-2}=\frac{5+9-1}{10+5+3-2}=\frac{13}{16}\]. Beta(5,3) is good because it accounts for complications about uniformity and symmetry.
+	\item Using the FB approach, we integrate over the entire distribution, 
 	\end{itemize}
 \end{enumerate}
 
