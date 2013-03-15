@@ -12,8 +12,8 @@ import math
 # import numpy
 
 
-#DATAFILE = "adults.txt"
-DATAFILE = "adults-small.txt"
+DATAFILE = "adults.txt"
+#DATAFILE = "adults-small.txt"
 
 #validateInput()
 
@@ -118,7 +118,7 @@ def main():
             #if none of the examples are assigned to different clusters, convergence!
             if r == prevr:
                 converging = True
-            #print 'round', round
+            print 'round', round
             round += 1
         #for each value of K, compute the mean squared error (the mean squared distance of each point from its closest prototype vector)
         sum_errors = [0. for x in range(K)]
@@ -135,6 +135,7 @@ def main():
         #print 'r', r
         #print 'u after', u
         #print 'data', data
+        #print 'means', means
         #return means
         return sum(means)/len(means)
         # return r
@@ -182,13 +183,21 @@ def main():
         # return number of instances per cluster and instance vectors
         return clusters, E
     def autoclass(data, K):
+        # Continuous attributes:
+        cont = [0, 9, 10, 44, 45, 46]
         #Set theta_c, theta_n^(1), theta_n^(0) to initial values
         #TODO: what initial values?
         thetac = [1./K for x in range(K)]
-        theta1 = [random.random() for x in range(len(data))]
-        theta0 = [random.random() for x in range(len(data))]
+        #theta1 = [random.random() for x in range(len(data))]
+        #theta0 = [random.random() for x in range(len(data))]
         #Each element tuple of (mean, variance) of normal distribution
-        theta = [[(random.random(), random.random()) for x in range(len(data[0]))] for y in range(K)]
+        theta = [[random.random() for x in range(len(data[0]))] for y in range(K)]
+        #print theta
+        for k in range(K):
+            for i in cont:
+                theta[k][i] = (random.random(), random.random())
+
+        #print theta
         #Keep track of iterations until convergence
         round = 0
         #TODO implement convergence parameter
@@ -207,19 +216,23 @@ def main():
         # while not converging:
         while round < 10:
             #For each instance x_n
-            P = []
             for x in range(len(data)):
+                #probability of feature given class
+                P = []
                 tempproducts = [1. for x in range(K)]
                 #for each cluster 
                 for k in range(len(theta)):
                     #for each attribute
                     for d in range(len(theta[k])):
                         # print theta[k][d]
-                        # break
-                        # break
-                        print theta[k][d]
-                        tempproducts[k] *= 1./(math.sqrt(2 * math.pi * theta[k][d][1]))*math.exp(-1 * math.pow(data[x][d], 2)/(2*theta[k][d][1]))
-                        #pow(theta[k][d], data[x][d])*pow()
+#                        print 'k', k, 'd', d
+#                        print theta[k][d]
+                        if d in cont:
+                            tempproducts[k] *= (1./(math.sqrt(2 * math.pi * theta[k][d][1])))*math.exp(-1 *  math.pow(data[x][d] - theta[k][d][0], 2)/(2*theta[k][d][1]))
+                            print 'd', tempproducts[k]
+                        else:
+                            tempproducts[k] *= pow(theta[k][d], data[x][d])*pow(1 - theta[k][d], (1 - data[x][d]))
+                            print 'not d', tempproducts[k]
                     P.append(thetac[k] * tempproducts[k])
                 #for each cluster update 
                 for k in range(len(EN)):
@@ -229,7 +242,11 @@ def main():
                     #for each cluster
                     for k in range(len(E)):
                         E[k][d] += data[x][d]*P[k]/sum(P)
-
+            print 'sum E', sum(EN)
+            print 'P', P
+            print 'EN', EN
+            print 'E', E
+            print 'theta before', theta
             #Maximization step
             for k in range(len(thetac)):
                 thetac[k] = EN[k]/len(data)
@@ -237,11 +254,16 @@ def main():
                 for d in range(len(theta[k])):
                     m = E[k][d]/EN[k]
                     # v = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])/sum([P[k] for k in range(len(P))])
-                    top = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])
-                    bottom = sum([P[x] for x in range(len(P))])
-                    v = top/bottom
-                    theta[k][d] = (m, v)
+                    if d in cont:
+                        top = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])
+                        bottom = sum([P[x] for x in range(len(P))])
+                        v = top/bottom
+                        theta[k][d] = (m, v)
+                    else:
+                        theta[k][d] = m
+            print 'theta after',theta
             round += 1 
+            print 'round', round
 
         return 0
 
