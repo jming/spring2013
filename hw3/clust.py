@@ -7,6 +7,7 @@ import random
 import copy
 from utils import *
 from operator import itemgetter
+import math
 
 # import numpy
 
@@ -183,41 +184,75 @@ def main():
     def autoclass(data, K):
         #Set theta_c, theta_n^(1), theta_n^(0) to initial values
         #TODO: what initial values?
-        thetac = 0
-        theta1 = [0 for x in range(len(data))]
-        theta0 = [0 for x in range(len(data))]
+        thetac = [1./K for x in range(K)]
+        theta1 = [random.random() for x in range(len(data))]
+        theta0 = [random.random() for x in range(len(data))]
+        #Each element tuple of (mean, variance) of normal distribution
+        theta = [[(random.random(), random.random()) for x in range(len(data[0]))] for y in range(K)]
         #Keep track of iterations until convergence
         round = 0
         #TODO implement convergence parameter
         #Stop your algorithm if , where d is the Euclidean distance, for example. Make sure not to set epsilon too large or you won't actually be converging. Also, state your convergence criteria that you used. Anywhere from 1e-5 to 1e-10 should be a good value for epsilon.
         converging = False
         #Repeat until convergence:
-        while not converging:
-            # Expectation Step
-            # Maximization Step
+                    # Expectation Step
             #WAIT PSUEDOCODE ONLY FOR BINARY WHOOPS. Look here: https://piazza.com/class#spring2013/cs181/185
             #Expectation Step
             #E[N_1] = 0
+
             #for each d, E[N_d^(0)] = 0
             #for each d, E[E_d^(1)] = 0
-
+        EN = [0. for x in range(K)]
+        E = [[0. for x in range(len(data[0]))] for y in range(K)]
+        # while not converging:
+        while round < 10:
             #For each instance x_n
-                #p1 = WOW PI PRODUCT THING
-                #p0 = WOW ANOTHER PI PRODUCT THING
-                #p(Y = 1 | X = x_n) = p1/(p1 + p0)
-                #E[N_1] += p(Y = 1 | X = x_n)
-                #For each attribute d
-                    #If (x_nd = 1)
-                        #E[N_d1^1] += p(Y = 1 | X = x_n)
-                        #E[N_d1^0] += 1 - p(Y = 1 | X = x_n)
+            P = []
+            for x in range(len(data)):
+                tempproducts = [1. for x in range(K)]
+                #for each cluster 
+                for k in range(len(theta)):
+                    #for each attribute
+                    for d in range(len(theta[k])):
+                        # print theta[k][d]
+                        # break
+                        # break
+                        print theta[k][d]
+                        tempproducts[k] *= 1./(math.sqrt(2 * math.pi * theta[k][d][1]))*math.exp(-1 * math.pow(data[x][d], 2)/(2*theta[k][d][1]))
+                        #pow(theta[k][d], data[x][d])*pow()
+                    P.append(thetac[k] * tempproducts[k])
+                #for each cluster update 
+                for k in range(len(EN)):
+                    EN[k] += P[k]/sum(P)
+                #for each attribute
+                for d in range(len(theta[k])):
+                    #for each cluster
+                    for k in range(len(E)):
+                        E[k][d] += data[x][d]*P[k]/sum(P)
 
             #Maximization step
+            for k in range(len(thetac)):
+                thetac[k] = EN[k]/len(data)
+            for k in range(len(theta)):
+                for d in range(len(theta[k])):
+                    m = E[k][d]/EN[k]
+                    # v = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])/sum([P[k] for k in range(len(P))])
+                    top = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])
+                    bottom = sum([P[x] for x in range(len(P))])
+                    v = top/bottom
+                    theta[k][d] = (m, v)
+
+            round += 1 
+
+        return 0
+
             #Theta_c = E[N1]/n
             #For each attribute d
                 #Theta_d^1 =
                 #Theta_d^0 =
-    print(kmeans(data[:numExamples], numClusters))
-    print(HAC(data[:numExamples], numClusters, "max"))
+    # print(kmeans(data[:numExamples], numClusters))
+    # print(HAC(data[:numExamples], numClusters, "max"))
+    print(autoclass(data[:numExamples], numClusters))
 
 if __name__ == "__main__":
     validateInput()
