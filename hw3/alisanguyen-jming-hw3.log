@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.9)  14 MAR 2013 20:18
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.2.9)  14 MAR 2013 21:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -262,56 +262,61 @@ File: beta25.png Graphic file (type png)
  <use beta25.png>
 Package pdftex.def Info: beta25.png used on input line 78.
 (pdftex.def)             Requested size: 142.26378pt x 100.52661pt.
- [3 <./beta11.png> <./beta33.png> <./beta25.png>] <graphhac.png, id=25, 586.832
-4pt x 442.2924pt>
-File: graphhac.png Graphic file (type png)
-
-<use graphhac.png>
-Package pdftex.def Info: graphhac.png used on input line 109.
+ [3 <./beta11.png> <./beta33.png> <./beta25.png>]
+<graphkmeans.png, id=25, 586.8324pt x 442.2924pt>
+File: graphkmeans.png Graphic file (type png)
+ <use graphkmeans.png>
+Package pdftex.def Info: graphkmeans.png used on input line 95.
 (pdftex.def)             Requested size: 341.43306pt x 257.33963pt.
- <graphhacmax.png, id=27, 586.8324pt x 442.2924pt>
+
+<graphhac.png, id=27, 586.8324pt x 442.2924pt>
+File: graphhac.png Graphic file (type png)
+ <use graphhac.png>
+Package pdftex.def Info: graphhac.png used on input line 112.
+(pdftex.def)             Requested size: 341.43306pt x 257.33963pt.
+ [4 <./graphkmeans.png>] <graphhacmax.png, id=32, 586.8324pt x 442.2924pt>
 File: graphhacmax.png Graphic file (type png)
 
 <use graphhacmax.png>
-Package pdftex.def Info: graphhacmax.png used on input line 111.
+Package pdftex.def Info: graphhacmax.png used on input line 114.
 (pdftex.def)             Requested size: 341.43306pt x 257.33963pt.
- [4 <./graphhac.png>]
-<graphhacmean.png, id=32, 586.8324pt x 442.2924pt>
+ <graphhacmean.png, id=33, 586.8324pt x 442.2924pt>
 File: graphhacmean.png Graphic file (type png)
- <use graphhacmean.png>
-Package pdftex.def Info: graphhacmean.png used on input line 128.
-(pdftex.def)             Requested size: 341.43306pt x 257.33963pt.
 
-<graphhaccent.png, id=33, 586.8324pt x 442.2924pt>
+<use graphhacmean.png>
+Package pdftex.def Info: graphhacmean.png used on input line 131.
+(pdftex.def)             Requested size: 341.43306pt x 257.33963pt.
+ [5 <./graphhac.png> <./graphhacmax.png>]
+<graphhaccent.png, id=39, 586.8324pt x 442.2924pt>
 File: graphhaccent.png Graphic file (type png)
  <use graphhaccent.png>
-Package pdftex.def Info: graphhaccent.png used on input line 130.
+Package pdftex.def Info: graphhaccent.png used on input line 133.
 (pdftex.def)             Requested size: 341.43306pt x 257.33963pt.
 
-[5 <./graphhacmax.png> <./graphhacmean.png>] [6 <./graphhaccent.png>]
-(./alisanguyen-jming-hw3.aux) ) 
+[6 <./graphhacmean.png> <./graphhaccent.png>] (./alisanguyen-jming-hw3.aux) ) 
 Here is how much of TeX's memory you used:
- 2450 strings out of 495059
- 32649 string characters out of 3182031
+ 2455 strings out of 495059
+ 32743 string characters out of 3182031
  90341 words of memory out of 3000000
- 5589 multiletter control sequences out of 15000+200000
+ 5593 multiletter control sequences out of 15000+200000
  9509 words of font info for 38 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 37i,7n,24p,733b,392s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on alisanguyen-jming-hw3.pdf (6 pages, 362787 bytes).
+ 37i,7n,24p,733b,394s stack positions out of 5000i,500n,10000p,200000b,50000s
+</
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy8.pfb>
+Output written on alisanguyen-jming-hw3.pdf (6 pages, 387524 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
+ 77 PDF objects out of 1000 (max. 8388607)
  45 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
