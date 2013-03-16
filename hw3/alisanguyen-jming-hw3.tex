@@ -64,8 +64,8 @@ $Nlog(1 - (2\epsilon)^M) = log\delta$ \\
 \item MAP: $Pr(x|D)=Dist(\underset{\theta}{\arg\max}(\ln(P(D|\theta)P(\theta))))$, \\where $Dist()$ is a distribution applied to the $\theta$ we obtain with the given formula.
 \item FB: $Pr(x|D)=\int p(x|\theta) P(\theta|D)d\theta$
 \end{enumerate}
-\item MAP can be considered "more Bayesian" than ML because it takes into account the distribution of $\theta$ instead of assuming same weight or uniformity.
-\item One advantage the MAP method enjoys over the ML method is that it accounts for the more likely distribution, as opposed to simply assuming uniformity, as with ML. FB, on the other hand, maintains a probability distribution is maintained over the set of all parameter values possible. However, because the normalizing factor contains an integration over all parameter values, it can be difficult to compute. This means that it also unnecessarily takes into account the less likely, meaning that FB is less practical than MAP to calculate. Therefore, MAP sits in the "sweet spot" of taking more into account in terms of distribution than ML but less excessively than FB.
+\item MAP can be considered "more Bayesian" than ML because it takes into account the probability distribution of $\theta$, the prior, instead of assuming same weight or uniformity.
+\item One advantage the MAP method enjoys over the ML method is that it accounts for the more likely distribution, as opposed to simply assuming uniformity, as with ML. FB, on the other hand, maintains a probability distribution over the set of all possible  parameter values. However, because the normalizing factor contains an integration over all parameter values, it can be difficult to compute. This means that it also unnecessarily takes into account the less likely, meaning that FB is less practical than MAP to calculate. Therefore, MAP sits in the "sweet spot" of taking more into account in terms of distribution than ML but less excessively than FB.
 \item Soccer team example based on different Beta distributions as priors for the probability of a win, the different possible distributions are:
 \begin{itemize}
 \item Beta(1,1)\\
@@ -78,12 +78,12 @@ Based on the equation for the mode of a variate with a beta distribution, $x = \
 \includegraphics[width=50mm]{beta25.png}\\
 In this case, the plot seems to be skewed toward the left, which the equation for the mode of a variate with a beta distribution show $x = \frac{\alpha - 1}{\alpha + \beta - 2}=\frac{2-1}{2+5-2}=\frac{1}{5}$ that this is true. This is more descriptive than Beta(1,1) in describing a distribution that is not necessarily uniform and it is also more more descriptive than Beta(3,3) in describing a distribution that is not necessarily as symmetrical.
 \end{itemize}
-\item The Beta distribution is the conjugate prior of the Bernoulli.
+\item The Beta distribution is the conjugate prior of the Bernoulli, so it is useful when used together with MAP estimation with Bernoulli variables since the posterior and prior will then have the same form. We can use this conjugate relationship to more easily use MAP estimation. 
 \item Looking at the Harvard football team in the 2011-2012 season,
 	\begin{itemize}
-	\item Using the ML approach, we basically take the naive probability looking at the number of wins over the total number of games, so the probability they would win is $\frac{9}{10}$.
+	\item Using the ML approach, we basically take the naive probability looking at the number of wins over the total number of games, so the probability they would win is $\frac{9}{10}$. So, we predict that they will \fbox{win} next after the first three games of the 2012-2013 season.
 	\item Using the MAP approach, we take into account the prior distribution, assuming a Beta distribution of Beta($\alpha,\beta$), \[\theta_{MAP} = \frac{n_w+\alpha-1}{n+\alpha+\beta-2}\]. Guessing the same prior we guess in class of Beta(5,3), which can be interpreted as though more winds than losses have been observed in the past, the equation becomes
-	\[\theta_{MAP} = \frac{n_w+\alpha-1}{n+\alpha+\beta-2}=\frac{5+9-1}{10+5+3-2}=\frac{13}{16}\]. Beta(5,3) is good because it accounts for complications about uniformity and symmetry.
+	\[\theta_{MAP} = \frac{n_w+\alpha-1}{n+\alpha+\beta-2}=\frac{5+9-1}{10+5+3-2}=\frac{13}{16}\]. Beta(5,3) is good because it accounts for complications about uniformity and symmetry. Because the probability is higher than 1/2,we predict that they will \fbox{win} the next game.
 	\item Using the FB approach, we integrate over the entire distribution, 
 	\end{itemize}
 \end{enumerate}
@@ -91,7 +91,7 @@ In this case, the plot seems to be skewed toward the left, which the equation fo
 \section{Problem 3}
 \begin{enumerate}[a.]
 \item The $K$-means clustering objective is to minimize the sum of squared distances between prototype and data. The update steps can be derived by performing gradient descent on it by taking the partial derivative over all means and responsibilities. This means we can move along the negative gradient of the loss function, as shown in the lecture slides to converge to a local minimum. Each iteration of the K-means algorithm updates the prototypes to decrease the error, following gradient descent until the prototypes converge to a local minimum and the loop ends. Because each iteration does decrease the error, K-means is guaranteed to converge in the direction that decreases the error the most, or in the direction of steepest descent. 
-\item The principal components analysis (PCA), which looks to compress features using a linear reduction into lower dimension space, has an interpretation that looks to minimize the difference between data points through minimum square loss. One way they are related is that principal components are the continuous solutions to the discrete cluster membership indicators for $K$-means clustering. As PCA can be represented by a covariance matrix, $K$-means can be represneted by a spectral expansion of the data covariance matrix truncated at $k$-1 terms. The relaxed solution of $k$-means clustering is given by the PCA principal components, wher ethe PCA subspace spanned by the principal directions is identical to the cluster centriod subspace.\\
+\item The principal components analysis (PCA), which looks to compress features using a linear reduction into lower dimension space, has an interpretation that looks to minimize the difference between data points through minimum square loss. One way they are related is that principal components are the continuous solutions to the discrete cluster membership indicators for $K$-means clustering. As PCA can be represented by a covariance matrix, $K$-means can be represneted by a spectral expansion of the data covariance matrix truncated at $k$-1 terms. The relaxed solution of $k$-means clustering is given by the PCA principal components, where the PCA subspace spanned by the principal directions is identical to the cluster centriod subspace.\\
 Some example situations and hypothetical data sets include:
 	\begin{itemize}
 	\item PCA appropriate
