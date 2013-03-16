@@ -255,15 +255,18 @@ def main():
                 thetac[k] = EN[k]/len(data)
             for k in range(len(theta)):
                 for d in range(len(theta[k])):
-                    m1 = E[k][d]/EN[k]
+                    # m1 = E[k][d]/EN[k]
                     if d in cont:
-                        bottom = sum(P)
-                        topm = P[k] * sum([data[x][d] for x in range(len(data))])
-                        m = topm/bottom
-                        print k, d, m, m1, P[k], [data[x][d] for x in range(len(data))]
-                        topv = P[k] * sum([pow((data[x][d] - m), 2) for x in range(len(data))])
-                        v = topv/bottom
-                        theta[k][d] = (m, v)
+                        if d == 45:
+                            theta[k][d] = (.5 + random.uniform(-.1, .1), .25 + random.uniform(-.1, .1))
+                        else:
+                            bottom = sum(P)
+                            topm = P[k] * sum([data[x][d] for x in range(len(data))])
+                            m = topm/bottom
+                            topv = P[k] * sum([pow((data[x][d] - m), 2) for x in range(len(data))])
+                            v = topv/bottom
+                            theta[k][d] = (m, v)
+                            print k, d, P[k], (topm, topv, bottom)
                     else:
                         theta[k][d] = E[k][d]/EN[k]
                     # v = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])/sum([P[k] for k in range(len(P))])
