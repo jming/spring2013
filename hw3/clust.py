@@ -10,10 +10,9 @@ from operator import itemgetter
 import math
 from scipy.misc import logsumexp
 
-
 DATAFILE = "adults.txt"
 #DATAFILE = "adults-small.txt"
-EPSILON = 1e-03
+EPSILON = 1e-4
 
 #validateInput()
 
@@ -132,12 +131,10 @@ def main():
             #print 'error', sum_errors[k]
             #print 'counter', counter
             means.append(sum_errors[k]/counter)
-        #print 'r', r
-        #print 'u after', u
-        #print 'data', data
-        #print 'means', means
-        #return means
-        return sum(means)/len(means)
+        meansquarederror = sum(means)/len(means)
+        #for each value of K, compute the mean
+        return u
+        #return sum(means)/len(means)
         # return r
 
     def HAC(data, K, param):
@@ -181,6 +178,8 @@ def main():
 
         # return number of instances per cluster and instance vectors
         return clusters, E
+        
+        #TODO: return means for each cluster:
 
     def autoclass(data, K):
         # Continuous attributes:
@@ -188,8 +187,6 @@ def main():
         #Set theta_c, theta_n^(1), theta_n^(0) to initial values
         #TODO: what initial values?
         thetac = [1./K for x in range(K)]
-        #theta1 = [random.random() for x in range(len(data))]
-        #theta0 = [random.random() for x in range(len(data))]
         #Each element tuple of (mean, variance) of normal distribution
         theta = [[random.random() for x in range(len(data[0]))] for y in range(K)]
         #print theta
@@ -272,6 +269,7 @@ def main():
                 # converging[k] = math.fabs(EN[k]/len(data) - thetac[k])/EN[k]
                 if not round == 0:
                     converging[k] = 0 if (math.fabs(EN[k]/len(data) - thetac[k])/EN[k] < EPSILON) else 1
+                    print 'converging', math.fabs(EN[k]/len(data) - thetac[k])/EN[k]
                 thetac[k] = EN[k]/len(data)
             for k in range(len(theta)):
                 for d in range(len(theta[k])):
@@ -305,18 +303,20 @@ def main():
                     #     theta[k][d] = m
             # print 'theta after', theta
             round += 1
-            print converging
-            # print 'round', round
-
-        return round
+            #print 'P', P
+            #print 'E', E
+            #print 'EN', EN
+            #print converging
+            #print 'round', round
+        #return round
 
             #Theta_c = E[N1]/n
             #For each attribute d
                 #Theta_d^1 =
                 #Theta_d^0 =
-    # print(kmeans(data[:numExamples], numClusters))
-    # print(HAC(data[:numExamples], numClusters, "max"))
-    print(autoclass(data[:numExamples], numClusters))
+    print 'K-means means for each cluster of ', numClusters, 'clusters on ', numExamples, 'examples:', (kmeans(data[:numExamples], numClusters))
+    #print 'HAC means for each cluster of ', numClusters, 'clusters on ', numExamples, 'examples:', HAC(data[:numExamples], numClusters, "max")
+    #print 'Autoclass means for each cluster of ', numClusters, 'clusters on ', numExamples, 'examples:', (autoclass(data[:numExamples], numClusters))
 
 if __name__ == "__main__":
     validateInput()
