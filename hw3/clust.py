@@ -231,12 +231,18 @@ def main():
                         if d in cont:
                             # print "isneg?", theta[k][d][1]
                             # print theta[k][d]
-                            tempproducts[k] *= (1./(math.sqrt(2 * math.pi * theta[k][d][1])))*math.exp(-1 * math.pow(data[x][d] - theta[k][d][0], 2)/(2*theta[k][d][1]))
+                            first = 1./math.sqrt(2 * math.pi * theta[k][d][1])
+                            second = math.exp((-1) * (data[x][d] - theta[k][d][0]) / (2 * theta[k][d][1]))
+                            # print "TWO", k, d, first,second, theta[k][d]
+                            if second == 0:
+                                second = random.uniform(0, .1)
+                            print first*second, theta[k][d], (data[x][d] - theta[k][d][0])/(2*theta[k][d][1])
+                            tempproducts[k] += math.log(first * second)
                             # print 'd', tempproducts[k]
                         else:
-                            tempproducts[k] *= pow(theta[k][d], data[x][d])*pow((1 - theta[k][d]), (1 - data[x][d]))
+                            tempproducts[k] += math.log(pow(theta[k][d], data[x][d])*pow((1 - theta[k][d]), (1 - data[x][d])))
                             # print 'not d', tempproducts[k]
-                    P.append(thetac[k] * tempproducts[k])
+                    P.append(thetac[k] * math.exp(tempproducts[k]))
                 #for each cluster update
                 for k in range(len(EN)):
                     EN[k] += P[k]/sum(P)
