@@ -118,7 +118,7 @@ def main():
             #if none of the examples are assigned to different clusters, convergence!
             if r == prevr:
                 converging = True
-            print 'round', round
+            # print 'round', round
             round += 1
         #for each value of K, compute the mean squared error (the mean squared distance of each point from its closest prototype vector)
         sum_errors = [0. for x in range(K)]
@@ -161,7 +161,6 @@ def main():
                     elif param == "cent":
                         res = ccent(E[a], E[b], squareDistance)
                     dist.append({"a": E[a], "b": E[b], "d": res})
-            
             # Find a, b with smallest distance
             temp = [dist[c]["d"] for c in range(len(dist))]
             mmin = min(temp)
@@ -182,6 +181,7 @@ def main():
 
         # return number of instances per cluster and instance vectors
         return clusters, E
+
     def autoclass(data, K):
         # Continuous attributes:
         cont = [0, 9, 10, 44, 45, 46]
@@ -195,14 +195,14 @@ def main():
         #print theta
         for k in range(K):
             for i in cont:
-                theta[k][i] = (random.random(), random.random())
+                theta[k][i] = (.5 + random.uniform(-.1, .1), .25 + random.uniform(-.1, .1))
 
         #print theta
         #Keep track of iterations until convergence
         round = 0
         #TODO implement convergence parameter
         #Stop your algorithm if , where d is the Euclidean distance, for example. Make sure not to set epsilon too large or you won't actually be converging. Also, state your convergence criteria that you used. Anywhere from 1e-5 to 1e-10 should be a good value for epsilon.
-        converging = False
+        # converging = False
         #Repeat until convergence:
                     # Expectation Step
             #WAIT PSUEDOCODE ONLY FOR BINARY WHOOPS. Look here: https://piazza.com/class#spring2013/cs181/185
@@ -215,12 +215,13 @@ def main():
         E = [[0. for x in range(len(data[0]))] for y in range(K)]
         # while not converging:
         while round < 10:
+            print round
             #For each instance x_n
             for x in range(len(data)):
                 #probability of feature given class
                 P = []
                 tempproducts = [1. for x in range(K)]
-                #for each cluster 
+                #for each cluster
                 for k in range(len(theta)):
                     #for each attribute
                     for d in range(len(theta[k])):
@@ -228,13 +229,15 @@ def main():
 #                        print 'k', k, 'd', d
 #                        print theta[k][d]
                         if d in cont:
-                            tempproducts[k] *= (1./(math.sqrt(2 * math.pi * theta[k][d][1])))*math.exp(-1 *  math.pow(data[x][d] - theta[k][d][0], 2)/(2*theta[k][d][1]))
-                            print 'd', tempproducts[k]
+                            # print "isneg?", theta[k][d][1]
+                            # print theta[k][d]
+                            tempproducts[k] *= (1./(math.sqrt(2 * math.pi * theta[k][d][1])))*math.exp(-1 * math.pow(data[x][d] - theta[k][d][0], 2)/(2*theta[k][d][1]))
+                            # print 'd', tempproducts[k]
                         else:
-                            tempproducts[k] *= pow(theta[k][d], data[x][d])*pow(1 - theta[k][d], (1 - data[x][d]))
-                            print 'not d', tempproducts[k]
+                            tempproducts[k] *= pow(theta[k][d], data[x][d])*pow((1 - theta[k][d]), (1 - data[x][d]))
+                            # print 'not d', tempproducts[k]
                     P.append(thetac[k] * tempproducts[k])
-                #for each cluster update 
+                #for each cluster update
                 for k in range(len(EN)):
                     EN[k] += P[k]/sum(P)
                 #for each attribute
@@ -242,28 +245,44 @@ def main():
                     #for each cluster
                     for k in range(len(E)):
                         E[k][d] += data[x][d]*P[k]/sum(P)
-            print 'sum E', sum(EN)
-            print 'P', P
-            print 'EN', EN
-            print 'E', E
-            print 'theta before', theta
+            # print 'sum E', sum(EN)
+            # print 'P', P
+            # print 'EN', EN
+            # print 'E', E
+            # print 'theta before', theta
             #Maximization step
             for k in range(len(thetac)):
                 thetac[k] = EN[k]/len(data)
             for k in range(len(theta)):
                 for d in range(len(theta[k])):
-                    m = E[k][d]/EN[k]
-                    # v = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])/sum([P[k] for k in range(len(P))])
+                    m1 = E[k][d]/EN[k]
                     if d in cont:
-                        top = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])
-                        bottom = sum([P[x] for x in range(len(P))])
-                        v = top/bottom
+                        bottom = sum(P)
+                        topm = P[k] * sum([data[x][d] for x in range(len(data))])
+                        m = topm/bottom
+                        print k, d, m, m1, P[k], [data[x][d] for x in range(len(data))]
+                        topv = P[k] * sum([pow((data[x][d] - m), 2) for x in range(len(data))])
+                        v = topv/bottom
                         theta[k][d] = (m, v)
                     else:
-                        theta[k][d] = m
-            print 'theta after',theta
-            round += 1 
-            print 'round', round
+                        theta[k][d] = E[k][d]/EN[k]
+                    # v = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])/sum([P[k] for k in range(len(P))])
+                    # if d in cont:
+                    #     for x in range(len(data)):
+                    #         # if P[k]*pow(data[x][d] - m, 2) == 0:
+                    #         print data[x][d]
+                    #             # print "oops"
+                    #     top = sum([P[k]*pow(data[x][d]-m, 2) for x in range(len(data))])
+                    #     bottom = sum([P[x] for x in range(len(P))])
+                    #     v = top/bottom
+                    #     # print top, bottom
+                    #     theta[k][d] = (m, v)
+                    # else:
+                    #     # print "discrete"
+                    #     theta[k][d] = m
+            # print 'theta after', theta
+            round += 1
+            # print 'round', round
 
         return 0
 
