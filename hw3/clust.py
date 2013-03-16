@@ -231,7 +231,10 @@ def main():
                         if d in cont:
                             # print "isneg?", theta[k][d][1]
                             # print theta[k][d]
-                            tempproducts[k] *= (1./(math.sqrt(2 * math.pi * theta[k][d][1])))*math.exp(-1 * math.pow(data[x][d] - theta[k][d][0], 2)/(2*theta[k][d][1]))
+                            first = 1./math.sqrt(2 * math.pi * theta[k][d][1])
+                            second = math.exp((-1) * (data[x][d] - theta[k][d][0]) / (2 * theta[k][d][1]))
+                            print "TWO", k, d, first,second, theta[k][d]
+                            tempproducts[k] *= first * second
                             # print 'd', tempproducts[k]
                         else:
                             tempproducts[k] *= pow(theta[k][d], data[x][d])*pow((1 - theta[k][d]), (1 - data[x][d]))
