@@ -8,12 +8,12 @@ import copy
 from utils import *
 from operator import itemgetter
 import math
-
-# import numpy
+from scipy.misc import logsumexp
 
 
 DATAFILE = "adults.txt"
 #DATAFILE = "adults-small.txt"
+EPSILON = 1e-03
 
 #validateInput()
 
@@ -202,7 +202,7 @@ def main():
         round = 0
         #TODO implement convergence parameter
         #Stop your algorithm if , where d is the Euclidean distance, for example. Make sure not to set epsilon too large or you won't actually be converging. Also, state your convergence criteria that you used. Anywhere from 1e-5 to 1e-10 should be a good value for epsilon.
-        # converging = False
+        converging = [1 for x in range(K)]
         #Repeat until convergence:
                     # Expectation Step
             #WAIT PSUEDOCODE ONLY FOR BINARY WHOOPS. Look here: https://piazza.com/class#spring2013/cs181/185
@@ -214,13 +214,13 @@ def main():
         EN = [0. for x in range(K)]
         E = [[0. for x in range(len(data[0]))] for y in range(K)]
         # while not converging:
-        while round < 10:
+        while sum(converging) > 0:
             print round
             #For each instance x_n
             for x in range(len(data)):
                 #probability of feature given class
                 P = []
-                tempproducts = [1. for x in range(K)]
+                tempproducts = [[] for x in range(K)]
                 #for each cluster
                 for k in range(len(theta)):
                     #for each attribute
@@ -231,20 +231,31 @@ def main():
                         if d in cont:
                             # print "isneg?", theta[k][d][1]
                             # print theta[k][d]
+                            if theta[k][d][1] == 0:
+                                theta[k][d] = (theta[k][d][0], random.uniform(0, .1))
                             first = 1./math.sqrt(2 * math.pi * theta[k][d][1])
                             second = math.exp((-1) * (data[x][d] - theta[k][d][0]) / (2 * theta[k][d][1]))
                             # print "TWO", k, d, first,second, theta[k][d]
                             if second == 0:
+                                # second = float("-inf")
                                 second = random.uniform(0, .1)
-                            print first*second, theta[k][d], (data[x][d] - theta[k][d][0])/(2*theta[k][d][1])
-                            tempproducts[k] += math.log(first * second)
+                                # break
+                            # print first*second, theta[k][d], (data[x][d] - theta[k][d][0])/(2*theta[k][d][1])
+                            # print "theta"
+                            # print theta[k]                        
+                            # tempproducts[k] += math.log(first * second)
+                            tempproducts[k].append(first*second)
                             # print 'd', tempproducts[k]
                         else:
-                            tempproducts[k] += math.log(pow(theta[k][d], data[x][d])*pow((1 - theta[k][d]), (1 - data[x][d])))
+                            tempproducts[k].append(pow(theta[k][d], data[x][d])*pow((1 - theta[k][d]), (1 - data[x][d])))
                             # print 'not d', tempproducts[k]
-                    P.append(thetac[k] * math.exp(tempproducts[k]))
+                    # print tempproducts[k]
+                    # if tempproducts[k] > 500:
+                    #     tempproducts[k] = float('inf')
+                    # P.append(math.exp(tempproducts[k]))
+                    P.append(thetac[k] * logsumexp(tempproducts[k]))
                 #for each cluster update
-                for k in range(len(EN)):
+                for k in range(len(P)):
                     EN[k] += P[k]/sum(P)
                 #for each attribute
                 for d in range(len(theta[k])):
@@ -258,6 +269,9 @@ def main():
             # print 'theta before', theta
             #Maximization step
             for k in range(len(thetac)):
+                # converging[k] = math.fabs(EN[k]/len(data) - thetac[k])/EN[k]
+                if not round == 0:
+                    converging[k] = 0 if (math.fabs(EN[k]/len(data) - thetac[k])/EN[k] < EPSILON) else 1
                 thetac[k] = EN[k]/len(data)
             for k in range(len(theta)):
                 for d in range(len(theta[k])):
@@ -272,7 +286,7 @@ def main():
                             topv = P[k] * sum([pow((data[x][d] - m), 2) for x in range(len(data))])
                             v = topv/bottom
                             theta[k][d] = (m, v)
-                            print k, d, P[k], (topm, topv, bottom)
+                            # print k, d, P[k], (topm, topv, bottom)
                     else:
                         theta[k][d] = E[k][d]/EN[k]
                     # v = sum([P[k]*pow(data[x][d]-m,2) for x in range(len(data))])/sum([P[k] for k in range(len(P))])
@@ -291,9 +305,10 @@ def main():
                     #     theta[k][d] = m
             # print 'theta after', theta
             round += 1
+            print converging
             # print 'round', round
 
-        return 0
+        return round
 
             #Theta_c = E[N1]/n
             #For each attribute d
