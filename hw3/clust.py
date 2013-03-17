@@ -6,13 +6,14 @@ import sys
 import random
 import copy
 from utils import *
-from operator import itemgetter
+# from operator import itemgetter
 import math
 from scipy.misc import logsumexp
+import time
 
 DATAFILE = "adults.txt"
 #DATAFILE = "adults-small.txt"
-EPSILON = 1e-4
+EPSILON = 1e-3
 
 #validateInput()
 
@@ -119,6 +120,7 @@ def main():
                 converging = True
             # print 'round', round
             round += 1
+            # print round
         #for each value of K, compute the mean squared error (the mean squared distance of each point from its closest prototype vector)
         sum_errors = [0. for x in range(K)]
         means = []
@@ -190,6 +192,7 @@ def main():
         #Each element tuple of (mean, variance) of normal distribution
         theta = [[random.random() for x in range(len(data[0]))] for y in range(K)]
         #print theta
+        loglikelihood = []
         for k in range(K):
             for i in cont:
                 theta[k][i] = (.5 + random.uniform(-.1, .1), .25 + random.uniform(-.1, .1))
@@ -212,7 +215,11 @@ def main():
         E = [[0. for x in range(len(data[0]))] for y in range(K)]
         # while not converging:
         while sum(converging) > 0:
-            print round
+            # print theta
+            # print E
+            # print round, converging
+            # print thetac
+            # print round
             #For each instance x_n
             for x in range(len(data)):
                 #probability of feature given class
@@ -269,7 +276,8 @@ def main():
                 # converging[k] = math.fabs(EN[k]/len(data) - thetac[k])/EN[k]
                 if not round == 0:
                     converging[k] = 0 if (math.fabs(EN[k]/len(data) - thetac[k])/EN[k] < EPSILON) else 1
-                    print 'converging', math.fabs(EN[k]/len(data) - thetac[k])/EN[k]
+                # converging[k] = math.fabs(EN[k]/len(data) - thetac[k])/EN[k]
+                    # print 'converging', math.fabs(EN[k]/len(data) - thetac[k])/EN[k]
                 thetac[k] = EN[k]/len(data)
             for k in range(len(theta)):
                 for d in range(len(theta[k])):
@@ -302,20 +310,45 @@ def main():
                     #     # print "discrete"
                     #     theta[k][d] = m
             # print 'theta after', theta
+            probn = []
+            probk = [0. for k in range(K)]
+            probd = []
+
+            for n in range(len(data)):
+                for k in range(K):
+                    probd = []
+                    for d in range(len(data[n])):
+                        if d in cont:
+                            probk[k] += (theta[k][d][0] * thetac[k])
+                        else:
+                            probk[k] += (theta[k][d] * thetac[k])
+                probn.append(logsumexp(probk[k]))
+            loglikelihood.append(sum(probn))
+            # print "probn", sum(probn)
+            # print "probd", probd
+            # print "probk", probk
+            # break
             round += 1
+            # print P
             #print 'P', P
             #print 'E', E
             #print 'EN', EN
             #print converging
             #print 'round', round
-        #return round
+        # return round
+        return loglikelihood
 
             #Theta_c = E[N1]/n
             #For each attribute d
                 #Theta_d^1 =
                 #Theta_d^0 =
+    # t0 = time.time()
+    # autoclass(data[:numExamples], numClusters)
+    # kmeans(data[:numExamples], numClusters)
+    # t1 = time.time()
+    # print t1-t0
     print 'K-means means for each cluster of ', numClusters, 'clusters on ', numExamples, 'examples:', (kmeans(data[:numExamples], numClusters))
-    #print 'HAC means for each cluster of ', numClusters, 'clusters on ', numExamples, 'examples:', HAC(data[:numExamples], numClusters, "max")
+    # print 'HAC means for each cluster of ', numClusters, 'clusters on ', numExamples, 'examples:', HAC(data[:numExamples], numClusters, "max")
     #print 'Autoclass means for each cluster of ', numClusters, 'clusters on ', numExamples, 'examples:', (autoclass(data[:numExamples], numClusters))
 
 if __name__ == "__main__":

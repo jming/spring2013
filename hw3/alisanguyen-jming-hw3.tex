@@ -164,8 +164,9 @@ The $mean$ distance metric looks at the average distances between each of the po
 \item Autoclass clustering algorithm
 \begin{enumerate}
 \item It takes 10 iterations for the parameters to converge based on checking to see if the percent change in likelihood is greater than 1e-03.
-\item Plot of the log likelihood of the data versus number of iterations
-\item The run-time performance of auto-class seems to be much faster than that of $K$-means. (???)
+\item Plot of the log likelihood of the data versus number of iterations\\
+\includegraphics[width=120mm]{graphlogdraft5.png}
+\item The run-time performance of auto-class is 2.11605596542 milliseconds and k-means has a run-time performance of 0.157553911209. K-means goes through less number of rounds, around 6, and in each round, runs in $O(nkd)$ time, where $n$ is the number of data points and $k$ is the number of clusters and $d$ is the number of attributes. Autoclass runs in around 10 rounds and in $O(nkd)$ time.
 \end{enumerate}
 \end{enumerate}
 
