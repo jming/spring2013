@@ -72,7 +72,6 @@ public class randmst {
 				v = new Vertex(Math.random(), Math.random(), Math.random(),
 						Math.random());
 			}
-			// add to vertex list
 			V.add(v);
 		}
 
@@ -123,7 +122,6 @@ public class randmst {
 		// Get all vertices and edges of graph
 		ArrayList<Vertex> V = g.getV();
 		ArrayList<ArrayList<Edge>> E = g.getE();
-
 		// Initialize final set of vertices
 		ArrayList<Vertex> S = new ArrayList<Vertex>();
 

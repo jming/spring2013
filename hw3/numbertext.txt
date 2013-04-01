@@ -1,0 +1,48 @@
+age: continuous.
+workclass-Private
+workclass-Self-emp-not-inc
+workclass-Self-emp-inc 
+workclass-Federal-gov
+workclass-Local-gov
+workclass-State-gov
+workclass-Without-pay
+workclass-Never-worked.
+fnlwgt: continuous.
+education-num: continuous.
+marital-status-Married-civ-spouse
+marital-status-Divorced
+marital-status-Never-married
+marital-status-Separated
+marital-status-Widowed
+marital-status-Married-spouse-absent
+marital-status-Married-AF-spouse.
+occupation-Tech-support
+occupation-Craft-repair
+occupation-Other-service
+occupation-Sales
+occupation-Exec-managerial
+occupation-Prof-specialty
+occupation-Handlers-cleaners
+occupation-Machine-op-inspct
+occupation-Adm-clerical
+occupation-Farming-fishing
+occupation-Transport-moving
+occupation-Priv-house-serv
+occupation-Protective-serv
+occupation-Armed-Forces.
+relationship-Wife
+relationship-Own-child
+relationship-Husband
+relationship-Not-in-family
+relationship-Other-relative
+relationship-Unmarried.
+race-White
+race-Asian-Pac-Islander
+race-Amer-Indian-Eskimo
+race-Other
+race-Black.
+sex: 0 = Female, 1 = Male.
+capital-gain: continuous.
+capital-loss: continuous.
+hours-per-week: continuous.
+income: 0 = >50K, 1 = <=50K.
