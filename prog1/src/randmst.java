@@ -74,6 +74,8 @@ public class randmst {
 			}
 			V.add(v);
 		}
+		
+		//int temporary_counter = 0;
 
 		for (int i = 0; i < n; i++) {
 			// create list of edges emitting from given vertex
@@ -85,26 +87,28 @@ public class randmst {
 				// calculate weight based on type
 				if (type == 1) {
 					w = Math.random();
-					add = (w < 4.0351 * Math.pow(n, -0.214));
+					add = (w < 2.9887 * Math.pow(n, -0.8));
 				} else if (type == 2) {
 					w = getDistance(V.get(i).getX(), V.get(j).getX(), V.get(i)
 							.getY(), V.get(j).getY());
-					add = (w < 2.4661 * Math.pow(n, -0.448));
+					add = (w < 1.606 * Math.pow(n, -0.448));
 				} else if (type == 3) {
 					w = getDistance(V.get(i).getX(), V.get(j).getX(), V.get(i)
 							.getY(), V.get(j).getY(), V.get(i).getZ(), V.get(j)
 							.getZ());
-					add = (w < 1.6227 * Math.pow(n, -0.268));
+					add = (w < 1.6227 * Math.pow(n, -0.3));
 				} else if (type == 4) {
 					w = getDistance(V.get(i).getX(), V.get(j).getX(), V.get(i)
 							.getY(), V.get(j).getY(), V.get(i).getZ(), V.get(j)
 							.getZ(), V.get(i).getZZ(), V.get(j).getZZ());
-					add = (w < 1.5783 * Math.pow(n, -.0214));
+					add = (w < 1.5783 * Math.pow(n, -.025));
 				}
 				// add into list of edges
 				if (add) {
+					//System.out.println(j);
 					Edge e = new Edge(V.get(i), V.get(j), w);
 					tmp.add(e);
+					//temporary_counter++;
 				}
 				j++;
 			}
