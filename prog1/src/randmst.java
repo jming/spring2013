@@ -79,7 +79,7 @@ public class randmst {
 			// create list of edges emitting from given vertex
 			ArrayList<Edge> tmp = new ArrayList<Edge>();
 			int j = i + 1;
-			while (j < n && tmp.size() < 30){
+			while (j < n){
 				double w = 0.;
 				boolean add = false;
 				// calculate weight based on type
