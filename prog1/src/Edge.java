@@ -22,6 +22,10 @@ public class Edge {
 	public double getWeight(){
 		return w;
 	}
+	
+	public void setWeight(double x){
+		w = x;
+	}
 
 	public String toString(){
 		return "u: " + u + ", v:" + v + ", w :" + w;
