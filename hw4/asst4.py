@@ -34,17 +34,23 @@ def direct():
 def rejection(N, M):
     x = []
     i = 0
+    reject = 0
     while i != N:
         xi = random.gauss(0, 1)
         u = random.uniform(0, 1)
         if u < p(xi) / (M * q(xi)):
             x.append(xi)
             i += 1
+        else:
+            reject += 1
+    return x, reject
+
 
 # part d
-
 def metrohast():
     pass
 
 b = [direct() for x in range(500)]
 print b
+
+print rejection(500, 5)
