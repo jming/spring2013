@@ -1,22 +1,38 @@
 import random
 import math
+import matplotlib.pyplot as plt
 
-# code for problem 3
-# d1 = {'prob':0.2, 'mu': 1, 'sigma': 25}
-# d2 = {'prob':0.3, 'mu'}
-# MOG = 
+# HELPER FUNCTIONS
 
 
-def normpdf(x, mu, sigmasq):
-    return math.exp(pow((x-mu), 2)/(2*sigmasq))/math.sqrt(2*math.pi*sigmasq)
+# returns normal pdf based on given mean and variance
+# def normpdf(x, mu, sigmasq):
+#     numerator = math.exp(pow((x-mu), 2)/(2*sigmasq))
+#     denominator = math.sqrt(2*math.pi*sigmasq)
+#     return numerator/denominator
+
+def normpdf(x, mu, sigma):
+    u = (x-mu)/abs(sigma)
+    y = (1/(math.sqrt(2*math.pi)*abs(sigma)))*math.exp(-u*u/2)
+    return y
 
 
+# returns application of given mixture of gaussians
 def p(x):
-    return 0.2*normpdf(x, 1, 25)+0.3*normpdf(x, -2, 1)+0.5*normpdf(x, 3, 4)
+    # d1 = 0.2*normpdf(x, 1, 25)
+    # d2 = 0.3*normpdf(x, -2, 1)
+    # d3 = 0.5*normpdf(x, 3, 4)
+    d1 = 0.2*normpdf(x, 1, 5)
+    d2 = 0.3*normpdf(x, -2, 1)
+    d3 = 0.5*normpdf(x, 3, 4)
+    return d1 + d2 + d3
 
 
+# returns application of guessed bound
 def q(x):
-    return normpdf(x, 0, 1)
+    return normpdf(x, 0, 5)
+
+# CODE FOR PROBLEM 3
 
 
 #  part b
@@ -31,26 +47,64 @@ def direct():
 
 
 # part c
-def rejection(N, M):
+def rejection(N):
     x = []
     i = 0
     reject = 0
     while i != N:
-        xi = random.gauss(0, 1)
-        u = random.uniform(0, 1)
-        if u < p(xi) / (M * q(xi)):
+        # xi = random.gauss(0, 5)
+        # u = random.uniform(0, 1)
+        # if u < p(xi) / (2 * q(xi)):
+        #     x.append(xi)
+        #     i += 1
+        # else:
+        #     reject += 1
+        xi = random.gauss(0, 5)
+        u = random.uniform(0, 2 * q(xi))
+        if u < p(xi):
             x.append(xi)
             i += 1
         else:
             reject += 1
-    return x, reject
+    return reject
 
 
 # part d
-def metrohast():
-    pass
+def metrohast(N):
+    # TODO: intialize??
+    reject = 0
+    var = 4
+    x = [0]
+    for i in range(N):
+        u = random.uniform(0, 1)
+        xi = random.gauss(x[i], var)
+        # print xi, x[i]
+        acceptp = p(xi)/p(x[i])
+        acceptq = normpdf(x[i], xi, var)/normpdf(xi, x[i], var)
+        if u < min(1, acceptp*acceptq):
+            x.append(xi)
+        else:
+            x.append(x[i])
+            reject += 1
+    return reject, x
+
+# MAIN
 
 b = [direct() for x in range(500)]
 print b
 
-print rejection(500, 5)
+c = rejection(500)
+print c
+
+d = metrohast(500)
+print d
+
+# PLOTTING DATA
+
+
+def plot(data):
+    count, bins, ignored = plt.hist(data, 60, normed=True)
+    plt.show()
+
+
+plot(d[1])
