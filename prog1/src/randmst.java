@@ -8,29 +8,35 @@ public class randmst {
 		// parse args from command line input
 		int n = Integer.parseInt(args[1]);
 		int times = Integer.parseInt(args[2]);
-		int type = Integer.parseInt(args[3]);
+//		int type = Integer.parseInt(args[3]);
 
 		double result = 0.;
 
 		// for each time
-		for (int i = 0; i < times; i++) {
-
-			// generate a graph of type with n vertices
-			Graph g = Generate(type, n);
-			// store result vertex list from prim
-			ArrayList<Vertex> res = Prim(g);
-
-			double dist = 0.;
-			// sum up all distances in vertex list
-			for (Vertex v : res) {
-				dist += v.getDist();
+		for (int type = 2; type < 5; type++) {
+			final long start = System.currentTimeMillis();
+			for (int i = 0; i < times; i++) {
+	
+				// generate a graph of type with n vertices
+				Graph g = Generate(type, n);
+				// store result vertex list from prim
+				ArrayList<Vertex> res = Prim(g);
+	
+				double dist = 0.;
+				// sum up all distances in vertex list
+				for (Vertex v : res) {
+					dist += v.getDist();
+				}
+	
+				result += dist / times;
 			}
-
-			result += dist / times;
+			final long end = System.currentTimeMillis();
+			System.out.println("Result for " + type + ": " + result);
+			System.out.println("Time for " + type + ": " + (start-end)/1000.);
 		}
-
+//		final long end = System.currentTimeMillis();
 		// output average numvertex numtrials type
-		System.out.println(result + " " + n + " " + times + " " + type);
+//		System.out.println(result + " " + n + " " + times + " " + type);
 
 	}
 
