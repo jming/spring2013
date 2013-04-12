@@ -1,3 +1,7 @@
+# Joy Ming and Alisa Nguyen
+# April 12, 2013
+# CS 181: HW4
+
 import random
 import math
 import matplotlib.pyplot as plt
@@ -34,7 +38,6 @@ def q(x):
 
 # CODE FOR PROBLEM 3
 
-
 #  part b
 def direct():
     u = random.uniform(0, 1)
@@ -68,12 +71,10 @@ def rejection(N):
             reject += 1
     return reject
 
-
 # part d
 def metrohast(N):
-    # TODO: intialize??
     reject = 0
-    var = 4
+    var = 6
     x = [0]
     for i in range(N):
         u = random.uniform(0, 1)
@@ -91,16 +92,15 @@ def metrohast(N):
 # MAIN
 
 b = [direct() for x in range(500)]
-print b
+#print b
 
 c = rejection(500)
-print c
+#print c
 
 d = metrohast(500)
 print d
 
 # PLOTTING DATA
-
 
 def plot(data):
     count, bins, ignored = plt.hist(data, 60, normed=True)
