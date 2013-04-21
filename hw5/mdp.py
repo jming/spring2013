@@ -45,25 +45,48 @@ def T(a, s, s_prime):
     if throw.location_to_score(throw.location(a.ring, a.wedge)) == points:
         prob += 0.4
 
-    # if it hits a directly adjacent neighbor
+    # figure out the probability stuff
     index = REGIONS.index(a.ring)
-    neighbors = [REGIONS[index-1], REGIONS[index+1]]
+    neighbors = [a.ring, REGIONS[index-1], REGIONS[index+1], REGIONS[index-2], REGIONS[index+2]]
     index_wedge = throw.wedges.index(a.wedge)
+
+    neighbors_wedges = [a.wedge]
     if index_wedge == 0:
-        neighbors_wedges = [throw.wedges[len(index_wedge)-1], throw.wedges[index_wedge+1]]
+        neighbors_wedges += [throw.wedges[len(index_wedge)-1], throw.wedges[index_wedge+1], throw.wedges[len(index_wedge)-2], throw.wedges[index_wedge+2]]
     elif index_wedge == len(index_wedge):
-        neighbors_wedges = [throw.wedges[index_wedge - 1], throw.wedges[0]]
+        neighbors_wedges += [throw.wedges[index_wedge - 1], throw.wedges[0], throw.wedges[len(index_wedge)-2], throw.wedges[2]]
+    elif index_wedge == 1:
+        neighbors_wedges += [throw.wedges[0], throw.wedges[index_wedge+1], throw.wedges[len(index_wedge)-1], throw.wedges[index_wedge+2]]
+    elif index_wedge == len(index_wedge) - 1:
+        neighbors_wedges += [throw.wedges[index_wedge-1], throw.wedges[index_wedge+1], throw.wedges[index_wedge-2], throw.wedges[0]]
     else:
-        neighbors_wedges = [throw.wedges[index_wedge-1], throw.wedges[index_wedge+1]]
+        neighbors_wedges += [throw.wedges[index_wedge-1], throw.wedges[index_wedge+1], throw.wedges[index_wedge-2], throw.wedges[index_wedge+2]]
 
     for neighbor in neighbors:
+        # det neighbor prob
+        ind = neighbors.index(neighbor)
+        if ind == 0:
+            rprob = 0.4
+        elif ind <= 2:
+            rprob = 0.2
+        else:
+            rprob = 0.1
         if neighbor == CENTER or neighbor == INNER or neighbor == MISS:
             if throw.location_to_score(throw.location(neigbhor, a.wedge)) == points:
-                prob += 0.2
+                prob += rprob
         else:
             for n in neighbors_wedges:
+                i = neighbors_wedges.index(n)
+                if i == 0:
+                    wprob = 0.4
+                elif i <= 2:
+                    wprob = 0.2
+                else:
+                    rprob = 0.1
                 if throw.location_to_score(throw.location(neighbor, n)) == points:
-                    prob += 0.2*0.2
+                    prob += rprob*wprob
+
+    # if it hits a two away neighbor
     return prob
 
 
