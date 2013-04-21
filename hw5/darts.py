@@ -13,7 +13,6 @@ import modelfree
 GAMMA = .5
 EPOCH_SIZE = 10
 
-
 # <CODE HERE>: Complete this function, which should return a
 # list of all possible states.
 def get_states():
