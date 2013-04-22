@@ -105,7 +105,6 @@ def main():
 # the thrower specified in question 2.           #
 #*************************************************
 
-# Default is to solve MDP and play 1 game
     throw.use_simple_thrower()
     test(10, "mdp")    
 
