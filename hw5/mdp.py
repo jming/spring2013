@@ -17,7 +17,7 @@ import darts
 # make pi global so computation need only occur once
 PI = {}
 EPSILON = .001
-#REGIONS = [CENTER, INNER_RING, FIRST_PATCH, MIDDLE_RING, SECOND_PATCH, OUTER_RING, MISS]
+REGIONS = [CENTER, INNER_RING, FIRST_PATCH, MIDDLE_RING, SECOND_PATCH, OUTER_RING, MISS]
 
 # actual
 def start_game(gamma):
@@ -40,53 +40,55 @@ def T(a, s, s_prime):
     # figure out the probability of landing there
     prob = 0
     points = s - s_prime
-    if points < 0:
-        return 0
-    #print points
-    
-    # Loop through to define transition function
-    for i in range(-2,2):
-        wedge_curr = (throw.wedges.index(a.wedge) + i)
-        # Mod by number of wedges to wrap around if needed
-        if wedge_curr >= throw.NUM_WEDGES:
-            wedge_curr = wedge_curr%throw.NUM_WEDGES
-        prob_wedge = 0.4/(pow(2, abs(i)))
-        
-        for j in range(-2,2):
-            ring_curr = (a.ring + j)
-            if ring_curr < 0:
-                ring_curr = ring_curr % 7
-            prob_ring = 0.4/(pow(2, abs(j)))
-            
-            '''if (a.ring == 0 and j < 0):
-                ring_curr = 7 - ring_curr
-            if (a.ring == 1 and j < -1):
-                ring_curr = 7 - ring_curr'''
-                
-            if a.ring == 0:
-                ring_curr = 7 - ring_curr
-                if ring_curr == 0:
-                    prob_ring = 0.4
-                if ring_curr == 1:
-                    prob_ring == 0.4
-                if ring_curr == 2:
-                    prob_ring = 0.2
-            if a.ring == 1:
-                ring_curr = 7 - ring_curr
-                if ring_curr == 0:
-                    prob_ring == 0.2
-                if ring_curr == 1:
-                    prob_ring = 0.5
-                if ring_curr == 2:
-                    prob_ring = 0.2
-                if ring_curr == 3:
-                    prob_ring == 0.1
-            
-            #print a.wedge, a.ring, j, i
-            if(throw.location_to_score(throw.location(ring_curr, wedge_curr)) == points):
-                prob += prob_wedge*prob_ring
-                #print a.ring, j, i
+
+    # if it hits the spot exactly
+    if throw.location_to_score(throw.location(a.ring, a.wedge)) == points:
+        prob += 0.4
+
+    # figure out the probability stuff
+    index = REGIONS.index(a.ring)
+    neighbors = [a.ring, REGIONS[index-1], REGIONS[index+1], REGIONS[index-2], REGIONS[index+2]]
+    index_wedge = throw.wedges.index(a.wedge)
+
+    neighbors_wedges = [a.wedge]
+    if index_wedge == 0:
+        neighbors_wedges += [throw.wedges[len(index_wedge)-1], throw.wedges[index_wedge+1], throw.wedges[len(index_wedge)-2], throw.wedges[index_wedge+2]]
+    elif index_wedge == len(index_wedge):
+        neighbors_wedges += [throw.wedges[index_wedge - 1], throw.wedges[0], throw.wedges[len(index_wedge)-2], throw.wedges[2]]
+    elif index_wedge == 1:
+        neighbors_wedges += [throw.wedges[0], throw.wedges[index_wedge+1], throw.wedges[len(index_wedge)-1], throw.wedges[index_wedge+2]]
+    elif index_wedge == len(index_wedge) - 1:
+        neighbors_wedges += [throw.wedges[index_wedge-1], throw.wedges[index_wedge+1], throw.wedges[index_wedge-2], throw.wedges[0]]
+    else:
+        neighbors_wedges += [throw.wedges[index_wedge-1], throw.wedges[index_wedge+1], throw.wedges[index_wedge-2], throw.wedges[index_wedge+2]]
+
+    for neighbor in neighbors:
+        # det neighbor prob
+        ind = neighbors.index(neighbor)
+        if ind == 0:
+            rprob = 0.4
+        elif ind <= 2:
+            rprob = 0.2
+        else:
+            rprob = 0.1
+        if neighbor == CENTER or neighbor == INNER or neighbor == MISS:
+            if throw.location_to_score(throw.location(neigbhor, a.wedge)) == points:
+                prob += rprob
+        else:
+            for n in neighbors_wedges:
+                i = neighbors_wedges.index(n)
+                if i == 0:
+                    wprob = 0.4
+                elif i <= 2:
+                    wprob = 0.2
+                else:
+                    rprob = 0.1
+                if throw.location_to_score(throw.location(neighbor, n)) == points:
+                    prob += rprob*wprob
+
+    # if it hits a two away neighbor
     return prob
+
 
 def infiniteValueIteration(gamma):
     # takes a discount factor gamma and convergence  cutoff epislon
