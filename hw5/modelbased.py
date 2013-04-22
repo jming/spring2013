@@ -11,24 +11,24 @@ EPSILON_VI = .001
 
 def start_game():
 
-  return(throw.location(throw.INNER_RING, throw.NUM_WEDGES)) 
+    return(throw.location(throw.INNER_RING, throw.NUM_WEDGES)) 
 
 def get_target(score):
 
-  if score <= throw.NUM_WEDGES: return throw.location(throw.SECOND_PATCH, score)
+    if score <= throw.NUM_WEDGES: return throw.location(throw.SECOND_PATCH, score)
   
-  return(throw.location(throw.INNER_RING, throw.NUM_WEDGES))
+    return(throw.location(throw.INNER_RING, throw.NUM_WEDGES))
 
 
 # Define your first exploration/exploitation strategy here. Return 0 to exploit and 1 to explore. 
 # You may want to pass arguments from the modelbased function. 
 def ex_strategy_one():
-  return 0
+    return 0
 
 # Define your first exploration/exploitation strategy here. Return 0 to exploit and 1 to explore. 
 # You may want to pass arguments from the modelbased function.
 def ex_strategy_two():
-  return 1
+    return 1
 
 # Implement a model-based reinforcement learning algorithm. 
 # Given num_games (the number of games to play), store the

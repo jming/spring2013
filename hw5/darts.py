@@ -17,24 +17,24 @@ EPOCH_SIZE = 10
 # list of all possible states.
 def get_states():
   # should return a **list** of states. Each state should be an integer.
-  states = [x for x in range(302)]
-  return states
+    states = [x for x in range(302)]
+    return states
 
 # Returns a list of all possible actions, or targets, which include both a
 # wedge number and a ring.
 def get_actions():
 
-  actions = []
-  
-  for wedge in throw.wedges:
-    actions = actions + [throw.location(throw.CENTER, wedge)]
-    actions = actions + [throw.location(throw.INNER_RING, wedge)]
-    actions = actions + [throw.location(throw.FIRST_PATCH, wedge)]
-    actions = actions + [throw.location(throw.MIDDLE_RING, wedge)]
-    actions = actions + [throw.location(throw.SECOND_PATCH, wedge)]
-    actions = actions + [throw.location(throw.OUTER_RING, wedge)]
-    
-  return actions
+    actions = []
+
+    for wedge in throw.wedges:
+        actions = actions + [throw.location(throw.CENTER, wedge)]
+        actions = actions + [throw.location(throw.INNER_RING, wedge)]
+        actions = actions + [throw.location(throw.FIRST_PATCH, wedge)]
+        actions = actions + [throw.location(throw.MIDDLE_RING, wedge)]
+        actions = actions + [throw.location(throw.SECOND_PATCH, wedge)]
+        actions = actions + [throw.location(throw.OUTER_RING, wedge)]
+
+    return actions
 
 # <CODE HERE>: Define the reward function
 def R(s,a):
@@ -43,7 +43,7 @@ def R(s,a):
     if(throw.location_to_score(a) > s):
         return 0
     else:
-        return throw.location_to_score(a)
+        return s - throw.location_to_score(a)
     # DISCOUNT FACTOR???
 
 
@@ -107,8 +107,8 @@ def main():
 #*************************************************
 
 # Default is to solve MDP and play 1 game
-    #throw.use_simple_thrower()
-    #test(1, "mdp")    
+    throw.use_simple_thrower()
+    test(1, "mdp")    
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
