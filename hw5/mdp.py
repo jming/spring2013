@@ -1,4 +1,4 @@
-# Alisa and JOy
+# Alisa and Joy
 
 # Components of a darts player. #
 
