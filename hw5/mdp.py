@@ -128,11 +128,12 @@ def infiniteValueIteration(gamma):
                 Q[s][a] = darts.R(s, a) + gamma*summand
 
             # given current state, store the action that maximizes V in pi and the corresponding value in V
-            PI[s] = actions[0]
-            for a in actions:
-                if V[s] <= Q[s][a]:
-                    V[s] = Q[s][a]
-                    PI[s] = a
+            PI[s] = actions[0]                                                        
+            V[s] = Q[s][PI[s]]                                                        
+            for a in actions:                                                         
+                if V[s] <= Q[s][a]:                                                     
+                    V[s] = Q[s][a]                                                        
+                    PI[s] = a  
 
         notConverged = False
         for s in states:
