@@ -13,19 +13,19 @@ import modelfree
 GAMMA = .5
 EPOCH_SIZE = 10
 
+
 # <CODE HERE>: Complete this function, which should return a
 # list of all possible states.
 def get_states():
-  # should return a **list** of states. Each state should be an integer.
-    states = [x for x in range(302)]
-    return states
+    # should return a **list** of states. Each state should be an integer.
+    return [x for x in range(throw.START_SCORE+1)]
 
 # Returns a list of all possible actions, or targets, which include both a
 # wedge number and a ring.
 def get_actions():
 
     actions = []
-
+  
     for wedge in throw.wedges:
         actions = actions + [throw.location(throw.CENTER, wedge)]
         actions = actions + [throw.location(throw.INNER_RING, wedge)]
@@ -33,18 +33,17 @@ def get_actions():
         actions = actions + [throw.location(throw.MIDDLE_RING, wedge)]
         actions = actions + [throw.location(throw.SECOND_PATCH, wedge)]
         actions = actions + [throw.location(throw.OUTER_RING, wedge)]
-
+    
     return actions
 
 # <CODE HERE>: Define the reward function
 def R(s,a):
-  # takes a state s and action a
-  # returns the reward for completing action a in state s
-    if(throw.location_to_score(a) > s):
+    # takes a state s and action a
+    # returns the reward for completing action a in state s
+    r = s - throw.location_to_score(a)
+    if r < 0:
         return 0
-    else:
-        return s - throw.location_to_score(a)
-    # DISCOUNT FACTOR???
+    return r
 
 
 # Play a single game 
@@ -108,7 +107,7 @@ def main():
 
 # Default is to solve MDP and play 1 game
     throw.use_simple_thrower()
-    test(1, "mdp")    
+    test(10, "mdp")    
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
@@ -139,7 +138,6 @@ def main():
 
 if __name__ =="__main__":
     main()
-
 
 
 
