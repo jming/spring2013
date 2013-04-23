@@ -81,26 +81,26 @@ def modelbased(gamma, epoch_size, num_games):
     # play num_games games, updating policy after every EPOCH_SIZE number of throws
     for g in range(1, num_games + 1):
     
-    	# run a single game
+      # run a single game
         s = throw.START_SCORE
         while s > 0:
 
             num_iterations += 1
-    		
+        
             # The following two statements implement two exploration-exploitation
             # strategies. Comment out the strategy that you wish not to use.
-			
-    	    to_explore = ex_strategy_one(s, pi_star)
-    	    #to_explore = ex_strategy_two()
-    		
+      
+            to_explore = ex_strategy_one(s, pi_star)
+            #to_explore = ex_strategy_two()
+        
             if to_explore:
-            	# explore
-            	a = random.randint(0, len(actions)-1)
-            	action = actions[a]
+              # explore
+              a = random.randint(0, len(actions)-1)
+              action = actions[a]
             else:
-            	# exploit
-            	a = pi_star[s]
-            	action = actions[a]
+              # exploit
+              a = pi_star[s]
+              action = actions[a]
     
             
             # Get result of throw from dart thrower; update score if necessary
@@ -116,12 +116,12 @@ def modelbased(gamma, epoch_size, num_games):
             num_actions[s][a] += 1
             num_transitions[s][s_prime][a] += 1
 
-	          # Next state becomes current state 
+            # Next state becomes current state 
             s = s_prime
 
             # Update our learned MDP and optimal policy after every EPOCH_SIZE throws, 
             # using infinite-horizon value iteration. 
-		
+    
             if num_iterations % epoch_size == 0:
 
                 # Update transition probabilities

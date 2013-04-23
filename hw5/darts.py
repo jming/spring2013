@@ -97,7 +97,7 @@ def test(n, method):
 # <CODE HERE>: Feel free to modify the main function to set up your experiments.
 def main():
     throw.init_board()
-    num_games = 1000
+    num_games = 100
 
 #************************************************#
 # Uncomment the lines below to run the mdp code, #
@@ -105,8 +105,8 @@ def main():
 # the thrower specified in question 2.           #
 #*************************************************
 
-    throw.use_simple_thrower()
-    test(10, "mdp")    
+    # throw.use_simple_thrower()
+    # test(10, "mdp")    
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
@@ -121,7 +121,9 @@ def main():
 # the modelbased algorithm.
     random.seed()
     throw.init_thrower()
-    modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+    for i in range(1,100):
+        modelbased.modelbased(GAMMA, i, num_games)
+    # modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
 
 #*************************************************#
 # Uncomment the lines below to run the modelfree  #
