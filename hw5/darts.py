@@ -105,8 +105,8 @@ def main():
 # the thrower specified in question 2.           #
 #*************************************************
 
-    throw.use_simple_thrower()
-    test(10, "mdp")    
+    #throw.use_simple_thrower()
+    #test(10, "mdp")    
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
