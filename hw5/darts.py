@@ -46,7 +46,7 @@ def R(s,a):
     return r
 
 
-# Play a single game 
+# Play a single game
 def play(method):
     score = throw.START_SCORE
     turns = 0
@@ -81,11 +81,11 @@ def play(method):
         else:
             target = modelfree.get_target(score)
             
-    print "WOOHOO!  It only took", turns, " turns"
+    print "WOOHOO! It only took", turns, " turns"
     #end_game(turns)
     return turns
 
-# Play n games and return the average score. 
+# Play n games and return the average score.
 def test(n, method):
     score = 0
     for i in range(n):
@@ -97,19 +97,20 @@ def test(n, method):
 # <CODE HERE>: Feel free to modify the main function to set up your experiments.
 def main():
     throw.init_board()
-    num_games = 100
+    num_games = 1000
 
 #************************************************#
 # Uncomment the lines below to run the mdp code, #
-# using the simple dart thrower that matches     #
-# the thrower specified in question 2.           #
+# using the simple dart thrower that matches #
+# the thrower specified in question 2. #
 #*************************************************
+
     #throw.use_simple_thrower()
-    #test(10, "mdp")    
+    #test(10, "mdp")
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
-# code using the complex dart thrower.            #
+# code using the complex dart thrower. #
 #*************************************************#
 
 # Seed the random number generator -- the default is
@@ -120,17 +121,15 @@ def main():
 # the modelbased algorithm.
     random.seed()
     throw.init_thrower()
-    for i in range(1,100):
-        modelbased.modelbased(GAMMA, i, num_games)
-    # modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+    modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
 
 #*************************************************#
-# Uncomment the lines below to run the modelfree  #
-# code using the complex dart thrower.            #
+# Uncomment the lines below to run the modelfree #
+# code using the complex dart thrower. #
 #*************************************************#
 
 # Plays 1 game using a default player. No modelfree
-# code is provided. 
+# code is provided.
     #random.seed()
     #throw.init_thrower()
     #test(1, "modelfree")
@@ -138,6 +137,4 @@ def main():
 
 if __name__ =="__main__":
     main()
-
-
 
