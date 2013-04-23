@@ -20,14 +20,12 @@ def get_target(score):
   
   return(throw.location(throw.INNER_RING, throw.NUM_WEDGES))
 
-
 # Define your first exploration/exploitation strategy here. Return 0 to exploit and 1 to explore. 
 # You may want to pass arguments from the modelbased function. 
 def ex_strategy_one(s, num_iterations):
   # implement epsilon greedy algorithm
   
-  #epsilon is equal to 1/T, or 1/num_iterations, decays over time
-  #e = 1/(num_iterations)
+  #epsilon is equal to an exponentially decaying function
   e = 500*math.exp(-0.00675*num_iterations)
   x = random.random()
   # given current state, pick best with prob e
@@ -45,25 +43,27 @@ def ex_strategy_one(s, num_iterations):
 # You may want to pass arguments from the modelbased function.
 # Boltzmann Exploration
 def ex_strategy_two(s, num_iterations, Q, actions):
-      # implement boltzman-action selection
+    
     probs = [0.0 for x in range(len(actions))]
-    sum = 0
+    #Exponentially decaying function
     T = 500*math.exp(-0.00675*num_iterations)+100
+    
     for a in range(len(actions)):
         probs[a] = math.exp(Q[s][a]/T)
-        sum += probs[a]
-
-    cumulative = 0
+    total = sum(probs)
+    
     for a in range(len(probs)):
-        probs[a] = probs[a]/sum + cumulative
-        cumulative += probs[a]
+        probs[a] = probs[a]/total
     
     r = random.random()
-    newaction = 0
+    cumulative = 0
     for a in range(len(probs)):
-        if r < probs[a]:
-            newaction = a
+        cumulative += probs[a]
+        if r < cumulative:
+            return a, actions[a]
+    
     return a, actions[a]
+    
 
 # Implement a model-based reinforcement learning algorithm. 
 # Given num_games (the number of games to play), store the
@@ -115,10 +115,10 @@ def modelbased(gamma, epoch_size, num_games):
             # The following two statements implement two exploration-exploitation
             # strategies. Comment out the strategy that you wish not to use.
 			
-    	    to_explore = ex_strategy_one(s, num_iterations)
+    	    #to_explore = ex_strategy_one(s, num_iterations)
     	    # Second strategy
-            #to_explore = 2
-            #newindex, newaction = ex_strategy_two(s, num_iterations, Q, actions)
+            to_explore = 2
+            newindex, newaction = ex_strategy_two(s, num_iterations, Q, actions)
     		
             if to_explore == 2:
                 a = newindex

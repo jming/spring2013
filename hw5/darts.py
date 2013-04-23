@@ -97,7 +97,7 @@ def test(n, method):
 # <CODE HERE>: Feel free to modify the main function to set up your experiments.
 def main():
     throw.init_board()
-    num_games = 100
+    num_games = 1000
 
 #************************************************#
 # Uncomment the lines below to run the mdp code, #
