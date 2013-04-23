@@ -37,6 +37,7 @@ def ex_strategy_one(s, pi_star):
 
 # Define your first exploration/exploitation strategy here. Return 0 to exploit and 1 to explore. 
 # You may want to pass arguments from the modelbased function.
+# Boltzmann Exploration
 def ex_strategy_two():
   # implement boltzman-action selection
 
