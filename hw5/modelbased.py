@@ -22,12 +22,24 @@ def get_target(score):
 
 # Define your first exploration/exploitation strategy here. Return 0 to exploit and 1 to explore. 
 # You may want to pass arguments from the modelbased function. 
-def ex_strategy_one():
-  return 0
+def ex_strategy_one(s, pi_star):
+  # implement epsilon greedy algorithm
+  e = 0.9
+  x = random.random()
+  # given current state, pick best with prob e
+  if x < e:
+    # follow optimal policy given current estimated MDP
+    return pi_star[s]
+  # pick randomly selected action with uniform probability with prob 1-e
+  else:
+    y = random.choice([i for i in range(throw.NUM_WEDGES*6)])
+    return darts.get_actions()[y] 
 
 # Define your first exploration/exploitation strategy here. Return 0 to exploit and 1 to explore. 
 # You may want to pass arguments from the modelbased function.
 def ex_strategy_two():
+  # implement boltzman-action selection
+
   return 1
 
 # Implement a model-based reinforcement learning algorithm. 
@@ -77,8 +89,8 @@ def modelbased(gamma, epoch_size, num_games):
             # The following two statements implement two exploration-exploitation
             # strategies. Comment out the strategy that you wish not to use.
 			
-    	    #to_explore = ex_strategy_one()
-    	    to_explore = ex_strategy_two()
+    	    to_explore = ex_strategy_one(s, pi_star)
+    	    #to_explore = ex_strategy_two()
     		
             if to_explore:
             	# explore
@@ -103,7 +115,7 @@ def modelbased(gamma, epoch_size, num_games):
             num_actions[s][a] += 1
             num_transitions[s][s_prime][a] += 1
 
-	    # Next state becomes current state 
+	          # Next state becomes current state 
             s = s_prime
 
             # Update our learned MDP and optimal policy after every EPOCH_SIZE throws, 

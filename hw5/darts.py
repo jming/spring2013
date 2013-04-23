@@ -119,9 +119,9 @@ def main():
 # multiple calls to main().
 # Then, initialize the throwing model and run
 # the modelbased algorithm.
-    #random.seed()
-    #throw.init_thrower()
-    #modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+    random.seed()
+    throw.init_thrower()
+    modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
 
 #*************************************************#
 # Uncomment the lines below to run the modelfree  #
