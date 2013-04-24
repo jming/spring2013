@@ -33,4 +33,6 @@ def ex_strategy_two():
 
 # The Q-learning algorithm:
 def Q_learning():
+  # Update rule: Q(s,a) <- Q(s, a) + alpha (r + \gamma max_a' \in A Q(s', a')) - Q(s, a))
+
   return

@@ -43,7 +43,7 @@ def R(s,a):
     r = s - throw.location_to_score(a)
     if r < 0:
         return 0
-    return r
+    return (r)
 
 
 # Play a single game 
@@ -97,7 +97,7 @@ def test(n, method):
 # <CODE HERE>: Feel free to modify the main function to set up your experiments.
 def main():
     throw.init_board()
-    num_games = 1000
+    num_games = 100
 
 #************************************************#
 # Uncomment the lines below to run the mdp code, #
@@ -122,6 +122,10 @@ def main():
     random.seed()
     throw.init_thrower()
     modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+    #x = [10,20,30,40,50,60,70,80,90]
+    #for i in x:
+    #    EPOCH_SIZE = i
+    #    modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
 
 #*************************************************#
 # Uncomment the lines below to run the modelfree  #
