@@ -26,7 +26,7 @@ def ex_strategy_one(s, num_iterations):
   # implement epsilon greedy algorithm
   
   #epsilon is equal to an exponentially decaying function
-  e = 500*math.exp(-0.00675*num_iterations)
+  e = 500*math.exp(-0.0675*num_iterations)
   x = random.random()
   # given current state, pick best with prob e
   if x < e:
@@ -47,8 +47,9 @@ def ex_strategy_two(s, num_iterations, Q, actions):
     probs = [0.0 for x in range(len(actions))]
     #Exponentially decaying function
     T = 500*math.exp(-0.00675*num_iterations)+100
-    
+    #T = 1./num_iterations
     for a in range(len(actions)):
+        #print Q[s][a], T
         probs[a] = math.exp(Q[s][a]/T)
     total = sum(probs)
     
