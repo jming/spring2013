@@ -70,8 +70,8 @@ def play(method):
         print "Score:", score'''
         if raw_score <= score:
             score = int(score - raw_score)
-        else:
-            print
+        #else:
+            #print
             #print "TOO HIGH!"
         if score == 0:
             break
