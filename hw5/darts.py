@@ -11,7 +11,7 @@ import modelbased
 import modelfree
 
 GAMMA = .5
-EPOCH_SIZE = 10
+EPOCH_SIZE = 100
 
 
 # <CODE HERE>: Complete this function, which should return a
@@ -97,7 +97,7 @@ def test(n, method):
 # <CODE HERE>: Feel free to modify the main function to set up your experiments.
 def main():
     throw.init_board()
-    num_games = 1000
+    num_games = 10
 
 #************************************************#
 # Uncomment the lines below to run the mdp code, #
