@@ -116,10 +116,10 @@ def modelbased(gamma, epoch_size, num_games):
             # The following two statements implement two exploration-exploitation
             # strategies. Comment out the strategy that you wish not to use.
 
-     #to_explore = ex_strategy_one(s, num_iterations)
-     # Second strategy
-            to_explore = 2
-            newindex, newaction = ex_strategy_two(s, num_iterations, Q, actions)
+            to_explore = ex_strategy_one(s, num_iterations)
+            # Second strategy
+            # to_explore = 2
+            # newindex, newaction = ex_strategy_two(s, num_iterations, Q, actions)
     
             if to_explore == 2:
                 a = newindex
@@ -132,7 +132,6 @@ def modelbased(gamma, epoch_size, num_games):
              # exploit
                 a = pi_star[s]
                 action = actions[a]
-    
             
             # Get result of throw from dart thrower; update score if necessary
             loc = throw.throw(action)

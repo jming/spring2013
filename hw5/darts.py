@@ -11,7 +11,7 @@ import modelbased
 import modelfree
 
 GAMMA = .5
-EPOCH_SIZE = 40
+EPOCH_SIZE = 100
 
 
 # <CODE HERE>: Complete this function, which should return a
