@@ -46,7 +46,7 @@ def ex_strategy_two(s, num_iterations, Q, actions):
     
     probs = [0.0 for x in range(len(actions))]
     #Exponentially decaying function
-    T = 500*math.exp(-0.00675*num_iterations)+100
+    T = 500*math.exp(-0.0675*num_iterations)+100
     #T = 1./num_iterations
     for a in range(len(actions)):
         #print Q[s][a], T
@@ -126,12 +126,12 @@ def modelbased(gamma, epoch_size, num_games):
                 action = newaction
             elif to_explore:
              # explore
-             a = random.randint(0, len(actions)-1)
-             action = actions[a]
+                a = random.randint(0, len(actions)-1)
+                action = actions[a]
             else:
              # exploit
-             a = pi_star[s]
-             action = actions[a]
+                a = pi_star[s]
+                action = actions[a]
     
             
             # Get result of throw from dart thrower; update score if necessary
