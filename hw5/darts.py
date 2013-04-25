@@ -64,15 +64,15 @@ def play(method):
         targets.append(target)
         results.append(result)
         raw_score = throw.location_to_score(result)
-        print "Target: wedge", target.wedge,", ring", target.ring
+        '''print "Target: wedge", target.wedge,", ring", target.ring
         print "Result: wedge", result.wedge,", ring", result.ring
         print "Raw Score:", raw_score
-        print "Score:", score
+        print "Score:", score'''
         if raw_score <= score:
             score = int(score - raw_score)
         else:
             print
-            print "TOO HIGH!"
+            #print "TOO HIGH!"
         if score == 0:
             break
 
@@ -81,7 +81,7 @@ def play(method):
         else:
             target = modelfree.get_target(score)
             
-    print "WOOHOO! It only took", turns, " turns"
+    #print "WOOHOO! It only took", turns, " turns"
     #end_game(turns)
     return turns
 
@@ -136,7 +136,11 @@ def main():
 # code is provided.
     random.seed()
     throw.init_thrower()
-    test(1, "modelfree")
+    x = [10,20,30,40,50,60,70,80,90,100]
+    for i in x:
+        EPOCH_SIZE = i
+        test(num_games, "modelfree")
+        print EPOCH_SIZE
 
 
 if __name__ =="__main__":

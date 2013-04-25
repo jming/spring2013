@@ -98,7 +98,11 @@ def Q_learning():
         while s > 0: #??? IS THIS RIGHT ???#
             # choose a from s using policy derived from Q
             num_iterations += 1
+            
+            #Choose exploration/exploitation strategy
+            #epsilon greedy
             #to_explore = ex_strategy_one(s, num_iterations)
+            #Boltzmann exploration
             to_explore = ex_strategy_one(s, num_iterations, Q, actions)
             
             if to_explore == 2:
@@ -139,6 +143,4 @@ def Q_learning():
             Q[s][a] = Q[s][a] + alpha*(darts.R[s, actions[a]] + gamma*max_a - Q[s][a])
             
             s = s_prime
-
-    print "Average turns = ", float(num_iterations)/float(num_games)
     return
