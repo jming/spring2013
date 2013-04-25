@@ -22,13 +22,47 @@ def get_target(score):
 
 
 # Exploration/exploitation strategy one.
-def ex_strategy_one():
-  return 0
+def ex_strategy_one(s, num_iterations):
+  # implement epsilon greedy algorithm
+  
+  #epsilon is equal to an exponentially decaying function
+  e = 500*math.exp(-0.0675*num_iterations)
+  x = random.random()
+  # given current state, pick best with prob e
+  if x < e:
+    # with probability epsilon, explore by returning 1
+    #return pi_star[s]
+    return 1
+  # With prob 1-e, exploit by returning 0
+  else:
+    y = random.choice([i for i in range(throw.NUM_WEDGES*6)])
+    #return darts.get_actions()[y]
+    return 0
 
 
 # Exploration/exploitation strategy two.
-def ex_strategy_two():
-  return 1
+def ex_strategy_two(s, num_iterations, Q, actions):
+   
+    probs = [0.0 for x in range(len(actions))]
+    #Exponentially decaying function
+    T = 500*math.exp(-0.0675*num_iterations)+100
+    #T = 1./num_iterations
+    for a in range(len(actions)):
+        #print Q[s][a], T
+        probs[a] = math.exp(Q[s][a]/T)
+    total = sum(probs)
+    
+    for a in range(len(probs)):
+        probs[a] = probs[a]/total
+    
+    r = random.random()
+    cumulative = 0
+    for a in range(len(probs)):
+        cumulative += probs[a]
+        if r < cumulative:
+            return a, actions[a]
+    
+    return a, actions[a]
 
 
 # The Q-learning algorithm:
@@ -64,7 +98,9 @@ def Q_learning():
         while s > 0: #??? IS THIS RIGHT ???#
             # choose a from s using policy derived from Q
             num_iterations += 1
-            to_explore = ex_strategy_one(s, num_iterations)
+            #to_explore = ex_strategy_one(s, num_iterations)
+            to_explore = ex_strategy_one(s, num_iterations, Q, actions)
+            
             if to_explore == 2:
                 a = newindex
                 action = newaction
@@ -74,11 +110,35 @@ def Q_learning():
             else:
                 a = pi_star[s]
                 action = actions[a]
+            
             # take action a, observe r, s'
+            # Get result of throw from dart thrower; update score if necessary
+            loc = throw.throw(action)
+            s_prime = s - throw.location_to_score(loc)
+            if s_prime < 0:
+                s_prime = s
+                
+            # Update experience:
+            # increment number of times this action was taken in this state;
+            # increment number of times we moved from this state to next state on this action.
+
+            num_actions[s][a] += 1
+            
+            #alpha learning rate
+            alpha = 0.3
+            #gamma discount factor
+            gamma = 0.5
+            #find max action a_prime over Q[s_prime, a_prime]
+            max_a = 0
+            for a in range(len(actions)):
+                if Q[s_prime][a_prime] > max_a:
+                    max_a = Q[s_prime][a_prime]
+            
             # update Q(s,a):= Q(s,a)+alpha(r+gamma max over a' Q(s',a') - Q(s,a))
             # s := s'
+            Q[s][a] = Q[s][a] + alpha*(darts.R[s, actions[a]] + gamma*max_a - Q[s][a])
+            
+            s = s_prime
 
-    # Choose actions
-    # update Q-fuctions
-    # Update rule: Q(s,a) <- Q(s, a) + alpha (r + \gamma max_a' \in A Q(s', a')) - Q(s, a))
+    print "Average turns = ", float(num_iterations)/float(num_games)
     return

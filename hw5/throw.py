@@ -17,9 +17,9 @@ wedges = [ 4, 6, 2, 7, 1, 8, 3, 5 ]
 START_SCORE = 100
 
 # A much smaller dartboard #
-# NUM_WEDGES = 4
-# wedges = [ 1, 4, 2, 3 ]
-# START_SCORE = 9
+#NUM_WEDGES = 4
+#wedges = [ 1, 4, 2, 3 ]
+#START_SCORE = 9
 
 angles = []
 
