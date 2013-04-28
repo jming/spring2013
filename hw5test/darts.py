@@ -10,7 +10,7 @@ import mdp
 import modelbased
 import modelfree
 
-GAMMA = .3
+GAMMA = .5
 EPOCH_SIZE = 10
 
 
@@ -41,12 +41,12 @@ def R(s,a):
     # takes a state s and action a
     # returns the reward for completing action a in state s
     r = s - throw.location_to_score(a)
-    if r == 0:
-        return 1
-    return 0
+    if r < 0:
+        return 0
+    return r
 
 
-# Play a single game
+# Play a single game 
 def play(method):
     score = throw.START_SCORE
     turns = 0
@@ -64,15 +64,15 @@ def play(method):
         targets.append(target)
         results.append(result)
         raw_score = throw.location_to_score(result)
-        #print "Target: wedge", target.wedge,", ring", target.ring
-        #print "Result: wedge", result.wedge,", ring", result.ring
-        #print "Raw Score:", raw_score
-        #print "Score:", score
+        print "Target: wedge", target.wedge,", ring", target.ring
+        print "Result: wedge", result.wedge,", ring", result.ring
+        print "Raw Score:", raw_score
+        print "Score:", score
         if raw_score <= score:
             score = int(score - raw_score)
-        #else:
-        #    print
-        #    print "TOO HIGH!"
+        else:
+            print
+            print "TOO HIGH!"
         if score == 0:
             break
 
@@ -81,11 +81,11 @@ def play(method):
         else:
             target = modelfree.get_target(score)
             
-    #print "WOOHOO! It only took", turns, " turns"
+    print "WOOHOO!  It only took", turns, " turns"
     #end_game(turns)
     return turns
 
-# Play n games and return the average score.
+# Play n games and return the average score. 
 def test(n, method):
     score = 0
     for i in range(n):
@@ -97,20 +97,21 @@ def test(n, method):
 # <CODE HERE>: Feel free to modify the main function to set up your experiments.
 def main():
     throw.init_board()
-    num_games = 10
+    num_games = 1000
 
 #************************************************#
 # Uncomment the lines below to run the mdp code, #
-# using the simple dart thrower that matches #
-# the thrower specified in question 2. #
+# using the simple dart thrower that matches     #
+# the thrower specified in question 2.           #
 #*************************************************
 
-    #throw.use_simple_thrower()
-    #test(num_games, "mdp")
+# Default is to solve MDP and play 1 game
+    throw.use_simple_thrower()
+    test(10, "mdp")    
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
-# code using the complex dart thrower. #
+# code using the complex dart thrower.            #
 #*************************************************#
 
 # Seed the random number generator -- the default is
@@ -119,30 +120,25 @@ def main():
 # multiple calls to main().
 # Then, initialize the throwing model and run
 # the modelbased algorithm.
-    random.seed()
-    throw.init_thrower()
-    modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
-    #x = [10,20,30,40,50,60,70,80,90]
-    #for i in x:
-    #    EPOCH_SIZE = i
-    #    modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+    #random.seed()
+    #throw.init_thrower()
+    #modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
 
 #*************************************************#
-# Uncomment the lines below to run the modelfree #
-# code using the complex dart thrower. #
+# Uncomment the lines below to run the modelfree  #
+# code using the complex dart thrower.            #
 #*************************************************#
 
 # Plays 1 game using a default player. No modelfree
-# code is provided.
+# code is provided. 
     #random.seed()
     #throw.init_thrower()
-    #x = [10,20,30,40,50,60,70,80,90,100]
-    #for i in x:
-    #   EPOCH_SIZE = i
-    #    test(num_games, "modelfree")
-    #   print EPOCH_SIZE
+    #test(1, "modelfree")
 
 
 if __name__ =="__main__":
     main()
+
+
+
 
