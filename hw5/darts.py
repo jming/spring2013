@@ -25,7 +25,7 @@ def get_states():
 def get_actions():
 
     actions = []
-  
+
     for wedge in throw.wedges:
         actions = actions + [throw.location(throw.CENTER, wedge)]
         actions = actions + [throw.location(throw.INNER_RING, wedge)]
@@ -33,7 +33,7 @@ def get_actions():
         actions = actions + [throw.location(throw.MIDDLE_RING, wedge)]
         actions = actions + [throw.location(throw.SECOND_PATCH, wedge)]
         actions = actions + [throw.location(throw.OUTER_RING, wedge)]
-    
+
     return actions
 
 # <CODE HERE>: Define the reward function
@@ -41,21 +41,21 @@ def R(s,a):
     # takes a state s and action a
     # returns the reward for completing action a in state s
     r = s - throw.location_to_score(a)
-    if r < 0:
-        return 0
-    return (r)
+    if r == 0:
+        return 1
+    return 0
 
 
 # Play a single game
 def play(method):
     score = throw.START_SCORE
     turns = 0
-    
+
     if method == "mdp":
         target = mdp.start_game(GAMMA)
     else:
         target = modelfree.start_game()
-        
+
     targets = []
     results = []
     while(True):
@@ -80,17 +80,18 @@ def play(method):
             target = mdp.get_target(score)
         else:
             target = modelfree.get_target(score)
-            
+
     #print "WOOHOO! It only took", turns, " turns"
     #end_game(turns)
     return turns
+
 
 # Play n games and return the average score.
 def test(n, method):
     score = 0
     for i in range(n):
         score += play(method)
-        
+
     print "Average turns = ", float(score)/float(n)
     return score
 
@@ -105,8 +106,8 @@ def main():
 # the thrower specified in question 2. #
 #*************************************************
 
-    #throw.use_simple_thrower()
-    #test(10, "mdp")
+    # throw.use_simple_thrower()
+    # test(10, "mdp")
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
@@ -143,6 +144,5 @@ def main():
         print EPOCH_SIZE
 
 
-if __name__ =="__main__":
+if __name__ == "__main__":
     main()
-

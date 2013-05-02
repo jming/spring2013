@@ -17,19 +17,16 @@ wedges = [ 4, 6, 2, 7, 1, 8, 3, 5 ]
 START_SCORE = 100
 
 # A much smaller dartboard #
-#NUM_WEDGES = 4
-#wedges = [ 1, 4, 2, 3 ]
-#START_SCORE = 9
+# NUM_WEDGES = 4
+# wedges = [1, 4, 2, 3]
+# START_SCORE = 9
 
 angles = []
 
-
-
 # A location on a dartboard consists of the wedge number, and a ring.
 # Wedges are numbered from 1 to 20. Rings are as follows.
-CENTER, INNER_RING, FIRST_PATCH, MIDDLE_RING, SECOND_PATCH, OUTER_RING, MISS = \
-        range(7)
-    
+CENTER, INNER_RING, FIRST_PATCH, MIDDLE_RING, SECOND_PATCH, OUTER_RING, MISS = range(7)
+
 
 class location:
     def __init__(self, _ring, _wedge):
@@ -41,7 +38,6 @@ class location:
 
 def init_board():
    # angles = []
-    
     for i in range(NUM_WEDGES):
         angles.append(None)
     angles.append(None)
@@ -120,7 +116,7 @@ class TGlobals:
 def init_thrower():
     TGlobals.simple_flag = 0
     b = box_muller()
-    
+
     bias_x = b.x * TGlobals.BIAS_SD
     bias_y = b.y * TGlobals.BIAS_SD
     wobble_x = TGlobals.WOBBLE_MIN + ranf()  * (TGlobals.WOBBLE_MAX - TGlobals.WOBBLE_MIN)
@@ -128,7 +124,7 @@ def init_thrower():
 
     TGlobals.bias = Rectangular(bias_x, bias_y)
     TGlobals.wobble = Rectangular(wobble_x, wobble_y)
-    
+
     print "Thrower Bias:", bias_x, bias_y
     print "Thrower wobble:", wobble_x, wobble_y
 
@@ -142,8 +138,9 @@ def throw(target):
         pol2 = rectangular_to_polar(rect2)
         result = polar_to_location(pol2)
 
-        return result;
-        
+        return result
+
+
 def use_simple_thrower():
     TGlobals.simple_flag = 1
 
@@ -153,29 +150,30 @@ def simple_throwing_model(target):
     e2 = rane()
     angle1 = angles[target.wedge]
     angle2 = angle1 + e1
-    
+
     angle3 = angle2 % NUM_WEDGES
-    
+
     wedge = wedges[angle3]
-    
+
     ring = abs(target.ring + e2)
     if(ring > MISS):
-       ring = MISS
+        ring = MISS
 
     return location(ring, wedge)
+
 
 def throwing_model(rect):
     noise = box_muller()
     x = rect.x + TGlobals.bias.x + noise.x * TGlobals.wobble.x
     y = rect.y + TGlobals.bias.y + noise.y * TGlobals.wobble.y
-    return Rectangular(x,y)
+    return Rectangular(x, y)
 
-    
 
 class Polar:
     def __init__(self, init_theta, init_r):
         self.theta = init_theta
         self.r = init_r
+
 
 class Rectangular:
     def __init__(self, init_x, init_y):
@@ -194,12 +192,11 @@ def rectangular_to_polar(rect):
 def polar_to_rectangular(pol):
     y = pol.r * sin(pol.theta)
     x = pol.r * cos(pol.theta)
-    return Rectangular(x,y)
+    return Rectangular(x, y)
+
 
 # Convert between dartboard locations and polar coordinates #
-
 def location_to_polar(loc):
-    
     theta = angles[loc.wedge] * 2 * pi / NUM_WEDGES
     ring = loc.ring
     if ring == CENTER:
@@ -214,7 +211,8 @@ def location_to_polar(loc):
         r = 2.5
     elif ring == OUTER_RING:
         r = 3.1
-    else: r = 999999
+    else:
+        r = 999999
     return Polar(theta, r)
 
 
@@ -224,13 +222,13 @@ def polar_to_location(pol):
     adjusted_angle = int(scaled_angle + 0.5) % NUM_WEDGES
     wedge = wedges[int(adjusted_angle)]
 
-    if ( r < 0.2):
+    if (r < 0.2):
         ring = CENTER
-    elif( r < 0.4):
+    elif(r < 0.4):
         ring = INNER_RING
-    elif (r < 1.8 ) :
+    elif (r < 1.8):
         ring = FIRST_PATCH
-    elif (r < 2.0 ) :
+    elif (r < 2.0):
         ring = MIDDLE_RING
     elif (r < 3.0):
         ring = SECOND_PATCH
@@ -243,33 +241,32 @@ def polar_to_location(pol):
 
 
 # Generate a uniform [0,1] random number #
-
 def ranf():
-    return uniform(0,1)
+    return uniform(0, 1)
 
-# 
+
  # Generate a random integer error from -2 to 2 with the probabilities
  # 0.1 : -2
  # 0.2 : -1
  # 0.4 : 0
  # 0.2 : 1
  # 0.1 : 2
- #
 def rane():
     f = ranf()
-    if (f<0.1):
+    if (f < 0.1):
         return -2
-    elif (f<0.3): 
+    elif (f < 0.3):
         return -1
-    elif (f<0.7): 
+    elif (f < 0.7):
         return 0
-    elif (f<0.9): 
+    elif (f < 0.9):
         return 1
-    else: 
+    else:
         return 2
+
 
 # Generate two independent standard normal random numbers #
 def box_muller():
-    x = normalvariate(0,1)
-    y = normalvariate(0,1)
-    return Rectangular(x,y)
+    x = normalvariate(0, 1)
+    y = normalvariate(0, 1)
+    return Rectangular(x, y)
