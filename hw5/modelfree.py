@@ -97,10 +97,19 @@ def Q_learning():
 
             #Choose exploration/exploitation strategy
             #epsilon greedy
+<<<<<<< HEAD
             to_explore = ex_strategy_one(s, num_iterations)
             #Boltzmann exploration
             # to_explore = ex_strategy_one(s, num_iterations, Q, actions)
 
+=======
+            #to_explore = ex_strategy_one(s, num_iterations)
+            
+            #Boltzmann exploration 
+            to_explore = 2
+            newindex, newaction = ex_strategy_two(s, num_iterations, Q, actions)
+            
+>>>>>>> 82275be991312c1b70027465c28ec5e1eaa887c8
             if to_explore == 2:
                 a = newindex
                 action = newaction
