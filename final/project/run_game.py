@@ -47,10 +47,15 @@ def run(options):
     game_interface.curses_draw_board(game)
   
   # Keep running until one player runs out of life.
-  while True:
+  count = 0
+  fp = open('poisnous.txt', 'a')
+  fn = open('nutritious.txt', 'a')
+  while count < 1000:
     (mv1, eat1) = get_move(player1_view, player1.player.get_move, options, 1)
     (mv2, eat2) = get_move(player2_view, player2.player.get_move, options, 2)
 
+    o1 = player1_view.GetLife()
+    o2 = player2_view.GetLife()
     game.ExecuteMoves(mv1, eat1, mv2, eat2)
     if options.display:
       game_interface.curses_draw_board(game)
@@ -61,27 +66,56 @@ def run(options):
     # Check whether someone's life is negative.
     l1 = player1_view.GetLife()
     l2 = player2_view.GetLife()
-  
-    if l1 <= 0 or l2 <= 0:
-      if options.display:
-        winner = 0
-        if l1 < l2:
-          winner = 2
-        else:
-          winner = 1
-        game_interface.curses_declare_winner(winner)
+
+    image1 = player1.player.image1
+    image2 = player2.player.image2
+
+    print image1
+    print image2
+
+    if image1 != []:
+      print image1
+      if l1 == o1 + 19:
+        for image in image1:
+          fn.write(str(image) + '\n')
+        fn.write('\n')
       else:
-        if l1 == l2:
-          print 'Tie, remaining life: %d v. %d' % (l1, l2)
-        elif l1 < l2:
-          print 'Player 2 wins: %d v. %d' % (l1, l2)
-        else:
-          print 'Player 1 wins: %d v. %d' % (l1, l2)
-      # Wait for input
-      sys.stdin.read(1)
-      if options.display:
-        game_interface.curses_close()
-      break
+        for image in image1:
+          fp.write(str(image) + '\n')
+        fp.write('\n')
+    if image2 != []:
+      print image2
+      if l2 == o2 + 19:
+        for image in image2:
+          fn.write(str(image) + '\n')
+        fn.write('\n')
+      else:
+        for image in image2:
+          fp.write(str(image) + '\n')
+        fp.write('\n')
+
+
+    # if l1 <= 0 or l2 <= 0:
+    #   if options.display:
+    #     winner = 0
+    #     if l1 < l2:
+    #       winner = 2
+    #     else:
+    #       winner = 1
+    #     game_interface.curses_declare_winner(winner)
+    #   else:
+    #     if l1 == l2:
+    #       print 'Tie, remaining life: %d v. %d' % (l1, l2)
+    #     elif l1 < l2:
+    #       print 'Player 2 wins: %d v. %d' % (l1, l2)
+    #     else:
+    #       print 'Player 1 wins: %d v. %d' % (l1, l2)
+    #   # Wait for input
+    #   sys.stdin.read(1)
+    #   if options.display:
+    #     game_interface.curses_close()
+    #   break
+    count += 1
 
 def main(argv):
   parser = OptionParser()
