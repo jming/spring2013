@@ -236,7 +236,7 @@ class EncodedNetworkFramework(NetworkFramework):
     between 0 and 256.0. The function transforms this into a unique list
     of 14 x 14 items, with normalized values (that is, the maximum possible
     value should be 1).
-    
+
     """
 
     inp = Input()
@@ -244,6 +244,7 @@ class EncodedNetworkFramework(NetworkFramework):
     #print "LABELS"
 
     #print image.label, image.pixels
+    # print image.pixels
 
     for i in range(6):
       for j in range(6):

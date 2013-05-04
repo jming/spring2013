@@ -49,23 +49,27 @@ def run(options):
   images = DataReader.GetImages('nutritious_test.txt', -1)
   #print images0
   images1 = DataReader.GetImages('poisnous_test.txt', -1)
-  images.extend(images1)
+  # images.extend(images1)
   #print 'training', len(images)
+  images=images[:500]+images1[:500]
 
   # Load the validation set.
   validation = DataReader.GetImages('nutritious_valid.txt', -1)
   validation2 = DataReader.GetImages('poisnous_valid.txt', -1) 
-  validation.extend(validation2)
+  # validation.extend(validation2)
+  validation=validation[:500]+validation[:500]
   #print 'validation', len(validation)
 
   # Load the test data.
   test = DataReader.GetImages('nutritious.txt', -1)
   test2 = DataReader.GetImages('poisnous.txt', -1)
-  test.extend(test2)
+  # test.extend(test2)
+  test=test[:500]+test2[:500]
   #print 'test', len(test)
 
   # Initializing network
-  
+  rate = .1
+  epochs = 10
   network = SimpleNetwork() 
 
   # Hooks user-implemented functions to network
@@ -122,8 +126,8 @@ def run(options):
     image1 = player1.player.image1
     image2 = player2.player.image2
 
-    print image1
-    print image2
+    # print image1
+    # print image2
 
     if image1 != []:
       print image1
