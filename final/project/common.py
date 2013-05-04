@@ -22,7 +22,7 @@ from neural_net_impl import *
 
 #   eat = 0
 
-#   # 0. Land in square, check if plant
+#   # 0. Land in square, check if there is a plant
 #   hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
 
 #   # If there is a plant,
@@ -45,6 +45,8 @@ from neural_net_impl import *
 #   return (move, eat)
 
 # def classify(image):
+
+
 
 def get_move(view):
 
