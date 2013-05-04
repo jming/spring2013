@@ -48,9 +48,9 @@ def run(options):
   
   # Keep running until one player runs out of life.
   count = 0
-  fp = open('poisnous.txt', 'a')
-  fn = open('nutritious.txt', 'a')
-  while count < 1000:
+  fp = open('poisnous_valid.txt', 'a')
+  fn = open('nutritious_valid.txt', 'a')
+  while count < 5000:
     (mv1, eat1) = get_move(player1_view, player1.player.get_move, options, 1)
     (mv2, eat2) = get_move(player2_view, player2.player.get_move, options, 2)
 

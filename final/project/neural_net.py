@@ -177,7 +177,7 @@ class NetworkFramework(object):
       weight.value = 0
 
   def Classify(self, image):
-    #input = self.Convert(image)
+    input = self.Convert(image)
     self.FeedForwardFn(self.network, input)
     return self.GetNetworkLabel()
 

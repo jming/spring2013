@@ -241,6 +241,10 @@ class EncodedNetworkFramework(NetworkFramework):
 
     inp = Input()
 
+    print "LABELS"
+
+    print image.label, image.pixels
+
     for i in range(6):
       for j in range(6):
         inp.values.append(image.pixels[i][j])
