@@ -244,6 +244,7 @@ class EncodedNetworkFramework(NetworkFramework):
     #print "LABELS"
 
     #print image.label, image.pixels
+    # print image.pixels
 
     for i in range(6):
       for j in range(6):

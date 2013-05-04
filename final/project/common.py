@@ -3,6 +3,7 @@ import random
 import time
 from neural_net import *
 from neural_net_impl import *
+from data_reader import *
 
 # def get_move(view):
 #   # Check if there is a plant in this location
@@ -52,14 +53,32 @@ def classify(image):
     # return the classification
     return classification
 
+def get_move(view, network):
 
-def get_move(view):
+  images = []
+  hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
+  if hasPlant:
+    for i in xrange(10):
+      inew = Image(0)
+      pix = view.GetImage()
+      pix = list(pix)
+      for i in range(6):
+        inew.pixels.append(pix[i*6:i*6+6])
+      # inew.pixels.append(view.GetImage())
+      # print inew.pixels
+      images.append(inew)
+  time.sleep(0.1)
+  k = 0.0
+  for i in images:
+    k += network.Classify(i)
+  eat = k / 10.
+  print eat
+  return (random.randint(0,4), eat > 0.5)
+# >>>>>>> 446141c5898c4c1aeb4195040a38993760036bd0
 
-    images = []
-
-    hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
-    if hasPlant:
-        for i in xrange(10):
-            images.append(view.GetImage())
-    time.sleep(0.1)
-    return (random.randint(0, 4), hasPlant, images)
+#     hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
+#     if hasPlant:
+#         for i in xrange(10):
+#             images.append(view.GetImage())
+#     time.sleep(0.1)
+#     return (random.randint(0, 4), hasPlant, images)

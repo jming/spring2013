@@ -7,18 +7,21 @@ import sys
 import time
 import traceback
 from optparse import OptionParser
+from neural_net import *
+from neural_net_impl import *
+from data_reader import *
 
 class TimeoutException(Exception):
   def __init__(self):
     pass
 
-def get_move(view, cmd, options, player_id):
+def get_move(view, cmd, options, player_id, network):
   def timeout_handler(signum, frame):
     raise TimeoutException()
   signal.signal(signal.SIGALRM, timeout_handler)
   signal.alarm(1)
   try: 
-    (mv, eat) = cmd(view)
+    (mv, eat) = cmd(view, network)
     # Clear the alarm.
     signal.alarm(0)
   except TimeoutException:
@@ -40,6 +43,59 @@ def run(options):
                                       options.life_per_turn)
   player1_view = game.GetPlayer1View()
   player2_view = game.GetPlayer2View()
+  
+  '''BEGIN NEURAL NETWORK ADDITIONS'''
+  # Load in the training data.
+  images = DataReader.GetImages('nutritious_test.txt', -1)
+  #print images0
+  images1 = DataReader.GetImages('poisnous_test.txt', -1)
+  # images.extend(images1)
+  #print 'training', len(images)
+  images=images[:500]+images1[:500]
+
+  # Load the validation set.
+  validation = DataReader.GetImages('nutritious_valid.txt', -1)
+  validation2 = DataReader.GetImages('poisnous_valid.txt', -1) 
+  # validation.extend(validation2)
+  validation=validation[:500]+validation[:500]
+  #print 'validation', len(validation)
+
+  # Load the test data.
+  test = DataReader.GetImages('nutritious.txt', -1)
+  test2 = DataReader.GetImages('poisnous.txt', -1)
+  # test.extend(test2)
+  test=test[:500]+test2[:500]
+  #print 'test', len(test)
+
+  # Initializing network
+  rate = .1
+  epochs = 10
+  network = SimpleNetwork() 
+
+  # Hooks user-implemented functions to network
+  network.FeedForwardFn = FeedForward
+  network.TrainFn = Train
+
+  # Initialize network weights
+  network.InitializeWeights()
+  
+
+  '''# Displays information
+  print '* * * * * * * * *'
+  print 'Parameters => Epochs: %d, Learning Rate: %f' % (epochs, rate)
+  print 'Type of network used: %s' % network.__class__.__name__
+  print ('Input Nodes: %d, Hidden Nodes: %d, Output Nodes: %d' %
+         (len(network.network.inputs), len(network.network.hidden_nodes),
+          len(network.network.outputs)))
+  print '* * * * * * * * *'''
+ 
+  # Train the network.
+  network.Train(images, validation, test, rate, epochs)
+  print 'length', len(network.network.weights)
+  #for i in network.network.weights:
+  #  print i.value
+    
+  '''END OF NEURAL NETWORK ADDITIONS'''
 
   if options.display:
     if game_interface.curses_init() < 0:
@@ -51,8 +107,8 @@ def run(options):
   fp = open('poisnous_valid.txt', 'a')
   fn = open('nutritious_valid.txt', 'a')
   while count < 5000:
-    (mv1, eat1) = get_move(player1_view, player1.player.get_move, options, 1)
-    (mv2, eat2) = get_move(player2_view, player2.player.get_move, options, 2)
+    (mv1, eat1) = get_move(player1_view, player1.player.get_move, options, 1, network)
+    (mv2, eat2) = get_move(player2_view, player2.player.get_move, options, 2, network)
 
     o1 = player1_view.GetLife()
     o2 = player2_view.GetLife()
@@ -70,8 +126,8 @@ def run(options):
     image1 = player1.player.image1
     image2 = player2.player.image2
 
-    print image1
-    print image2
+    # print image1
+    # print image2
 
     if image1 != []:
       print image1

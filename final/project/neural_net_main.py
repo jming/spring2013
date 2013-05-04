@@ -99,8 +99,9 @@ def main():
  
   # Train the network.
   network.Train(images, validation, test, rate, epochs)
-  #for i in network.network.weights:
-  #  print i.value
+  print 'length', len(network.network.weights)
+  for i in network.network.weights:
+    print i.value
 
 if __name__ == "__main__":
   main()
