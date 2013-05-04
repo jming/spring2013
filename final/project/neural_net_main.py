@@ -42,6 +42,7 @@ def main():
   #print images0
   images1 = DataReader.GetImages('poisnous.txt', -1)
   images.extend(images1)
+  print 'training', len(images)
   #print images
   '''for image in images:
     assert len(image.pixels) == 14
@@ -49,12 +50,14 @@ def main():
 
   # Load the validation set.
   validation = DataReader.GetImages('nutritious.txt', -1)
+  print 'validation', len(validation)
   '''for image in validation:
     assert len(image.pixels) == 14
     assert len(image.pixels[0]) == 14'''
 
   # Load the test data.
   test = DataReader.GetImages('poisnous.txt', -1)
+  print 'test', len(test)
   '''for image in test:
     assert len(image.pixels) == 14
     assert len(image.pixels[0]) == 14'''

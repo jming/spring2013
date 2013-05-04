@@ -29,6 +29,7 @@ class DataReader:
         image = Image(int(line[1:]))
       else:
         image.pixels.append([float(r) for r in line.strip().split()])
+        #print image.pixels
     if image:
       images.append(image)
     return images

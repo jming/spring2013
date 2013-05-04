@@ -18,16 +18,28 @@ class DataReader:
     image = None
     while True:
       line = infile.readline().strip()
+      #print line, 'LINE'
       if not line:
+        line = infile.readline().strip()
+      if line.find('END') == 0:
+        #print 'BREAK'
         break
+      if image:
+        images.append(image)
+        ct += 1
+        if ct > limit and limit != -1:
+          break
       if(filename == 'nutritious.txt'):
         image = Image(1)
       else:
         image = Image(1)
-      image.pixels.append([int(r) for r in line.strip().split(', ')])
-      print image.pixels
+      temp =  [int(r) for r in line.strip().split(', ')]
+      for i in range(6):
+        image.pixels.append(temp[i*6:i*6 + 6])
+      #print image.pixels
     if image:
       images.append(image)
+    #print len(images)
     return images  
     
     '''while True:
