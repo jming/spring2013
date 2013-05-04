@@ -48,14 +48,20 @@ from neural_net_impl import *
 
 
 
-def get_move(view):
+def get_move(view, network):
 
   images = []
 
   hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
   if hasPlant:
     for i in xrange(10):
-      images.append(view.GetImage())
+      inew = Image(0)
+      inew.pixels.append(view.GetImage())
+      images.append(inew)
   time.sleep(0.1)
-  return (random.randint(0,4), hasPlant, images)
+  k = 0.0
+  for i in images:
+    k += network.Classify(i)
+  eat = k./10.
+  return (random.randint(0,4), eat)
 
