@@ -41,7 +41,8 @@ def main():
   images = DataReader.GetImages('nutritious_test.txt', -1)
   #print images0
   images1 = DataReader.GetImages('poisnous_test.txt', -1)
-  images.extend(images1)
+  # images.extend(images1)
+  images = images[:500]+images1[:500]
   print 'training', len(images)
   #print images
   '''for image in images:
@@ -51,7 +52,8 @@ def main():
   # Load the validation set.
   validation = DataReader.GetImages('nutritious_valid.txt', -1)
   validation2 = DataReader.GetImages('poisnous_valid.txt', -1) 
-  validation.extend(validation2)
+  # validation.extend(validation2)
+  validation = validation[:500]+validation2[:500]
   print 'validation', len(validation)
   '''for image in validation:
     assert len(image.pixels) == 14
@@ -60,7 +62,8 @@ def main():
   # Load the test data.
   test = DataReader.GetImages('nutritious.txt', -1)
   test2 = DataReader.GetImages('poisnous.txt', -1)
-  test.extend(test2)
+  # test.extend(test2)
+  test = test[:500]+test2[:500]
   print 'test', len(test)
   '''for image in test:
     assert len(image.pixels) == 14
@@ -68,14 +71,14 @@ def main():
 
 
   # Initializing network
-  '''if networkType == 'simple':
+  if networkType == 'simple':
     network = SimpleNetwork()
   if networkType == 'hidden':
     network = HiddenNetwork()
   if networkType == 'custom':
-    network = CustomNetwork()'''
+    network = CustomNetwork()
   
-  network = SimpleNetwork() 
+  # network = SimpleNetwork() 
 
   # Hooks user-implemented functions to network
   network.FeedForwardFn = FeedForward

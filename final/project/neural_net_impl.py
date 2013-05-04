@@ -236,7 +236,7 @@ class EncodedNetworkFramework(NetworkFramework):
     between 0 and 256.0. The function transforms this into a unique list
     of 14 x 14 items, with normalized values (that is, the maximum possible
     value should be 1).
-    
+
     """
 
     inp = Input()

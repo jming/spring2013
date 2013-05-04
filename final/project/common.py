@@ -9,7 +9,7 @@ from neural_net_impl import *
 #   hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
 #   # if there is a plant,
 #   if hasPlant:
-#   	# take five observations
+#       # take five observations
 #     for i in xrange(5):
 #       # print these observations
 #       print view.GetImage()
@@ -37,25 +37,29 @@ from neural_net_impl import *
 #       ispoisonous += classify(view.GetImage())
 
 #     eat = ispoisonous / numobs > 0.5
-  
+
 #   # 3. Decide where to go
 #   move = random.randint(0, 4)
 
 #   # 4. Execute move
 #   return (move, eat)
 
-# def classify(image):
 
+def classify(image):
+
+    # run this classification through the neural network
+    classification = neural_net_apply(image)
+    # return the classification
+    return classification
 
 
 def get_move(view):
 
-  images = []
+    images = []
 
-  hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
-  if hasPlant:
-    for i in xrange(10):
-      images.append(view.GetImage())
-  time.sleep(0.1)
-  return (random.randint(0,4), hasPlant, images)
-
+    hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
+    if hasPlant:
+        for i in xrange(10):
+            images.append(view.GetImage())
+    time.sleep(0.1)
+    return (random.randint(0, 4), hasPlant, images)
