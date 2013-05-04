@@ -48,15 +48,20 @@ def run(options):
   
   # Keep running until one player runs out of life.
   while True:
+    p1 = (player1_view.GetXPos(), player1_view.GetYPos())
+    p2 = (player2_view.GetXPos(), player2_view.GetYPos())
     (mv1, eat1) = get_move(player1_view, player1.player.get_move, options, 1)
     (mv2, eat2) = get_move(player2_view, player2.player.get_move, options, 2)
 
     game.ExecuteMoves(mv1, eat1, mv2, eat2)
+    p1new = (player1_view.GetXPos(), player1_view.GetYPos())
+    p2new = (player2_view.GetXPos(), player2_view.GetYPos())
     if options.display:
-      game_interface.curses_draw_board(game)
+      #game_interface.curses_draw_board(game)
       game_interface.curses_init_round(game)
     else:
-      print mv1, eat1, mv2, eat2
+      print p1, 'to', p1new, mv1, eat1
+      print p2, 'to', p2new, mv2, eat2
       print player1_view.GetLife(), player2_view.GetLife()
     # Check whether someone's life is negative.
     l1 = player1_view.GetLife()
