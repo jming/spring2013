@@ -36,7 +36,7 @@ class DataReader:
       temp =  [int(r) for r in line.strip().split(', ')]
       for i in range(6):
         image.pixels.append(temp[i*6:i*6 + 6])
-      #print image.pixels
+      print image.pixels
     if image:
       images.append(image)
     #print len(images)
