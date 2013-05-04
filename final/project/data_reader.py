@@ -29,10 +29,10 @@ class DataReader:
         ct += 1
         if ct > limit and limit != -1:
           break
-      if(filename == 'nutritious.txt'):
+      if(filename.find('nutritious')==0):
         image = Image(1)
       else:
-        image = Image(1)
+        image = Image(0)
       temp =  [int(r) for r in line.strip().split(', ')]
       for i in range(6):
         image.pixels.append(temp[i*6:i*6 + 6])

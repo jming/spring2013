@@ -39,7 +39,7 @@ def main():
 
   # Load in the training data.
   images = DataReader.GetImages('training-9k.txt', -1)
-  print images
+  #print images
   for image in images:
     assert len(image.pixels) == 14
     assert len(image.pixels[0]) == 14

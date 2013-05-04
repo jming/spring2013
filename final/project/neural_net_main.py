@@ -38,9 +38,9 @@ def main():
 
 
   # Load in the training data.
-  images = DataReader.GetImages('nutritious.txt', -1)
+  images = DataReader.GetImages('nutritious_test.txt', -1)
   #print images0
-  images1 = DataReader.GetImages('poisnous.txt', -1)
+  images1 = DataReader.GetImages('poisnous_test.txt', -1)
   images.extend(images1)
   print 'training', len(images)
   #print images
@@ -49,14 +49,18 @@ def main():
     assert len(image.pixels[0]) == 14'''
 
   # Load the validation set.
-  validation = DataReader.GetImages('nutritious.txt', -1)
+  validation = DataReader.GetImages('nutritious_valid.txt', -1)
+  validation2 = DataReader.GetImages('poisnous_valid.txt', -1) 
+  validation.extend(validation2)
   print 'validation', len(validation)
   '''for image in validation:
     assert len(image.pixels) == 14
     assert len(image.pixels[0]) == 14'''
 
   # Load the test data.
-  test = DataReader.GetImages('poisnous.txt', -1)
+  test = DataReader.GetImages('nutritious.txt', -1)
+  test2 = DataReader.GetImages('poisnous.txt', -1)
+  test.extend(test2)
   print 'test', len(test)
   '''for image in test:
     assert len(image.pixels) == 14
@@ -79,7 +83,6 @@ def main():
 
   # Initialize network weights
   network.InitializeWeights()
-  # print "weights", network.network.weights
   
 
   # Displays information
@@ -93,6 +96,8 @@ def main():
  
   # Train the network.
   network.Train(images, validation, test, rate, epochs)
+  #for i in network.network.weights:
+  #  print i.value
 
 if __name__ == "__main__":
   main()
