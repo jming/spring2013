@@ -72,27 +72,25 @@ def get_move(view):
         build_svm()
         i = 0
 
-        for x in xrange(numobs):
-            i += classify(view.GetImage())
-        # print i, i/numobs
-        eatbool = True if (i/float(numobs) > 0.5) else False
+        # for x in xrange(numobs):
+        #     i += classify(view.GetImage())
+        # # print i, i/numobs
+        # eatbool = True if (i/float(numobs) > 0.5) else False
 
-    #     while i < numobs and not decision:
-    #         c = classify(view.GetImage())
-    #         #ispoisonous += classify(view.GetImage())
-    #         if c == 0:
-    #             curr += 1
-    #         else:
-    #             curr -= 1
-    #         if actions[curr] != 2:
-    #             decision = 1
-    #             eat = actions[curr]
-    #             break
-    #         i += 1
+        while i < numobs and not decision:
+            c = classify(view.GetImage())
+            #ispoisonous += classify(view.GetImage())
+            if c == 0:
+                curr += 1
+            else:
+                curr -= 1
+            if actions[curr] != 2:
+                decision = 1
+                eat = actions[curr]
+                break
+            i += 1
 
-    #     #eat = ispoisonous / numobs > 0.5
-
-    # eatbool = (eat != 0)
+    eatbool = (eat != 0)
 
     # 3. Decide where to go
     move = random.randint(0, 4)
