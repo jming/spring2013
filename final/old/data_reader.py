@@ -40,7 +40,18 @@ class DataReader:
     if image:
       images.append(image)
     #print len(images)
-    return images  
+    numavg = 5
+    # This is assuming all of the images with the same label are next to each other
+    images_avg = [Image(0) if image.label == 0 else Image(1) for image in images[0::numavg]]
+    print len(images_avg), len(images)
+    for image in images_avg:
+      image.pixels = [[0. for i in range(len(images[0].pixels))] for j in range(len(images[0].pixels[0]))]
+    for im in range(len(images)):
+      for i in range(len(images[im].pixels)):
+        for j in range(len(images[im].pixels[i])):
+          # print images_avg[im/numavg].pixels[i], images[im].pixels[i], float(numavg) 
+          images_avg[im / numavg].pixels[i][j] += images[im].pixels[i][j] / float(numavg)
+    return images_avg 
     
     '''while True:
       line = infile.readline().strip()
