@@ -1,5 +1,5 @@
 # import common
-import game_interface
+#import game_interface
 import random
 # import time
 from classify import *
@@ -14,6 +14,11 @@ states = [0, 1, 2, 3, 4]
 actions = [0, 2, 2, 2, 1]
 
 locs = []
+
+#list of past 5 life scores
+lifes = [0 for i in range(5)]
+
+
 
 '''
 (0,0)
@@ -56,6 +61,36 @@ def generate_locations():
     currindex+=1
     currindex = currindex%2
   #print locs
+  
+def generate_spiral(loc,diameter):
+    global locs
+    locs = []
+    alldirs = [0,1]
+    currindex = 0
+    #[left+down, right+up]
+    currx = loc[0]
+    curry = loc[1]
+    locs.append((currx,curry))
+    for i in range (1,diameter+1):
+        c = alldirs[currindex]
+        if c == 0:
+            for j in range(i):
+                currx -= 1
+                locs.append((currx,curry))
+            for j in range(i):
+                curry -= 1
+                locs.append((currx,curry))
+        else:
+            for j in range(i):
+                currx += 1
+                locs.append((currx,curry))
+            for j in range(i):
+                curry += 1
+                locs.append((currx,curry))
+        currindex+=1
+        currindex = currindex%2
+    #print locs
+    
 
 
 def move_toward(loc, view):
@@ -82,21 +117,33 @@ def classify(image):
 def get_move(view):
     # list of locations in the order that we wish to visit them
     global locs
-    if len(locs)==0: generate_locations()
+    if len(locs)==0: generate_spiral((0,0), 40)
 
     # list of locations do not want to return to
     global blackloc
-
-    eat = 0
-    eatbool = False
-
-    # 0. Land in square, check if there is a plant
-    hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
+    
     # current position
     currpos = (view.GetXPos(), view.GetYPos())
     # Remove current position from locations to visit
     if currpos in locs:
         locs.remove(currpos)
+    
+    # last 5 lifes
+    global lifes
+    lifes.insert(0, view.GetLife())
+    count_n = 0
+    for i in range(5):
+        if lifes[i] > lifes[4]
+            count_n += 1
+    if count_n >= 3:
+        generate_spiral(currpos, 10)
+    
+    eat = 0
+    eatbool = False
+
+    # 0. Land in square, check if there is a plant
+    hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
+
 
     #finite state controller current state starts at 2
     curr = 2
