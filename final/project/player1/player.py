@@ -80,6 +80,7 @@ def classify(image):
 
 
 def get_move(view):
+    print "rounds", view.GetRound()
     # list of locations in the order that we wish to visit them
     global locs
     if len(locs)==0: generate_locations()
