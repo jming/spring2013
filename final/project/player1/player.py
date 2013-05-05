@@ -18,21 +18,7 @@ locs = []
 #list of past 5 life scores
 lifes = [0 for i in range(5)]
 
-
-
-'''
-(0,0)
-(-1,0)
-(-1,-1)
-(0,-1)
-(1,-1)
-(1,0)
-(1,1)
-(0,1)
-(-1,1)
-(-2,1)
-'''
-
+# Generate locations to visit in spiral shape
 def generate_locations():
   global locs
 

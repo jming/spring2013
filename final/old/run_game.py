@@ -9,7 +9,7 @@ import traceback
 from optparse import OptionParser
 from neural_net import *
 from neural_net_impl import *
-from data_reader import *
+from data_reader_ours import *
 
 class TimeoutException(Exception):
   def __init__(self):
