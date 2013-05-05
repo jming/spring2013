@@ -36,9 +36,48 @@ def main():
   rate = float(args_map['-r'])
   networkType = args_map['-t']
 
+  # Load in the training data.
+  images1 = DataReader.GetImages('nutritious.txt', -1)
+  print 'n', len(images1)
+  images2 = DataReader.GetImages('poisnous.txt', -1)
+  print 'p', len(images2)
+  images = []
+  for i in range(300):
+      images.append(images1[i])
+      images.append(images2[i])
+      
+  
+  #images = images[:500]+images1[:500]
+  print 'training', len(images)
+  #print images
+
+  # # Load the validation set.
+  # validation1 = DataReader.GetImages('nutritious_valid.txt', -1)
+  # print 'n', len(validation1)
+  # validation2 = DataReader.GetImages('poisnous_valid.txt', -1) 
+  # print 'p', len(validation2)
+  # #validation = validation[:500]+validation2[:500]
+
+  # validation = []
+  # for i in range(100):
+  #     validation.append(validation1[i])
+  #     validation.append(validation2[i])
+  # print 'validation', len(validation)
+
+  # # Load the test data.
+  # test1= DataReader.GetImages('nutritious_test.txt', -1)
+  # print 'n', len(test1)
+  # test2 = DataReader.GetImages('poisnous_test.txt', -1)
+  # print 'p', len(test2)
+  # test = []
+  # for i in range(100):
+  #     test.append(test1[i])
+  #     test.append(test2[i])
+
 
   # Load in the training data.
   images = DataReader.GetImages('nutritious.txt', 1000) + DataReader.GetImages('poisnous.txt', 1000)
+  random.shuffle(images)
   # print images
   for image in images:
     # print image.pixels
@@ -47,12 +86,14 @@ def main():
 
   # Load the validation set.
   validation = DataReader.GetImages('nutritious_valid.txt', 100) + DataReader.GetImages('poisnous_valid.txt', 100)
+  random.shuffle(validation)
   for image in validation:
     assert len(image.pixels) == 6
     assert len(image.pixels[0]) == 6
 
   # Load the test data.
   test = DataReader.GetImages('nutritious_test.txt', 100) + DataReader.GetImages('poisnous_test.txt', 100)
+  random.shuffle(test)
   for image in test:
     assert len(image.pixels) == 6
     assert len(image.pixels[0]) == 6

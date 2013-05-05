@@ -14,4 +14,5 @@ import time
 #   return (random.randint(0, 4), hasPlant)
 
 def get_move(view):
+    time.sleep(0.1)
     return (random.randint(0, 4), False)
