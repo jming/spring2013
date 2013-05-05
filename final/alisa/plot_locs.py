@@ -51,26 +51,26 @@ def main():
                     xp.append(i-25)
                     yp.append(j-25)
                     pois[locs_list.index(l)] += 1
-    print 'locs n: ', nutr[0], 'nprob: ', float(nutr[0])/(len(locs)*len(locs[0])), ' p: ', pois[0], 'pprob: ', float(pois[0])/(len(locs)*len(locs[0]))
+    '''print 'locs n: ', nutr[0], 'nprob: ', float(nutr[0])/(len(locs)*len(locs[0])), ' p: ', pois[0], 'pprob: ', float(pois[0])/(len(locs)*len(locs[0]))
     print 'locs_a n: ', nutr[1], 'nprob: ', float(nutr[1])/(len(locs)*len(locs[0])), ' p: ', pois[1], 'pprob: ', float(pois[1])/(len(locs)*len(locs[0]))
     print 'locs_b n: ', nutr[2], 'nprob: ', float(nutr[2])/(len(locs)*len(locs[0])), ' p: ', pois[2], 'pprob: ', float(pois[2])/(len(locs)*len(locs[0]))
     print 'locs_c n: ', nutr[3], 'nprob: ', float(nutr[3])/(len(locs)*len(locs[0])), ' p: ', pois[3], 'pprob: ', float(pois[3])/(len(locs)*len(locs[0]))
     print 'locs_d n: ', nutr[4], 'nprob: ', float(nutr[4])/(len(locs)*len(locs[0])), ' p: ', pois[4], 'pprob: ', float(pois[4])/(len(locs)*len(locs[0]))
     #print float(len(locs)*len(locs[0]))
     print 'cumulative nprob', float(sum(nutr))/(2916*5)
-    print 'cumulative pprob', float(sum(pois))/(2916*5)
+    print 'cumulative pprob', float(sum(pois))/(2916*5)'''
         
     #heatmap, xedges, yedges = np.histogram2d(xn, yn, bins=20)
     #extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
-    '''p1 = plt.scatter(xp,yp, c = 'b')
+    p1 = plt.scatter(xp,yp, c = 'b')
     p2 = plt.scatter(xn,yn, c = 'r')
-    plt.title('Locations of Nutritious and Poisonous Plants: Trial 5')
+    plt.title('Locations of Nutritious and Poisonous Plants: All')
     plt.xlabel('X Coordinate')
     plt.ylabel('Y Coordinate')
     #plt.axis([0, len(xn), 1])
     plt.legend(((p1),(p2)), ('Poisonous', 'Nutritious'), 'lower right')
-    savefig('locs_25d.pdf')
-    plt.show()'''
+    savefig('locs_25all.pdf')
+    plt.show()
     
     
     '''plt.clf()

@@ -13,9 +13,20 @@ locs = []
 
 def generate_locations():
   global locs
-  for i in range(-10,11):
-    for j in range(-10,11):
+  for i in range(-20,20):
+    for j in range(-20,20):
       locs.append((i,j))
+
+def move_toward(loc):
+#loc is in form (x, y)
+  if view.GetXPos() > loc[0]:
+    dir = game_interface.LEFT
+  elif view.GetXPos() < loc[0]:
+    dir = game_interface.RIGHT
+  elif view.GetYPos() > loc[1]:
+    dir = game_interface.DOWN
+  elif view.GetYPos() < loc[1]:
+    dir = game_interface.UP      
 
 def get_move(view):
   global locs
@@ -28,14 +39,7 @@ def get_move(view):
       #print view.GetImage()
   time.sleep(0.1)
   dir = random.randint(0,4)
-  if view.GetXPos() > loc[0][0]:
-    dir = game_interface.LEFT
-  elif view.GetXPos() < loc[0][0]:
-    dir = game_interface.RIGHT
-  if view.GetYPos() > loc[0][0]:
-    dir = game_interface.DOWN
-  elif view.GetYPos() < loc[0][0]:
-    dir = game_interface.UP
+
   return (dir, hasPlant)
 
 def observe(view):
