@@ -30,10 +30,7 @@ locs = []
 
 def generate_locations():
   global locs
-  '''for i in range(-20,20):
-    for j in range(-20,20):
-      locs.append((i,j))'''
-  
+
   alldirs = [0,1]
   currindex = 0
   #[left+down, right+up]
@@ -58,7 +55,7 @@ def generate_locations():
         locs.append((currx,curry))
     currindex+=1
     currindex = currindex%2
-  print locs
+  #print locs
 
 def move_toward(loc):
 #loc is in form (x, y)
@@ -82,21 +79,34 @@ def classify(image):
 
 
 def get_move(view):
-
+    # list of locations in the order that we wish to visit them
+    global locs
+    if len(locs)==0: generate_locations()
+    
+    # list of locations do not want to return to
+    global blackloc
+    
     eat = 0
     eatbool = False
 
     # 0. Land in square, check if there is a plant
     hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
-    # If no plant, add location to blackloc list
-    #blackloc.append((view.GetPosX, view.GetPosY))
+    # current position
+    currpos = (view.GetPosX, view.GetPosY)
+    # Remove current position from locations to visit
+    if currpos in locs:
+        locs.remove(currpos)
+    
     #finite state controller current state starts at 2
     curr = 2
     # whether or not we have made decision to eat this plant (if exists) yet
     decision = 0
 
+    #if already visited this location, don't eat
+    if currpos in blackloc:
+        eatbool = false
     # If there is a plant,
-    if hasPlant:
+    elif hasPlant:
 
         # 1. Decide if observe/how many times
         # numobs = observe(view)
@@ -130,8 +140,13 @@ def get_move(view):
 
     # eatbool = (eat != 0)
 
+    # Add location to blackloc list, do not want to return
+    blackloc.append((view.GetPosX, view.GetPosY))
+    
     # 3. Decide where to go
-    move = random.randint(0, 4)
+    # Go towards the first location in the locs list
+    move = move_toward(locs[0])
+    #move = random.randint(0, 4)
 
     # 4. Execute move
     return (move, eatbool)
