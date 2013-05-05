@@ -46,47 +46,67 @@ def run(options):
       return
     game_interface.curses_draw_board(game)
   
+
+  nlocs1 = [[0 for x in range(100)] for x in range(100)]
+  #plocs1 = [[0 for x in range(50)] for x in range(50)]
+  plocs2 = [[0 for x in range(100)] for x in range(100)]
+  #plocs2 = [[0 for x in range(50)] for x in range(50)]
   # Keep running until one player runs out of life.
-  while True:
-    p1 = (player1_view.GetXPos(), player1_view.GetYPos())
-    p2 = (player2_view.GetXPos(), player2_view.GetYPos())
+  fp = open('locs1.txt', 'a')
+  fn = open('locs2.txt', 'a')
+  f0 = open('locationsvisited.txt', 'a')
+  count = 0
+  while count < 5000:
     (mv1, eat1) = get_move(player1_view, player1.player.get_move, options, 1)
     (mv2, eat2) = get_move(player2_view, player2.player.get_move, options, 2)
 
+    loc1x = player1_view.GetXPos()
+    loc1y = player1_view.GetYPos()
+    loc2x = player2_view.GetXPos()
+    loc2y = player2_view.GetYPos()
+    
+    o1 = player1_view.GetLife()
+    o2 = player2_view.GetLife()
     game.ExecuteMoves(mv1, eat1, mv2, eat2)
-    p1new = (player1_view.GetXPos(), player1_view.GetYPos())
-    p2new = (player2_view.GetXPos(), player2_view.GetYPos())
     if options.display:
-      #game_interface.curses_draw_board(game)
+      game_interface.curses_draw_board(game)
       game_interface.curses_init_round(game)
     else:
-      print p1, 'to', p1new, mv1, eat1
-      print p2, 'to', p2new, mv2, eat2
+      print mv1, eat1, mv2, eat2
       print player1_view.GetLife(), player2_view.GetLife()
     # Check whether someone's life is negative.
     l1 = player1_view.GetLife()
     l2 = player2_view.GetLife()
-  
-    if l1 <= 0 or l2 <= 0:
-      if options.display:
-        winner = 0
-        if l1 < l2:
-          winner = 2
-        else:
-          winner = 1
-        game_interface.curses_declare_winner(winner)
+
+    #image1 = player1.player.image1
+    #image2 = player2.player.image2
+
+    # print image1
+    # print image2
+
+    if eat1:
+      if l1 == o1 + 19:
+        locs1[loc1x+50][loc1y+50] += 1
+        #f0.write('n')
+        #f0.write(str(loc1x)+str(loc1y))  
       else:
-        if l1 == l2:
-          print 'Tie, remaining life: %d v. %d' % (l1, l2)
-        elif l1 < l2:
-          print 'Player 2 wins: %d v. %d' % (l1, l2)
-        else:
-          print 'Player 1 wins: %d v. %d' % (l1, l2)
-      # Wait for input
-      sys.stdin.read(1)
-      if options.display:
-        game_interface.curses_close()
-      break
+        locs1[loc1x+50][loc1y+50] -= 1
+        #f0.write('p')
+        #f0.write(str(loc1x) + str(loc1y)) 
+    if eat2:
+      if l2 == o2 + 19:
+        locs2[loc2x+50][loc2y+50] += 1
+        #f0.write('n')
+        #f0.write(str(loc2x) + str(loc2y)) 
+      else:
+        locs2[loc2x+50][loc2y+50] -= 1
+        #f0.write('p')
+        #f0.write(str(loc2x) + str(loc2y)) 
+    
+    count += 1
+    
+  fn.write(str(locs1))
+  fp.write(str(locs2))
 
 def main(argv):
   parser = OptionParser()

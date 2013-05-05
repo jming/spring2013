@@ -6,11 +6,37 @@ blackloc = []
 #FINITE STATE CONTROLLER
 # List of states
 states = [0,1,2,3,4]
+# List of actions
 actions = [0,2,2,2,1]
 
+locs = []
+
+def generate_locations():
+  global locs
+  for i in range(-10,11):
+    for j in range(-10,11):
+      locs.append((i,j))
 
 def get_move(view):
-  return common.get_move(view)
+  global locs
+  if len(locs)==0: generate_locations()
+  # If there is a plant in this location, then try and eat it.
+  hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
+  # Choose a random direction
+  if hasPlant:
+    for i in xrange(5):
+      #print view.GetImage()
+  time.sleep(0.1)
+  dir = random.randint(0,4)
+  if view.GetXPos() > loc[0][0]:
+    dir = game_interface.LEFT
+  elif view.GetXPos() < loc[0][0]:
+    dir = game_interface.RIGHT
+  if view.GetYPos() > loc[0][0]:
+    dir = game_interface.DOWN
+  elif view.GetYPos() < loc[0][0]:
+    dir = game_interface.UP
+  return (dir, hasPlant)
 
 def observe(view):
   return 5
@@ -29,7 +55,7 @@ def get_move(view):
     #blackloc.append((view.GetPosX, view.GetPosY))
     #finite state controller current state starts at 2
     curr = 2
-    # have not made a decision eat/not yet
+    # whether or not we have made decision to eat this plant (if exists) yet
     decision = 0
 
     # If there is a plant,
@@ -80,56 +106,3 @@ def get_move(view):
 #   time.sleep(0.1)
 #   # return a random direction and whether to eat it
 #   return (random.randint(0, 4), hasPlant)
-
-'''BEGIN NEURAL NETWORK ADDITIONS
-# Load in the training data.
-images = DataReader.GetImages('nutritious_test.txt', -1)
-#print images0
-images1 = DataReader.GetImages('poisnous_test.txt', -1)
-# images.extend(images1)
-#print 'training', len(images)
-images=images[:500]+images1[:500]
-
-# Load the validation set.
-validation = DataReader.GetImages('nutritious_valid.txt', -1)
-validation2 = DataReader.GetImages('poisnous_valid.txt', -1) 
-# validation.extend(validation2)
-validation=validation[:500]+validation[:500]
-#print 'validation', len(validation)
-
-# Load the test data.
-test = DataReader.GetImages('nutritious.txt', -1)
-test2 = DataReader.GetImages('poisnous.txt', -1)
-# test.extend(test2)
-test=test[:500]+test2[:500]
-#print 'test', len(test)
-
-# Initializing network
-rate = .1
-epochs = 10
-network = SimpleNetwork() 
-
-# Hooks user-implemented functions to network
-network.FeedForwardFn = FeedForward
-network.TrainFn = Train
-
-# Initialize network weights
-network.InitializeWeights()
-
-
-'''# Displays information
-print '* * * * * * * * *'
-print 'Parameters => Epochs: %d, Learning Rate: %f' % (epochs, rate)
-print 'Type of network used: %s' % network.__class__.__name__
-print ('Input Nodes: %d, Hidden Nodes: %d, Output Nodes: %d' %
-     (len(network.network.inputs), len(network.network.hidden_nodes),
-      len(network.network.outputs)))
-print '* * * * * * * * *'''
-
-# Train the network.
-network.Train(images, validation, test, rate, epochs)
-print 'length', len(network.network.weights)
-#for i in network.network.weights:
-#  print i.value
-
-END OF NEURAL NETWORK ADDITIONS'''
