@@ -1,0 +1,6 @@
+include README.rst
+include INSTALL.rst
+include COPYING.MIT
+include milk/tests/data/*
+recursive-include milk/supervised/eigen3 *
+
