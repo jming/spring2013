@@ -1,0 +1,10 @@
+C:\Users\Alisa\Documents\GitHub\spring2013\final\alisa>python plot_locs.py
+locs n:  146 nprob:  0.0500685871056  p:  394 pprob:  0.13511659808
+locs_a n:  137 nprob:  0.0469821673525  p:  381 pprob:  0.130658436214
+locs_b n:  146 nprob:  0.0500685871056  p:  369 pprob:  0.126543209877
+locs_c n:  128 nprob:  0.0438957475995  p:  368 pprob:  0.126200274348
+locs_d n:  145 nprob:  0.0497256515775  p:  342 pprob:  0.117283950617
+cumulative nprob 0.0481481481481
+cumulative pprob 0.127160493827
+
+C:\Users\Alisa\Documents\GitHub\spring2013\final\alisa>

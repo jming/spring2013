@@ -8,8 +8,8 @@ class loc:
 
 def main():
   locs = []
-  for i in range(0,30):
-    for j in range(0,30):
+  for i in range(-25,25):
+    for j in range(-25,25):
       locs.append((i,j))
       
   fo = open('alisa_test_locations.txt', 'w')
