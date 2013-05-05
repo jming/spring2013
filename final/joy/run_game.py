@@ -101,6 +101,7 @@ def main(argv):
 
   try:
     run(options)
+    quit()
   except KeyboardInterrupt:
     if options.display:
       game_interface.curses_close()

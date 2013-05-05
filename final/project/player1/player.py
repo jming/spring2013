@@ -57,7 +57,8 @@ def generate_locations():
     currindex = currindex%2
   #print locs
 
-def move_toward(loc):
+
+def move_toward(loc, view):
 #loc is in form (x, y)
     if view.GetXPos() > loc[0]:
         dir = game_interface.LEFT
@@ -82,21 +83,21 @@ def get_move(view):
     # list of locations in the order that we wish to visit them
     global locs
     if len(locs)==0: generate_locations()
-    
+
     # list of locations do not want to return to
     global blackloc
-    
+
     eat = 0
     eatbool = False
 
     # 0. Land in square, check if there is a plant
     hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
     # current position
-    currpos = (view.GetPosX, view.GetPosY)
+    currpos = (view.GetXPos(), view.GetYPos())
     # Remove current position from locations to visit
     if currpos in locs:
         locs.remove(currpos)
-    
+
     #finite state controller current state starts at 2
     curr = 2
     # whether or not we have made decision to eat this plant (if exists) yet
@@ -104,13 +105,24 @@ def get_move(view):
 
     #if already visited this location, don't eat
     if currpos in blackloc:
-        eatbool = false
+        eatbool = False
     # If there is a plant,
     elif hasPlant:
 
         # 1. Decide if observe/how many times
         # numobs = observe(view)
-        numobs = 5
+        life = view.GetLife()
+
+        if life > 120:
+            numobs = 0
+        elif life >= 50:
+            numobs = 5
+        elif life >= 30:
+            numobs = 4
+        elif life >= 20:
+            numobs = 3
+        else:
+            numobs = 0
 
         # 2. Classify plant that many number of times, keeping track of history of obs
         # Stop observing if finite state controller tells us to perform an action
@@ -126,7 +138,7 @@ def get_move(view):
         while i < numobs and not decision:
             c = classify(view.GetImage())
             #ispoisonous += classify(view.GetImage())
-            if c == 0:
+            if c == 1:
                 curr += 1
             else:
                 curr -= 1
@@ -139,11 +151,11 @@ def get_move(view):
     eatbool = (eat != 0)
 
     # Add location to blackloc list, do not want to return
-    blackloc.append((view.GetPosX, view.GetPosY))
-    
+    blackloc.append((view.GetXPos(), view.GetYPos()))
+
     # 3. Decide where to go
     # Go towards the first location in the locs list
-    move = move_toward(locs[0])
+    move = move_toward(locs[0], view)
     #move = random.randint(0, 4)
 
     # 4. Execute move
