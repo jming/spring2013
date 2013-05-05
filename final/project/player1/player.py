@@ -1,5 +1,5 @@
 # import common
-#import game_interface
+import game_interface
 import random
 # import time
 from classify import *
@@ -95,6 +95,9 @@ def generate_spiral(loc,diameter):
 
 def move_toward(loc, view):
 #loc is in form (x, y)
+
+    dir = random.randint(0,4)
+
     if view.GetXPos() > loc[0]:
         dir = game_interface.LEFT
     elif view.GetXPos() < loc[0]:
@@ -128,17 +131,17 @@ def get_move(view):
     # Remove current position from locations to visit
     if currpos in locs:
         locs.remove(currpos)
-    
+
     # last 5 lifes
-    global lifes
-    lifes.insert(0, view.GetLife())
-    count_n = 0
-    for i in range(5):
-        if lifes[i] > lifes[4]
-            count_n += 1
-    if count_n >= 3:
-        generate_spiral(currpos, 10)
-    
+    # global lifes
+    # lifes.insert(0, view.GetLife())
+    # count_n = 0
+    # for i in range(5):
+    #     if lifes[i] > lifes[4]:
+    #         count_n += 1
+    # if count_n >= 3:
+    #     generate_spiral(currpos, 10)
+
     eat = 0
     eatbool = False
 
