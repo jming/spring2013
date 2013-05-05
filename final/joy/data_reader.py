@@ -32,6 +32,8 @@ class DataReader:
     # if image:
     #   images.append(image)
     # return images
+
+    # basic images function
     images = []
     infile = open(filename, 'r')
     image = None
@@ -53,7 +55,22 @@ class DataReader:
         image.pixels.append(temp[i*6:(i+1)*6])
     if image:
       images.append(image)
-    return images
+
+    # average
+    num_avg = 2
+    images_avg = [Image(1) if filename.find('nutritious')==0 else Image(0) for x in range(len(images)/num_avg)]
+    for image in images_avg:
+      image.pixels = [[0. for i in range(len(images[0].pixels))] for j in range(len(images[0].pixels[0]))]
+    for image in range(len(images)):
+      for im in range(len(images[image].pixels)):
+        for i in range(len(images[image].pixels[i])):
+          # print image, image/num_avg, im, i
+          images_avg[image/num_avg].pixels[im][i] += images[image].pixels[im][i] / float(num_avg)
+
+    for image in images_avg:
+      print image.pixels
+    # return images
+    return images_avg
 
   @staticmethod
   def DumpWeights(weights, filename):
