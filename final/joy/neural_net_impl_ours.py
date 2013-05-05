@@ -446,14 +446,12 @@ class CustomNetwork(EncodedNetworkFramework):
     for i in range(num_columns):
       n = Node()
       for j in range(len(self.network.inputs)):
-        if j % num_rows == i:
+        if j % i == 0:
           n.AddInput(self.network.inputs[j], None, self.network)
-      self.network.AddNode(n, self.network.HIDDEN)
     for i in range(num_rows):
       n = Node()
-      for j in range(num_columns):
+      for j in in range(num_columns):
         n.AddInput(self.network.inputs[i+j], None, self.network)
-      self.network.AddNode(n, self.network.HIDDEN)
 
     # hidden node for each column
 
@@ -468,5 +466,5 @@ class CustomNetwork(EncodedNetworkFramework):
     for i in range(num_output_nodes):
       n = Node()
       for j in range(number_of_hidden_nodes):
-        n.AddInput(self.network.hidden_nodes[j], None, self.network)
+        n.AddInput(self.network.hidden_nodes[2*number_of_hidden_nodes + j])
       self.network.AddNode(n, self.network.OUTPUT)

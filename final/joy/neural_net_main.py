@@ -38,7 +38,7 @@ def main():
 
 
   # Load in the training data.
-  images = DataReader.GetImages('nutritious.txt', 100) + DataReader.GetImages('poisnous.txt', 100)
+  images = DataReader.GetImages('nutritious.txt', 1000) + DataReader.GetImages('poisnous.txt', 1000)
   # print images
   for image in images:
     # print image.pixels
@@ -46,13 +46,13 @@ def main():
     assert len(image.pixels[0]) == 6
 
   # Load the validation set.
-  validation = DataReader.GetImages('nutritious_valid.txt', 10) + DataReader.GetImages('poisnous_valid.txt', 10)
+  validation = DataReader.GetImages('nutritious_valid.txt', 100) + DataReader.GetImages('poisnous_valid.txt', 100)
   for image in validation:
     assert len(image.pixels) == 6
     assert len(image.pixels[0]) == 6
 
   # Load the test data.
-  test = DataReader.GetImages('nutritious_test.txt', 10) + DataReader.GetImages('poisnous_test.txt', 10)
+  test = DataReader.GetImages('nutritious_test.txt', 100) + DataReader.GetImages('poisnous_test.txt', 100)
   for image in test:
     assert len(image.pixels) == 6
     assert len(image.pixels[0]) == 6

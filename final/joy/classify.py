@@ -156,6 +156,12 @@ def build_svm():
     return svc.fit(features, labels)
 
 
+def test_svm():
+    global svc
+    (features, labels) = avg_data()
+    return cross_validation.cross_val_score(svc, features, labels, cv=5)
+
+
 #############################################
 
 
@@ -186,9 +192,9 @@ def run_classify(image):
 # build_model("default")
 # print model.apply()
 
-print build_svm()
-(features, labels) = avg_data()
-print cross_validation.cross_val_score(svc, features, labels, cv=5)
+# print build_svm()
+# (features, labels) = avg_data()
+# print cross_validation.cross_val_score(svc, features, labels, cv=5)
 # print svc.predict([1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0])
 # print svc.predict([1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1])
 
