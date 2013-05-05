@@ -1,4 +1,4 @@
-import common
+#import common
 
 #list of locations to not return to
 blackloc = []
@@ -11,13 +11,55 @@ actions = [0,2,2,2,1]
 
 locs = []
 
+'''
+(0,0)
+(-1,0)
+(-1,-1)
+(0,-1)
+(1,-1)
+(1,0)
+(1,1)
+(0,1)
+(-1,1)
+(-2,1)
+'''
+
 def generate_locations():
   global locs
-  for i in range(-20,20):
+  '''for i in range(-20,20):
     for j in range(-20,20):
-      locs.append((i,j))
+      locs.append((i,j))'''
+  
+  alldirs = [0,1]
+  currindex = 0
+  #[left+down, right+up]
+  currx = 0
+  curry = 0
+  locs.append((currx,curry))
+  for i in range (1,41):
+    c = alldirs[currindex]
+    if c == 0:
+      for j in range(i):
+        currx -= 1
+        locs.append((currx,curry))
+      for j in range(i):
+        curry -= 1
+        locs.append((currx,curry))
+    else:
+      for j in range(i):
+        currx += 1
+        locs.append((currx,curry))
+      for j in range(i):
+        curry += 1
+        locs.append((currx,curry))
+    currindex+=1
+    currindex = currindex%2
+  print locs
+  
+generate_locations()
+      
 
-def move_toward(loc):
+'''def move_toward(loc):
 #loc is in form (x, y)
   if view.GetXPos() > loc[0]:
     dir = game_interface.LEFT
@@ -26,7 +68,7 @@ def move_toward(loc):
   elif view.GetYPos() > loc[1]:
     dir = game_interface.DOWN
   elif view.GetYPos() < loc[1]:
-    dir = game_interface.UP      
+    dir = game_interface.UP'''
     
 '''
 def get_move(view):
@@ -76,6 +118,6 @@ def get_move(view):
     return (move, eatbool)
 '''
 
-
+'''
 def get_move(view):
-  return common.get_move(view)
+  return common.get_move(view)'''
