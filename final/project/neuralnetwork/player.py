@@ -2,11 +2,10 @@
 import game_interface
 import random
 # import time
-from classify import *
 from neural_net_impl import *
 from neural_net import *
 
-network = NeuralNetwork()
+network = SimpleNetwork()
 '''def create_network(network):
     global network
     for i in range(0, 36):
@@ -118,13 +117,24 @@ def classify(image):
     print classified
     return classified'''
     global network
-    return network.Classify(image)
+    im = [[0 for x in range(6)] for y in range(6)]
+    count = 0
+    for i in range(6):
+        for j in range(6):
+            im[i][i] = image[count]
+            count+=1
+    i = Image(0)
+    i.pixels = im
+    print i
+    return network.Classify(i)
 
 
 def get_move(view):
     print "rounds", view.GetRound()
     # neural network for classifying
     global network
+    network.FeedForwardFn = FeedForward
+    network.TrainFn = Train
     # list of locations in the order that we wish to visit them
     global locs
     if len(locs)==0: 
@@ -186,7 +196,7 @@ def get_move(view):
         # 2. Classify plant that many number of times, keeping track of history of obs
         # Stop observing if finite state controller tells us to perform an action
         # ispoisonous = 0
-        build_svm()
+        #build_svm()
         i = 0
 
         # for x in xrange(numobs):

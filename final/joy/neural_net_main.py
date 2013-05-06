@@ -115,7 +115,6 @@ def main():
   # print "weights"
   # for i in range(len(network.network.weights)):
   #   print network.network.weights[i].value
-  
 
   # Displays information
   print '* * * * * * * * *'
@@ -127,13 +126,15 @@ def main():
   print '* * * * * * * * *'
  
   # Train the network.
-  network.Train(images, validation, test, rate, epochs)
-
-  # print "weights"
+  #network.Train(images, validation, test, rate, epochs)
+  
+  perf_test = network.Performance(test)
+  print 'Test Performance: %.8f ' % (perf_test)
+  print "weights"
   weightf = open('weights.txt', 'a')
   for i in range(len(network.network.weights)):
     print network.network.weights[i].value
-    weightf.write(str(network.network.weights[i].value) + '\n')
+    #weightf.write(str(network.network.weights[i].value) + '\n')
 
 if __name__ == "__main__":
   main()
