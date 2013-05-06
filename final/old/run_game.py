@@ -92,8 +92,8 @@ def run(options):
   # Train the network.
   network.Train(images, validation, test, rate, epochs)
   print 'length', len(network.network.weights)
-  #for i in network.network.weights:
-  #  print i.value
+  # for i in network.network.weights:
+  #   print i.value
     
   '''END OF NEURAL NETWORK ADDITIONS'''
 
