@@ -44,58 +44,58 @@ def run(options):
   player1_view = game.GetPlayer1View()
   player2_view = game.GetPlayer2View()
   
-  '''BEGIN NEURAL NETWORK ADDITIONS'''
-  # Load in the training data.
-  images = DataReader.GetImages('nutritious_test.txt', -1)
-  #print images0
-  images1 = DataReader.GetImages('poisnous_test.txt', -1)
-  # images.extend(images1)
-  #print 'training', len(images)
-  images=images[:500]+images1[:500]
+  # '''BEGIN NEURAL NETWORK ADDITIONS'''
+  # # Load in the training data.
+  # images = DataReader.GetImages('nutritious_test.txt', -1)
+  # #print images0
+  # images1 = DataReader.GetImages('poisnous_test.txt', -1)
+  # # images.extend(images1)
+  # #print 'training', len(images)
+  # images=images[:500]+images1[:500]
 
-  # Load the validation set.
-  validation = DataReader.GetImages('nutritious_valid.txt', -1)
-  validation2 = DataReader.GetImages('poisnous_valid.txt', -1) 
-  # validation.extend(validation2)
-  validation=validation[:500]+validation[:500]
-  #print 'validation', len(validation)
+  # # Load the validation set.
+  # validation = DataReader.GetImages('nutritious_valid.txt', -1)
+  # validation2 = DataReader.GetImages('poisnous_valid.txt', -1) 
+  # # validation.extend(validation2)
+  # validation=validation[:500]+validation[:500]
+  # #print 'validation', len(validation)
 
-  # Load the test data.
-  test = DataReader.GetImages('nutritious.txt', -1)
-  test2 = DataReader.GetImages('poisnous.txt', -1)
-  # test.extend(test2)
-  test=test[:500]+test2[:500]
-  #print 'test', len(test)
+  # # Load the test data.
+  # test = DataReader.GetImages('nutritious.txt', -1)
+  # test2 = DataReader.GetImages('poisnous.txt', -1)
+  # # test.extend(test2)
+  # test=test[:500]+test2[:500]
+  # #print 'test', len(test)
 
-  # Initializing network
-  rate = .1
-  epochs = 10
-  network = SimpleNetwork() 
+  # # Initializing network
+  # rate = .1
+  # epochs = 10
+  # network = SimpleNetwork() 
 
-  # Hooks user-implemented functions to network
-  network.FeedForwardFn = FeedForward
-  network.TrainFn = Train
+  # # Hooks user-implemented functions to network
+  # network.FeedForwardFn = FeedForward
+  # network.TrainFn = Train
 
-  # Initialize network weights
-  network.InitializeWeights()
+  # # Initialize network weights
+  # network.InitializeWeights()
   
 
-  '''# Displays information
-  print '* * * * * * * * *'
-  print 'Parameters => Epochs: %d, Learning Rate: %f' % (epochs, rate)
-  print 'Type of network used: %s' % network.__class__.__name__
-  print ('Input Nodes: %d, Hidden Nodes: %d, Output Nodes: %d' %
-         (len(network.network.inputs), len(network.network.hidden_nodes),
-          len(network.network.outputs)))
-  print '* * * * * * * * *'''
+  # '''# Displays information
+  # print '* * * * * * * * *'
+  # print 'Parameters => Epochs: %d, Learning Rate: %f' % (epochs, rate)
+  # print 'Type of network used: %s' % network.__class__.__name__
+  # print ('Input Nodes: %d, Hidden Nodes: %d, Output Nodes: %d' %
+  #        (len(network.network.inputs), len(network.network.hidden_nodes),
+  #         len(network.network.outputs)))
+  # print '* * * * * * * * *'''
  
-  # Train the network.
-  network.Train(images, validation, test, rate, epochs)
-  print 'length', len(network.network.weights)
-  # for i in network.network.weights:
-  #   print i.value
+  # # Train the network.
+  # network.Train(images, validation, test, rate, epochs)
+  # print 'length', len(network.network.weights)
+  # # for i in network.network.weights:
+  # #   print i.value
     
-  '''END OF NEURAL NETWORK ADDITIONS'''
+  # '''END OF NEURAL NETWORK ADDITIONS'''
 
   if options.display:
     if game_interface.curses_init() < 0:
@@ -104,8 +104,8 @@ def run(options):
   
   # Keep running until one player runs out of life.
   count = 0
-  fp = open('poisnous_valid.txt', 'a')
-  fn = open('nutritious_valid.txt', 'a')
+  fp = open('poisnous.txt', 'a')
+  fn = open('nutritious.txt', 'a')
   while count < 5000:
     (mv1, eat1) = get_move(player1_view, player1.player.get_move, options, 1, network)
     (mv2, eat2) = get_move(player2_view, player2.player.get_move, options, 2, network)
