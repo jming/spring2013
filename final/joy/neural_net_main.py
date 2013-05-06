@@ -130,8 +130,10 @@ def main():
   network.Train(images, validation, test, rate, epochs)
 
   # print "weights"
-  # for i in range(len(network.network.weights)):
-  #   print network.network.weights[i].value
+  weightf = open('weights.txt', 'a')
+  for i in range(len(network.network.weights)):
+    print network.network.weights[i].value
+    weightf.write(str(network.network.weights[i].value) + '\n')
 
 if __name__ == "__main__":
   main()
