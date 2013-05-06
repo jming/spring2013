@@ -1,24 +1,9 @@
-# import common
 import game_interface
 import random
-# import time
-from classify import *
 from neural_net_impl import *
 from neural_net import *
 
-network = NeuralNetwork()
-'''def create_network(network):
-    global network
-    for i in range(0, 36):
-        network.AddNode(Node(), NeuralNetwork.INPUT)
-
-    for i in range(0, 2):
-        output = Node()
-        for input in network.inputs:
-                output.AddInput(input, Weight(weights[network.inputs.index(input)]), network)
-        network.AddNode(output, NeuralNetwork.OUTPUT)'''
-
-
+network = SimpleNetwork()
 
 #list of locations to not return to
 blackloc = []
@@ -63,7 +48,8 @@ def generate_locations():
     currindex+=1
     currindex = currindex%2
   #print locs
-  
+
+
 def generate_spiral(loc,diameter):
     global locs
     locs = []
@@ -92,13 +78,12 @@ def generate_spiral(loc,diameter):
         currindex+=1
         currindex = currindex%2
     #print locs
-    
 
 
 def move_toward(loc, view):
 #loc is in form (x, y)
 
-    dir = random.randint(0,4)
+    dir = random.randint(0, 4)
 
     if view.GetXPos() > loc[0]:
         dir = game_interface.LEFT
@@ -112,28 +97,40 @@ def move_toward(loc, view):
     return dir
 
 
-def classify(image):
-    '''global svc
+def classify_svm(image):
+    global svc
     classified = int(svc.predict(image)[0])
     print classified
-    return classified'''
+    return classified
+
+
+def classify(image):
     global network
-    return network.Classify(image)
+    count = 0
+    im = Image(0)
+    im.pixels = [[0 for x in range(6)] for y in range(6)]
+    for i in range(6):
+        for j in range(6):
+            im.pixels[i][j] = image[count]
+            count += 1
+    return network.Classify(im)
 
 
 def get_move(view):
     print "rounds", view.GetRound()
     # neural network for classifying
     global network
+    network.FeedForwardFn = FeedForward
+    network.TrainFn = Train
     # list of locations in the order that we wish to visit them
     global locs
-    if len(locs)==0: 
-        generate_spiral((0,0), 40)
+    if len(locs) == 0:
+        generate_spiral((0, 0), 40)
         network.InitializeWeights()
 
     # list of locations do not want to return to
     global blackloc
-    
+
     # current position
     currpos = (view.GetXPos(), view.GetYPos())
     # Remove current position from locations to visit
@@ -141,21 +138,20 @@ def get_move(view):
         locs.remove(currpos)
 
     # last 5 lifes
-    # global lifes
-    # lifes.insert(0, view.GetLife())
-    # count_n = 0
-    # for i in range(5):
-    #     if lifes[i] > lifes[4]:
-    #         count_n += 1
-    # if count_n >= 3:
-    #     generate_spiral(currpos, 10)
+    global lifes
+    lifes.insert(0, view.GetLife())
+    count_n = 0
+    for i in range(5):
+        if lifes[i] > lifes[4]:
+            count_n += 1
+    if count_n >= 3:
+        generate_spiral(currpos, 10)
 
     eat = 0
     eatbool = False
 
     # 0. Land in square, check if there is a plant
     hasPlant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
-
 
     #finite state controller current state starts at 2
     curr = 2
@@ -186,7 +182,7 @@ def get_move(view):
         # 2. Classify plant that many number of times, keeping track of history of obs
         # Stop observing if finite state controller tells us to perform an action
         # ispoisonous = 0
-        build_svm()
+        # build_svm()
         i = 0
 
         # for x in xrange(numobs):

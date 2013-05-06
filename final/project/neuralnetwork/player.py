@@ -122,7 +122,7 @@ def classify(image):
     for i in range(6):
         for j in range(6):
             im[i][i] = image[count]
-            count+=1
+            count += 1
     i = Image(0)
     i.pixels = im
     print i
