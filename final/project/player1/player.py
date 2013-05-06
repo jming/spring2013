@@ -682,36 +682,6 @@ locs = []
 #list of past 5 life scores
 lifes = [0 for i in range(5)]
 
-# Generate locations to visit in spiral shape
-def generate_locations():
-  global locs
-
-  alldirs = [0,1]
-  currindex = 0
-  #[left+down, right+up]
-  currx = 0
-  curry = 0
-  locs.append((currx,curry))
-  for i in range (1,41):
-    c = alldirs[currindex]
-    if c == 0:
-      for j in range(i):
-        currx -= 1
-        locs.append((currx,curry))
-      for j in range(i):
-        curry -= 1
-        locs.append((currx,curry))
-    else:
-      for j in range(i):
-        currx += 1
-        locs.append((currx,curry))
-      for j in range(i):
-        curry += 1
-        locs.append((currx,curry))
-    currindex+=1
-    currindex = currindex%2
-  #print locs
-
 
 def generate_spiral(loc,diameter):
     global locs
@@ -788,7 +758,7 @@ def get_move(view):
     # list of locations in the order that we wish to visit them
     global locs
     if len(locs) == 0:
-        generate_spiral((0, 0), 40)
+        generate_spiral((0, 0), 80)
         network.InitializeWeights()
 
     # list of locations do not want to return to
@@ -808,7 +778,7 @@ def get_move(view):
         if lifes[i] > lifes[4]:
             count_n += 1
     if count_n >= 3:
-        generate_spiral(currpos, 10)
+        generate_spiral(currpos, 40)
 
     eat = 0
     eatbool = False
